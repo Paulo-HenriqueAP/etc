@@ -34,18 +34,19 @@
             transform: translate(-50%, -50%);
             top: 50%;
             left: 50%;
-            box-shadow: 2px 4px 8px 2px white;
             padding: 30px;
             text-align: center;
+            width: max-content;
         }
 
         #date_selected {
-            margin: 10px;
-            box-shadow: 1px 1px 2px 2px white;
-            font-size: large;
-            width: max-content;
-            background-color: white;
-            color: black;
+            padding: 8px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #31313A;
+            color: white;
+            outline: none;
         }
 
         label {
@@ -69,19 +70,16 @@
 <body>
     <span id="titlee">tem aula 1.0</span>
     <div id="menu_date">
-        <label for="date_selected">dia</label>
-        <br>
+        <h1 id="result"></h1>
         <input id="date_selected" type="date" onchange="showResult()" min="2024-03-04" max="2026-03-04">
-        <br>
-        <span id="result"></span>
     </div>
     <div id="log"></div>
 </body>
 <script>
-    const colorChange = document.getElementById("date_selected")
-    let result = document.getElementById("result")
+    dateElem = document.getElementById("date_selected")
+    result = document.getElementById("result")
 
-    let indeed = [
+    const indeed = [
         "2024-03-04", "2024-03-06", "2024-03-08", "2024-03-12", "2024-03-14",
         "2024-03-18", "2024-03-20", "2024-03-22", "2024-03-26", "2024-03-28",
         "2024-04-01", "2024-04-03", "2024-04-05", "2024-04-09", "2024-04-11",
@@ -133,24 +131,26 @@
         "2026-02-06", "2026-02-10", "2026-02-12", "2026-02-18", "2026-02-20",
         "2026-02-24", "2026-02-26", "2026-03-02", "2026-03-04"
     ]
-
     function showResult() {
-        day = document.getElementById("date_selected").value
+        day = dateElem.value
 
         let createLog = document.createElement("li")
         createLog.textContent = (day.split("-").reverse().join("/"))
         document.getElementById("log").appendChild(createLog)
 
         if (indeed.includes(day)) {
-            result.textContent = "tem"
-            colorChange.style = "background-color: green; color:white;"
+            result.textContent = "TEM aula dia"
+            dateElem.style = "background-color: green; color:white;"
             createLog.style = "color: green;"
         } else {
-            result.textContent = "não tem"
-            colorChange.style = "background-color: red; color:white;"
+            result.textContent = "NÃO TEM aula dia"
+            dateElem.style = "background-color: red; color:white;"
             createLog.style = "color: red;"
         }
     }
+
+    dateElem.value = new Date().toLocaleDateString().split("/").reverse().join("-")
+    showResult()
 
 </script>
 
