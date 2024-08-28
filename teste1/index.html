@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FECHAMENTO_alpha</title>
+    <style>
+        body {
+            margin: 0%;
+            padding: 2px;
+        }
+
+        table {
+            border-collapse: collapse;
+            border-spacing: 0px;
+            text-align: center;
+        }
+
+        table,
+        th,
+        td {
+            padding: 2px;
+            border: 1px solid;
+        }
+
+        #bodyTable {
+            width: 79mm;
+        }
+
+        td {
+            text-align: left;
+        }
+        li {
+            list-style: none;
+        }
+        .etc {
+            width: 60px;
+        }
+    </style>
+</head>
+
+<body>
+    <table id="bodyTable">
+        <tr>
+            <th>FECHAMENTO - 28/08/24</th>
+        </tr>
+        <tr>
+            <th>
+                <span>NOME AQUI</span>
+                <br>
+                <span>(0000)</span>
+            </th>
+        </tr>
+        <tr>
+            <th>DINHEIRO</th>
+        </tr>
+        <tr>
+            <td>AVULSO: <input type="number" class="etc"></td>
+        </tr>
+        <tr>
+            <td>5,00: <input type="number" class="etc"></td>
+        </tr>
+        <tr>
+            <td>10,00 | 20,00: <input type="number" class="etc"></td>
+        </tr>
+        <tr>
+            <td>50,00 | 100,00: <input type="number" class="etc"></td>
+        </tr>
+        <tr>
+            <th>CARTÕES | PIX</th>
+        </tr>
+        <tr>
+         <td>
+            <ul>
+                <li>
+                <input type="number" class="etc">
+                <input type="number" class="etc">
+                <input type="number" class="etc">
+                <input type="number" class="etc">
+                <input type="number" class="etc">
+                <input type="number" class="etc">
+                <input type="number" class="etc">
+                <input type="number" class="etc">
+                <input type="number" class="etc">
+                </li>
+            </ul>
+         </td>
+        </tr>
+        </tr>
+        <tr>
+            <th>DEVOLUÇÕES</th>
+        </tr>
+        <tr>
+            <th>SINAIS</th>
+        </tr>
+    </table>
+</body>
+<script>
+    document.addEventListener("keydown", function(event) {
+      if(event.key === "F4") {
+        event.preventDefault();
+       window.print()
+      }
+    })
+</script>
+</html>
