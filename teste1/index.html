@@ -9,6 +9,7 @@
         body {
             margin: 0%;
             padding: 2px;
+            font-family: monospace;
         }
 
         table {
@@ -25,83 +26,197 @@
         }
 
         #bodyTable {
-            width: 79mm;
+            width: 89mm;
         }
 
-        td {
-            text-align: left;
-        }
         li {
             list-style: none;
         }
+
         .etc {
-            width: 60px;
+            text-align: center;
+            width: 65px;
+            font-size: medium;
+        }
+
+        #etcValues {
+            margin: 0px;
+            text-align: center;
+            padding: 0px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        #loginHub {
+            position: absolute;
+            transform: translate(-50%, -50%);
+            top: 50%;
+            left: 50%;
+            font-size: xx-large;
+            text-align: center;
+            width: 90%;
+        }
+
+        input {
+            font-weight: bolder;
         }
     </style>
 </head>
 
 <body>
-    <table id="bodyTable">
-        <tr>
-            <th>FECHAMENTO - 28/08/24</th>
-        </tr>
+    <div id="loginHub" class="">
+        <span>digite seu login</span>
+        <br>
+        <input id="loginValue" type="number" placeholder="e pressione enter" onchange="showUserInfos()"
+            style="text-align: center;">
+    </div>
+
+
+    <table id="bodyTable" class="hidden">
         <tr>
             <th>
-                <span>NOME AQUI</span>
+                <span id="uName">NOME AQUI</span>
                 <br>
-                <span>(0000)</span>
+                <span id="uLogin">(0000)</span>
             </th>
         </tr>
         <tr>
             <th>DINHEIRO</th>
         </tr>
         <tr>
-            <td>AVULSO: <input type="number" class="etc"></td>
+            <td>AVULSO: <input id="stuffs" style="width: 130px;" type="number" class="etc"></td>
         </tr>
         <tr>
-            <td>5,00: <input type="number" class="etc"></td>
+            <td>5,00: <input style="width: 130px;" type="number" class="etc"></td>
         </tr>
         <tr>
-            <td>10,00 | 20,00: <input type="number" class="etc"></td>
+            <td>10,00 | 20,00: <input style="width: 130px;" type="number" class="etc"></td>
         </tr>
         <tr>
-            <td>50,00 | 100,00: <input type="number" class="etc"></td>
+            <td>50,00 | 100,00: <input style="width: 130px;" type="number" class="etc"></td>
         </tr>
         <tr>
             <th>CARTÕES | PIX</th>
         </tr>
         <tr>
-         <td>
-            <ul>
-                <li>
-                <input type="number" class="etc">
-                <input type="number" class="etc">
-                <input type="number" class="etc">
-                <input type="number" class="etc">
-                <input type="number" class="etc">
-                <input type="number" class="etc">
-                <input type="number" class="etc">
-                <input type="number" class="etc">
-                <input type="number" class="etc">
-                </li>
-            </ul>
-         </td>
+            <td>
+                <ul id="etcValues">
+                    <li>
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                        <input type="number" class="etc">
+                    </li>
+                </ul>
+            </td>
         </tr>
         </tr>
         <tr>
-            <th>DEVOLUÇÕES</th>
+            <th>SEM DEVOLUÇÕES</th>
         </tr>
         <tr>
-            <th>SINAIS</th>
+            <th>SEM SINAIS</th>
+        </tr>
+        <tr>
+            <th>
+                <h1 id="showSum">TOTAL:</h1>
+            </th>
         </tr>
     </table>
 </body>
 <script>
-    document.addEventListener("keydown", function(event) {
-      if(event.key === "F4") {
-        event.preventDefault();
-       window.print()
-      }
-    })
+    let sum = 0;
+
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("loginValue").focus()
+    });
+
+    let nameText = document.getElementById("uName");
+    let loginText = document.getElementById("uLogin");
+
+    function showUserInfos() {
+        let login = document.getElementById("loginValue").value;
+        document.getElementById("loginHub").classList.add("hidden");
+        document.getElementById("bodyTable").classList.remove("hidden");
+
+        console.log(login);
+
+        switch (login) {
+            case "1419":
+                nameText.textContent = "Paulo Henrique AP";
+                break;
+            default:
+                nameText.textContent = "Nome: ";
+        };
+
+        loginText.textContent = `(${login})`;
+        document.getElementById("stuffs").focus()
+    };
+
+
+
+    document.addEventListener("keydown", function (event) {
+        if (event.key === "F4") {
+            event.preventDefault();
+            //impressora: TM-T20X - tamanho papel: postcard 100x148mm
+
+            let isItEmpty = document.querySelectorAll(".etc");
+
+            isItEmpty.forEach((input) => {
+                if (input.value == "") {
+                    input.style = "display: none;"
+                } else {
+                    sum += parseFloat(input.value);
+                };
+
+            }
+            );
+
+            document.getElementById("showSum").textContent = "TOTAL:" + sum.toLocaleString("pt-br", { style: "currency", currency: "BRL" });
+
+            window.print();
+        };
+    });
 </script>
+
 </html>
+
+<!--Paulo-henriqueAP-->
