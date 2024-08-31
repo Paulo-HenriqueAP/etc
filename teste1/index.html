@@ -26,7 +26,7 @@
         }
 
         #bodyTable {
-            width: 89mm;
+            width: 79mm;
         }
 
         li {
@@ -35,14 +35,15 @@
 
         .etc {
             text-align: center;
-            width: 65px;
-            font-size: medium;
+            width: 55px;
+            font-size: small;
         }
 
         #etcValues {
             margin: 0px;
             text-align: center;
             padding: 0px;
+            text-align: center;
         }
 
         .hidden {
@@ -77,7 +78,7 @@
     <table id="bodyTable" class="hidden">
         <tr>
             <th>
-                <span id="uName">NOME AQUI</span>
+                <span id="uName">NOME:</span>
                 <br>
                 <span id="uLogin">(0000)</span>
             </th>
@@ -86,16 +87,16 @@
             <th>DINHEIRO</th>
         </tr>
         <tr>
-            <td>AVULSO: <input id="stuffs" style="width: 130px;" type="number" class="etc"></td>
+            <td>AVULSO: <input onchange="formSum()" id="stuffs" style="width: 130px;" type="number" class="etc"></td>
         </tr>
         <tr>
-            <td>5,00: <input style="width: 130px;" type="number" class="etc"></td>
+            <td>5,00: <input onchange="formSum()" style="width: 130px;" type="number" class="etc"></td>
         </tr>
         <tr>
-            <td>10,00 | 20,00: <input style="width: 130px;" type="number" class="etc"></td>
+            <td>10,00 | 20,00: <input onchange="formSum()" style="width: 130px;" type="number" class="etc"></td>
         </tr>
         <tr>
-            <td>50,00 | 100,00: <input style="width: 130px;" type="number" class="etc"></td>
+            <td>50,00 | 100,00: <input onchange="formSum()" style="width: 130px;" type="number" class="etc"></td>
         </tr>
         <tr>
             <th>CARTÕES | PIX</th>
@@ -104,46 +105,46 @@
             <td>
                 <ul id="etcValues">
                     <li>
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
-                        <input type="number" class="etc">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
                     </li>
                 </ul>
             </td>
@@ -164,6 +165,7 @@
 </body>
 <script>
     let sum = 0;
+    let isItEmpty = document.querySelectorAll(".etc");
 
     document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("loginValue").focus()
@@ -177,8 +179,6 @@
         document.getElementById("loginHub").classList.add("hidden");
         document.getElementById("bodyTable").classList.remove("hidden");
 
-        console.log(login);
-
         switch (login) {
             case "1419":
                 nameText.textContent = "Paulo Henrique AP";
@@ -191,28 +191,38 @@
         document.getElementById("stuffs").focus()
     };
 
+    function formSum() {
+        sum = 0;
+
+        isItEmpty.forEach((input) => {
+            if (input.value != "") {
+                sum += parseFloat(input.value);
+            }
+        }
+        );
+
+        document.getElementById("showSum").textContent = "TOTAL:" + sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    }
 
 
     document.addEventListener("keydown", function (event) {
         if (event.key === "F4") {
             event.preventDefault();
+            formSum();
+
+            let keepProgress = document.body.cloneNode(true);
             //impressora: TM-T20X - tamanho papel: postcard 100x148mm
-
-            let isItEmpty = document.querySelectorAll(".etc");
-
             isItEmpty.forEach((input) => {
                 if (input.value == "") {
                     input.style = "display: none;"
-                } else {
-                    sum += parseFloat(input.value);
-                };
-
-            }
-            );
-
-            document.getElementById("showSum").textContent = "TOTAL:" + sum.toLocaleString("pt-br", { style: "currency", currency: "BRL" });
+                }
+            });
 
             window.print();
+            document.body.replaceWith(keepProgress);
+            isItEmpty = document.querySelectorAll(".etc");
+            formSum();
+            document.getElementById("stuffs").focus();
         };
     });
 </script>
