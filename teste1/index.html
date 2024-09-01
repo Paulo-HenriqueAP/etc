@@ -8,7 +8,7 @@
     <style>
         body {
             margin: 0%;
-            padding: 2px;
+            padding: 0%;
             font-family: monospace;
         }
 
@@ -43,7 +43,6 @@
             margin: 0px;
             text-align: center;
             padding: 0px;
-            text-align: center;
         }
 
         .hidden {
@@ -62,6 +61,7 @@
 
         input {
             font-weight: bolder;
+            margin: 0;
         }
     </style>
 </head>
@@ -81,22 +81,24 @@
                 <span id="uName">NOME:</span>
                 <br>
                 <span id="uLogin">(0000)</span>
+                <br>
+                <span id="time" style="font-size: x-small;"></span>
             </th>
         </tr>
         <tr>
             <th>DINHEIRO</th>
         </tr>
         <tr>
-            <td>AVULSO: <input onchange="formSum()" id="stuffs" style="width: 130px;" type="number" class="etc"></td>
+            <td>AVULSO: <input onchange="formSum()" id="stuffs" type="number" class="etc"></td>
         </tr>
         <tr>
-            <td>5,00: <input onchange="formSum()" style="width: 130px;" type="number" class="etc"></td>
+            <td>5,00: <input onchange="formSum()"type="number" class="etc"></td>
         </tr>
         <tr>
-            <td>10,00 | 20,00: <input onchange="formSum()" style="width: 130px;" type="number" class="etc"></td>
+            <td>10,00 | 20,00: <input onchange="formSum()" type="number" class="etc"></td>
         </tr>
         <tr>
-            <td>50,00 | 100,00: <input onchange="formSum()" style="width: 130px;" type="number" class="etc"></td>
+            <td>50,00 | 100,00: <input onchange="formSum()" type="number" class="etc"></td>
         </tr>
         <tr>
             <th>CARTÕES | PIX</th>
@@ -105,6 +107,18 @@
             <td>
                 <ul id="etcValues">
                     <li>
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()">
                         <input type="number" class="etc" onchange="formSum()">
                         <input type="number" class="etc" onchange="formSum()">
                         <input type="number" class="etc" onchange="formSum()">
@@ -166,16 +180,17 @@
 <script>
     let sum = 0;
     let isItEmpty = document.querySelectorAll(".etc");
+    const nameText = document.getElementById("uName");
+    const loginText = document.getElementById("uLogin");
 
     document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("loginValue").focus()
     });
 
-    let nameText = document.getElementById("uName");
-    let loginText = document.getElementById("uLogin");
 
     function showUserInfos() {
-        let login = document.getElementById("loginValue").value;
+        const login = document.getElementById("loginValue").value;
+
         document.getElementById("loginHub").classList.add("hidden");
         document.getElementById("bodyTable").classList.remove("hidden");
 
@@ -211,14 +226,18 @@
             formSum();
 
             let keepProgress = document.body.cloneNode(true);
+            document.getElementById("time").textContent = new Date().toLocaleDateString() + " | " + new Date().toLocaleTimeString();
             //impressora: TM-T20X - tamanho papel: postcard 100x148mm
             isItEmpty.forEach((input) => {
                 if (input.value == "") {
                     input.style = "display: none;"
+                } else {
+                    input.type = "text";//put it on middle
                 }
             });
 
             window.print();
+
             document.body.replaceWith(keepProgress);
             isItEmpty = document.querySelectorAll(".etc");
             formSum();
