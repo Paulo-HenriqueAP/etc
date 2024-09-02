@@ -23,6 +23,7 @@
         td {
             padding: 2px;
             border: 1px solid;
+            border-left: 0;
         }
 
         #bodyTable {
@@ -41,7 +42,6 @@
 
         #etcValues {
             margin: 0px;
-            text-align: center;
             padding: 0px;
         }
 
@@ -63,12 +63,37 @@
             font-weight: bolder;
             margin: 0;
         }
+
+        .howTo {
+            position: absolute;
+            right: 1%;
+            top: 0;
+        }
+
+        @media print {
+            .howTo {
+                display: none;
+            }
+
+            #etcValues {
+                text-align: left;
+            }
+
+            #loginHub {
+                display: none;
+            }
+
+            .devOrSin {
+                display: none;
+            }
+
+        }
     </style>
 </head>
 
 <body>
     <div id="loginHub" class="">
-        <span>digite seu login</span>
+        <span style="font-weight: bold; font-size: larger;">digite seu login</span>
         <br>
         <input id="loginValue" type="number" placeholder="e pressione enter" onchange="showUserInfos()"
             style="text-align: center;">
@@ -80,7 +105,7 @@
             <th>
                 <span id="uName">NOME:</span>
                 <br>
-                <span id="uLogin">(0000)</span>
+                <span id="uLogin"></span>
                 <br>
                 <span id="time" style="font-size: x-small;"></span>
             </th>
@@ -92,7 +117,7 @@
             <td>AVULSO: <input onchange="formSum()" id="stuffs" type="number" class="etc"></td>
         </tr>
         <tr>
-            <td>5,00: <input onchange="formSum()"type="number" class="etc"></td>
+            <td>5,00: <input onchange="formSum()" type="number" class="etc"></td>
         </tr>
         <tr>
             <td>10,00 | 20,00: <input onchange="formSum()" type="number" class="etc"></td>
@@ -109,79 +134,111 @@
                     <li>
                         <input type="number" class="etc" onchange="formSum()" min="1">
                         <input type="number" class="etc" onchange="formSum()" min="1">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
-                        <input type="number" class="etc" onchange="formSum()">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
                     </li>
                 </ul>
             </td>
         </tr>
         </tr>
         <tr>
-            <th>SEM DEVOLUÇÕES</th>
+            <th id="dev">SEM DEVOLUÇÕES</th>
+        <tr>
+            <td>
+                <span id="devolucoes"></span>
+            </td>
+        </tr>
         </tr>
         <tr>
-            <th>SEM SINAIS</th>
+            <th id="sin">SEM SINAIS</th>
+            <tr>
+                <td>
+                    <span id="sinais"></span>
+                </td>
+            </tr>
         </tr>
         <tr>
             <th>
-                <h1 id="showSum">TOTAL:</h1>
+                <h1 id="showSum" style="text-align: left;">TOTAL:</h1>
             </th>
         </tr>
     </table>
+
+    <ul class="howTo">
+        <li>
+            <h2>como usar</h2>
+        <li>Tab para avançar</li>
+        <li>Shift + tab para voltar</li>
+        <li>F4 para abrir aba de impressão</li>
+        <li>Aperte "S"  para adicionar/ remover <strong style="background-color: yellow;">SINAL</strong></li>
+        <li>Aperte "D" para adicionar/ remover <strong style="background-color: chartreuse">DEVOLUÇÃO</strong></li>
+        <br>
+        <h3>Configuração na aba de Impressão</h3>
+        <li>Impressora: Epson TM-T20X Series</li>
+        <li>Tamanho Papel: Postcard 100x148mm</li>
+        <li>Margens: Nenhum</li>
+    </ul>
 </body>
 <script>
     let sum = 0;
     let isItEmpty = document.querySelectorAll(".etc");
+    let activeEl = document.activeElement;
     const nameText = document.getElementById("uName");
     const loginText = document.getElementById("uLogin");
+
+    //let devolucoesArray =[]
+    //let sinaisArray = []
+    //adiconar e remover sinais/ devolucoes do vetor/ se vazio, os nomes retornam
+    //impedir que a tabela expanda
+    //etc
 
     document.addEventListener("DOMContentLoaded", function () {
         document.getElementById("loginValue").focus()
@@ -199,7 +256,7 @@
                 nameText.textContent = "Paulo Henrique AP";
                 break;
             default:
-                nameText.textContent = "Nome: ";
+                nameText.style = "position: absolute; left: 1%;";
         };
 
         loginText.textContent = `(${login})`;
@@ -219,6 +276,27 @@
         document.getElementById("showSum").textContent = "TOTAL:" + sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
     }
 
+    function putItOnDevolucoes() {
+        activeEl = document.activeElement;
+
+        if (activeEl.tagName === "INPUT" && activeEl.value != "") {
+            activeEl.style = "background-color: yellow;";
+            activeEl.classList.add("devOrSin");
+            document.getElementById("devolucoes").textContent += `|${activeEl.value}| `;
+            document.getElementById("dev").textContent = "DEVOLUÇÕES";
+        }
+    }
+
+    function putItOnSinais() {
+        activeEl = document.activeElement;
+
+        if (activeEl.tagName === "INPUT" && activeEl.value != "") {
+            activeEl.style = "background-color: chartreuse;";
+            activeEl.classList.add("devOrSin");
+            document.getElementById("sinais").textContent += `<${activeEl.value}> `;
+                document.getElementById("sin").textContent = "SINAIS"
+        }
+    }
 
     document.addEventListener("keydown", function (event) {
         if (event.key === "F4") {
@@ -243,6 +321,18 @@
             formSum();
             document.getElementById("stuffs").focus();
         };
+
+        if (event.key === "PageUp") {
+            document.getElementById("stuffs").focus()
+        }
+
+        if (event.which === 68) {
+            putItOnDevolucoes()
+        }
+
+        if (event.which === 83) {
+            putItOnSinais()
+        }
     });
 </script>
 
