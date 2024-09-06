@@ -1,0 +1,118 @@
+body {
+    margin: 0%;
+    padding: 0%;
+    font-family: monospace;
+    background-color: #FAF9F6;
+}
+
+strong {
+    font-size: large;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0px;
+    text-align: center;
+}
+
+table,
+th,
+td {
+    padding: 2px;
+    border: 1px solid;
+    border-left: 0;
+}
+
+#bodyTable {
+    max-width: 79mm;
+}
+
+#sinValues,
+#devValues {
+    text-align: left;
+}
+
+input.becomeDev {
+    background-color: #009440;
+}
+
+input.becomeSin {
+    background-color: #ffcb00;
+}
+
+li {
+    list-style: none;
+}
+
+.etc {
+    text-align: center;
+    width: 55px;
+    font-size: small;
+}
+
+#etcValues {
+    margin: 0px;
+    padding: 0px;
+}
+
+.hidden {
+    display: none;
+}
+
+#loginHub {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    font-size: xx-large;
+    text-align: center;
+    width: 90%;
+}
+
+input {
+    font-weight: bolder;
+    margin: 0;
+    background-color: none;
+}
+
+.howTo {
+    position: absolute;
+    right: 1%;
+    top: 0;
+    border-radius: 3px;
+    box-shadow: 2px 5px 20px 2px #16161D;
+    padding: 1%;
+}
+
+#devolucoes,
+#sinais {
+    font-weight: bolder;
+    font-size: small;
+}
+
+@media print {
+    body {
+        background-color: transparent;
+    }
+
+    .howTo {
+        display: none;
+    }
+
+    #etcValues {
+        text-align: left;
+    }
+
+    #loginHub {
+        display: none;
+    }
+
+    .becomeSin {
+        display: none;
+    }
+
+    .becomeDev {
+        display: none;
+    }
+
+}

@@ -4,96 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FECHAMENTO_alpha</title>
-    <style>
-        body {
-            margin: 0%;
-            padding: 0%;
-            font-family: monospace;
-        }
-
-        table {
-            border-collapse: collapse;
-            border-spacing: 0px;
-            text-align: center;
-        }
-
-        table,
-        th,
-        td {
-            padding: 2px;
-            border: 1px solid;
-            border-left: 0;
-        }
-
-        #bodyTable {
-            width: 79mm;
-        }
-
-        li {
-            list-style: none;
-        }
-
-        .etc {
-            text-align: center;
-            width: 55px;
-            font-size: small;
-        }
-
-        #etcValues {
-            margin: 0px;
-            padding: 0px;
-        }
-
-        .hidden {
-            display: none;
-        }
-
-        #loginHub {
-            position: absolute;
-            transform: translate(-50%, -50%);
-            top: 50%;
-            left: 50%;
-            font-size: xx-large;
-            text-align: center;
-            width: 90%;
-        }
-
-        input {
-            font-weight: bolder;
-            margin: 0;
-        }
-
-        .howTo {
-            position: absolute;
-            right: 1%;
-            top: 0;
-        }
-
-        @media print {
-            .howTo {
-                display: none;
-            }
-
-            #etcValues {
-                text-align: left;
-            }
-
-            #loginHub {
-                display: none;
-            }
-
-            .devOrSin {
-                display: none;
-            }
-
-        }
-    </style>
+    <title>fechamentoCX</title>
+    <link rel="stylesheet" href="src/css/estilos.css">
 </head>
 
 <body>
     <div id="loginHub" class="">
-        <span style="font-weight: bold; font-size: larger;">digite seu login</span>
+        <span style="font-weight: bold; font-size: larger;">Digite seu login</span>
         <br>
         <input id="loginValue" type="number" placeholder="e pressione enter" onchange="showUserInfos()"
             style="text-align: center;">
@@ -117,13 +34,13 @@
             <td>AVULSO: <input onchange="formSum()" id="stuffs" type="number" class="etc"></td>
         </tr>
         <tr>
-            <td>5,00: <input onchange="formSum()" type="number" class="etc"></td>
+            <td>5,00: <input onchange="formSum()" id="stuffs5" type="number" class="etc"></td>
         </tr>
         <tr>
-            <td>10,00 | 20,00: <input onchange="formSum()" type="number" class="etc"></td>
+            <td>10,00 | 20,00: <input onchange="formSum()" id="stuffs10_20" type="number" class="etc"></td>
         </tr>
         <tr>
-            <td>50,00 | 100,00: <input onchange="formSum()" type="number" class="etc"></td>
+            <td>50,00 | 100,00: <input onchange="formSum()" id="stuffs50_100" type="number" class="etc"></td>
         </tr>
         <tr>
             <th>CARTÕES | PIX</th>
@@ -184,6 +101,36 @@
                         <input type="number" class="etc" onchange="formSum()" min="1">
                         <input type="number" class="etc" onchange="formSum()" min="1">
                         <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1">
+                        <input type="number" class="etc" onchange="formSum()" min="1" onfocus="breakPoint()">
+                        <div id="breakPoint1" class="hidden">
+                            <input type="number" class="etc" onchange="formSum()" min="1">
+                            <input type="number" class="etc" onchange="formSum()" min="1">
+                            <input type="number" class="etc" onchange="formSum()" min="1">
+                            <input type="number" class="etc" onchange="formSum()" min="1">
+                            <input type="number" class="etc" onchange="formSum()" min="1">
+                            <input type="number" class="etc" onchange="formSum()" min="1">
+                            <input type="number" class="etc" onchange="formSum()" min="1">
+                            <input type="number" class="etc" onchange="formSum()" min="1">
+                            <input type="number" class="etc" onchange="formSum()" min="1">
+                            <input type="number" class="etc" onchange="formSum()" min="1">
+                            <input type="number" class="etc" onchange="formSum()" min="1">
+                            <input type="number" class="etc" onchange="formSum()" min="1">
+                            <input type="number" class="etc" onchange="formSum()" min="1">
+                            <input type="number" class="etc" onchange="formSum()" min="1">
+                            <input type="number" class="etc" onchange="formSum()" min="1">
+                            <input type="number" class="etc" onchange="formSum()" min="1">
+                            <input type="number" class="etc" onchange="formSum()" min="1">
+                            <input type="number" class="etc" onchange="formSum()" min="1">
+                            <input type="number" class="etc" onchange="formSum()" min="1">
+                            <input type="number" class="etc" onchange="formSum()" min="1">
+                        </div>
                     </li>
                 </ul>
             </td>
@@ -192,18 +139,16 @@
         <tr>
             <th id="dev">SEM DEVOLUÇÕES</th>
         <tr>
-            <td>
-                <span id="devolucoes"></span>
+            <td id="devValues">
             </td>
         </tr>
         </tr>
         <tr>
             <th id="sin">SEM SINAIS</th>
-            <tr>
-                <td>
-                    <span id="sinais"></span>
-                </td>
-            </tr>
+        <tr>
+            <td id="sinValues">
+            </td>
+        </tr>
         </tr>
         <tr>
             <th>
@@ -214,128 +159,35 @@
 
     <ul class="howTo">
         <li>
-            <h2>como usar</h2>
-        <li>Tab para avançar</li>
-        <li>Shift + tab para voltar</li>
-        <li>F4 para abrir aba de impressão</li>
-        <li>Aperte "S"  para adicionar/ remover <strong style="background-color: yellow;">SINAL</strong></li>
-        <li>Aperte "D" para adicionar/ remover <strong style="background-color: chartreuse">DEVOLUÇÃO</strong></li>
+            <h2>Como usar</h2>
+        <li><strong>Tab</strong> para avançar</li>
+        <li><strong>Shift + Tab</strong> para voltar</li>
+        <li> <strong>F4</strong> para abrir aba de impressão</li>
+        <li><strong>F8</strong> para apagar a última seção</strong>
+        <li style="margin-bottom: 3px;"><strong>D</strong> para adicionar/ remover <strong
+                style="background-color: #009440;border-radius: 3px;">DEVOLUÇÃO</strong>
+        </li>
+        <li><strong>S</strong> para adicionar/ remover <strong
+                style="background-color: #ffcb00;border-radius: 3px;">SINAL</strong>
+        </li>
+        <li>Está preso? Aperte <strong>F11</strong> e depois <strong>Tab</strong></li>
         <br>
         <h3>Configuração na aba de Impressão</h3>
         <li>Impressora: Epson TM-T20X Series</li>
         <li>Tamanho Papel: Postcard 100x148mm</li>
         <li>Margens: Nenhum</li>
+        <br>
+        <ul>
+            <h3>Seção anterior</h3>
+            <li id="lastName">Nome: </li>
+            <li id="lastLogin">Login: </li>
+            <li id="lastTime">Horário: </li>
+        </ul>
     </ul>
+
 </body>
-<script>
-    let sum = 0;
-    let isItEmpty = document.querySelectorAll(".etc");
-    let activeEl = document.activeElement;
-    const nameText = document.getElementById("uName");
-    const loginText = document.getElementById("uLogin");
-
-    //let devolucoesArray =[]
-    //let sinaisArray = []
-    //adiconar e remover sinais/ devolucoes do vetor/ se vazio, os nomes retornam
-    //impedir que a tabela expanda
-    //etc
-
-    document.addEventListener("DOMContentLoaded", function () {
-        document.getElementById("loginValue").focus()
-    });
-
-
-    function showUserInfos() {
-        const login = document.getElementById("loginValue").value;
-
-        document.getElementById("loginHub").classList.add("hidden");
-        document.getElementById("bodyTable").classList.remove("hidden");
-
-        switch (login) {
-            case "1419":
-                nameText.textContent = "Paulo Henrique AP";
-                break;
-            default:
-                nameText.style = "position: absolute; left: 1%;";
-        };
-
-        loginText.textContent = `(${login})`;
-        document.getElementById("stuffs").focus()
-    };
-
-    function formSum() {
-        sum = 0;
-
-        isItEmpty.forEach((input) => {
-            if (input.value != "") {
-                sum += parseFloat(input.value);
-            }
-        }
-        );
-
-        document.getElementById("showSum").textContent = "TOTAL:" + sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-    }
-
-    function putItOnDevolucoes() {
-        activeEl = document.activeElement;
-
-        if (activeEl.tagName === "INPUT" && activeEl.value != "") {
-            activeEl.style = "background-color: yellow;";
-            activeEl.classList.add("devOrSin");
-            document.getElementById("devolucoes").textContent += `|${activeEl.value}| `;
-            document.getElementById("dev").textContent = "DEVOLUÇÕES";
-        }
-    }
-
-    function putItOnSinais() {
-        activeEl = document.activeElement;
-
-        if (activeEl.tagName === "INPUT" && activeEl.value != "") {
-            activeEl.style = "background-color: chartreuse;";
-            activeEl.classList.add("devOrSin");
-            document.getElementById("sinais").textContent += `<${activeEl.value}> `;
-                document.getElementById("sin").textContent = "SINAIS"
-        }
-    }
-
-    document.addEventListener("keydown", function (event) {
-        if (event.key === "F4") {
-            event.preventDefault();
-            formSum();
-
-            let keepProgress = document.body.cloneNode(true);
-            document.getElementById("time").textContent = new Date().toLocaleDateString() + " | " + new Date().toLocaleTimeString();
-            //impressora: TM-T20X - tamanho papel: postcard 100x148mm
-            isItEmpty.forEach((input) => {
-                if (input.value == "") {
-                    input.style = "display: none;"
-                } else {
-                    input.type = "text";//put it on middle
-                }
-            });
-
-            window.print();
-
-            document.body.replaceWith(keepProgress);
-            isItEmpty = document.querySelectorAll(".etc");
-            formSum();
-            document.getElementById("stuffs").focus();
-        };
-
-        if (event.key === "PageUp") {
-            document.getElementById("stuffs").focus()
-        }
-
-        if (event.which === 68) {
-            putItOnDevolucoes()
-        }
-
-        if (event.which === 83) {
-            putItOnSinais()
-        }
-    });
-</script>
+<script src="src/js/index.js"></script>
 
 </html>
 
-<!--Paulo-henriqueAP-->
+<!--Paulo-henriqueAP Diz: ATENÇÂO! O VALOR TOTAL PODE SER FACILMENTE ALTERADO-->
