@@ -25,9 +25,13 @@ function showUserInfos() {
         case "1419":
             nameText.textContent = "Paulo Henrique AP";
             break;
+        case "1391":
+            nameText.textContent = "Maycon Douglas"
+            break;
         default:
             nameText.style = "position: absolute; left: 1%;";
-    };
+    };//store folks in an array ??
+
     loginText.textContent = `(${login})`;
     document.getElementById("stuffs").focus();
 
@@ -41,25 +45,44 @@ function formSum() {
     isItEmpty.forEach((input) => {
         if (input.value != "") {
             sum += parseFloat(input.value);
-        }
+        };
     }
     );
     document.getElementById("showSum").textContent = "TOTAL:" + sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
-    saveState()
+    saveState();
+    updateInput();
+};
+
+function updateInput() {
+    let findEmpty;//remove the classList if the element is Empty
 
     if (document.getElementsByClassName("becomeDev").length === 0) {
         document.getElementById("dev").textContent = "SEM DEVOLUÇÕES";
     } else {
         document.getElementById("dev").textContent = "DEVOLUÇÕES";
-    }
+    };
 
     if (document.getElementsByClassName("becomeSin").length === 0) {
         document.getElementById("sin").textContent = "SEM SINAIS";
     } else {
         document.getElementById("sin").textContent = "SINAIS";
-    }
-}
+    };
+
+    findEmpty = document.querySelectorAll(".becomeDev");
+    findEmpty.forEach((input) => {
+        if (input.value === "") {
+            input.classList.remove("becomeDev")
+        };
+    });
+
+    findEmpty = document.querySelectorAll(".becomeSin");
+    findEmpty.forEach((input) => {
+        if (input.value === "") {
+            input.classList.remove("becomeSin");
+        };
+    });
+};
 
 function putItOnDevolucoes() {
     activeEl = document.activeElement;
@@ -71,14 +94,17 @@ function putItOnDevolucoes() {
 
     if (activeEl.classList.contains("becomeDev")) {
         activeEl.classList.remove("becomeDev");
+        updateInput();
         return;
-    }
+    };//remove if alrealdy has
+
     if (activeEl.tagName === "INPUT" && activeEl.value != "" && !activeEl.id) {
         activeEl.classList.remove("becomeSin");
         activeEl.classList.add("becomeDev");
         document.getElementById("dev").textContent = "DEVOLUÇÕES";
-    }
-}
+    };
+    updateInput();
+};
 
 function putItOnSinais() {
     activeEl = document.activeElement;
@@ -90,84 +116,103 @@ function putItOnSinais() {
 
     if (activeEl.classList.contains("becomeSin")) {
         activeEl.classList.remove("becomeSin");
+        updateInput();
         return;
-    }
+    };//remove if alrealdy has
 
     if (activeEl.tagName === "INPUT" && activeEl.value != "" && !activeEl.id) {
         activeEl.classList.remove("becomeDev");
         activeEl.classList.add("becomeSin");
         document.getElementById("sin").textContent = "SINAIS";
-    }
-}
+    };
+    updateInput();
+};
 
-function breakPoint() {
-    document.getElementById("breakPoint1").classList.remove("hidden")
+function addMoreInputs() {
+    document.getElementById("breakPoint1").classList.remove("hidden");
+};
+
+function jumpToNext() {
+    let nextEl = document.querySelectorAll("input");
+    let index = Array.prototype.indexOf.call(nextEl, document.activeElement);
+    if (index > -1) {
+        let jumpTo = nextEl[index + 1] || nextEl[0];
+        jumpTo.focus()
+    }
 }
 
 document.addEventListener("keydown", function (event) {
-    if (event.key === "F4") {
-        formSum();
 
-        let keepProgress = document.body.cloneNode(true);
-        document.getElementById("time").textContent = new Date().toLocaleDateString() + " | " + new Date().toLocaleTimeString();
-        //impressora: TM-T20X - tamanho papel: postcard 100x148mm
-        isItEmpty.forEach((input) => {
-            if (input.value == "") {
-                input.style = "display: none;"
-            } else {
-                input.type = "text";//put it on middle
-            }
-        });
+    switch (event.code) {
+        case "F4":
+            formSum();
 
-        let sinaisValues = document.getElementsByClassName("becomeSin");
+            let keepProgress = document.body.cloneNode(true);
+            document.getElementById("time").textContent = new Date().toLocaleDateString() + " | " + new Date().toLocaleTimeString();
 
-        for (let i = 0; i < sinaisValues.length; i++) {
-            console.log(sinaisValues[i].value)
-            const sendToSin = document.createElement("input")
-            sendToSin.value = sinaisValues[i].value;
-            sendToSin.tabIndex = "-1";
-            sendToSin.style = " text-align: center; width:55px;font-size: small;"
+            isItEmpty.forEach((input) => {
+                if (input.value == "") {
+                    input.style = "display: none;"
+                } else {
+                    input.type = "text";//put it on middle
+                }
+            });
 
-            document.getElementById("sinValues").appendChild(sendToSin);
-        };
+            let sinaisValues = document.getElementsByClassName("becomeSin");
 
-        let devValues = document.getElementsByClassName("becomeDev");
+            for (let i = 0; i < sinaisValues.length; i++) {
+                const sendToSin = document.createElement("input")
+                sendToSin.value = sinaisValues[i].value;
+                sendToSin.tabIndex = "-1";
+                sendToSin.style = " text-align: center; width:55px;font-size: small;"
 
-        for (let i = 0; i < devValues.length; i++) {
-            console.log(devValues[i].value)
-            const sendToDev = document.createElement("input")
-            sendToDev.value = devValues[i].value;
-            sendToDev.tabIndex = "-1";
-            sendToDev.style = " text-align: center; width:55px;font-size: small;"
+                document.getElementById("sinValues").appendChild(sendToSin);
+            };
 
-            document.getElementById("devValues").appendChild(sendToDev);
-        };
+            let devValues = document.getElementsByClassName("becomeDev");
 
-        window.print();
+            for (let i = 0; i < devValues.length; i++) {
+                const sendToDev = document.createElement("input")
+                sendToDev.value = devValues[i].value;
+                sendToDev.tabIndex = "-1";
+                sendToDev.style = " text-align: center; width:55px;font-size: small;"
 
-        document.body.replaceWith(keepProgress);
-        isItEmpty = document.querySelectorAll(".etc");
-        formSum();
-        document.getElementById("stuffs").focus();
+                document.getElementById("devValues").appendChild(sendToDev);
+            };
+
+            window.print();
+
+            document.body.replaceWith(keepProgress);
+            isItEmpty = document.querySelectorAll(".etc");
+            formSum();
+            document.getElementById("stuffs").focus();
+            break;
+        case "F8":
+            localStorage.clear();
+            location.reload();
+            break;
+        case "KeyT":
+            document.getElementById("stuffs").focus()
+            break;
+        case "KeyL":
+            findEmpty = document.querySelectorAll(".etc");
+            findEmpty.forEach((input) => {
+                if (input.value != "") {
+                    input.focus();
+                    jumpToNext()
+                };
+            });
+            break;
+        case "KeyD":
+            putItOnDevolucoes();
+            break;
+        case "KeyS":
+            putItOnSinais();
+            break;
+        case "Enter":
+            jumpToNext();
+            break;
     };
-
-    if (event.key === "PageUp") {
-        document.getElementById("stuffs").focus()
-    }
-
-    if (event.key === "F8") {
-        localStorage.clear();
-        location.reload();
-    }
-
-    if (event.which === 68) {
-        putItOnDevolucoes()
-    }
-
-    if (event.which === 83) {
-        putItOnSinais()
-    }
-
 });
 
 function saveState() {

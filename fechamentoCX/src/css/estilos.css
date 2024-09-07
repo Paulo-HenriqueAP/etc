@@ -42,6 +42,7 @@ input.becomeSin {
 
 li {
     list-style: none;
+    margin-bottom: 3px;
 }
 
 .etc {
@@ -82,6 +83,7 @@ input {
     border-radius: 3px;
     box-shadow: 2px 5px 20px 2px #16161D;
     padding: 1%;
+    font-size: larger;
 }
 
 #devolucoes,

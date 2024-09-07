@@ -31,16 +31,16 @@
             <th>DINHEIRO</th>
         </tr>
         <tr>
-            <td>AVULSO: <input onchange="formSum()" id="stuffs" type="number" class="etc"></td>
+            <td>AVULSO: <input min="1" onchange="formSum()" id="stuffs" type="number" class="etc"></td>
         </tr>
         <tr>
-            <td>5,00: <input onchange="formSum()" id="stuffs5" type="number" class="etc"></td>
+            <td>5,00: <input min="1" onchange="formSum()" id="stuffs5" type="number" class="etc"></td>
         </tr>
         <tr>
-            <td>10,00 | 20,00: <input onchange="formSum()" id="stuffs10_20" type="number" class="etc"></td>
+            <td>10,00 | 20,00: <input min="1" onchange="formSum()" id="stuffs10_20" type="number" class="etc"></td>
         </tr>
         <tr>
-            <td>50,00 | 100,00: <input onchange="formSum()" id="stuffs50_100" type="number" class="etc"></td>
+            <td>50,00 | 100,00: <input min="1" onchange="formSum()" id="stuffs50_100" type="number" class="etc"></td>
         </tr>
         <tr>
             <th>CARTÕES | PIX</th>
@@ -108,7 +108,7 @@
                         <input type="number" class="etc" onchange="formSum()" min="1">
                         <input type="number" class="etc" onchange="formSum()" min="1">
                         <input type="number" class="etc" onchange="formSum()" min="1">
-                        <input type="number" class="etc" onchange="formSum()" min="1" onfocus="breakPoint()">
+                        <input type="number" class="etc" onchange="formSum()" min="1" onfocus="addMoreInputs()">
                         <div id="breakPoint1" class="hidden">
                             <input type="number" class="etc" onchange="formSum()" min="1">
                             <input type="number" class="etc" onchange="formSum()" min="1">
@@ -160,28 +160,31 @@
     <ul class="howTo">
         <li>
             <h2>Como usar</h2>
-        <li><strong>Tab</strong> para avançar</li>
-        <li><strong>Shift + Tab</strong> para voltar</li>
-        <li> <strong>F4</strong> para abrir aba de impressão</li>
-        <li><strong>F8</strong> para apagar a última seção</strong>
-        <li style="margin-bottom: 3px;"><strong>D</strong> para adicionar/ remover <strong
+        <li><strong>Tab</strong> ou <strong>Enter</strong> avança</li>
+        <li><strong>Shift e Tab</strong> volta</li>
+        <li> <strong>F4</strong> quando estiver pronto para imprimir</li>
+        <li><strong>F8</strong> apaga a última seção</strong>
+        <li><strong>T</strong> volta para o topo</strong>
+        <li><strong>L</strong> vai para o próx livre</strong>
+        <li><strong>D</strong> adiciona/ remove <strong
                 style="background-color: #009440;border-radius: 3px;">DEVOLUÇÃO</strong>
         </li>
-        <li><strong>S</strong> para adicionar/ remover <strong
+        <li><strong>S</strong> adiciona/ remove <strong
                 style="background-color: #ffcb00;border-radius: 3px;">SINAL</strong>
         </li>
-        <li>Está preso? Aperte <strong>F11</strong> e depois <strong>Tab</strong></li>
+        <li>Está preso? Aperte <strong>F11</strong> e em seguida <strong>Tab</strong></li>
         <br>
         <h3>Configuração na aba de Impressão</h3>
-        <li>Impressora: Epson TM-T20X Series</li>
-        <li>Tamanho Papel: Postcard 100x148mm</li>
-        <li>Margens: Nenhum</li>
+        <li>Impressora: <strong>Epson TM-T20X Series</strong></li>
+        <li>Tamanho Papel: <strong>Postcard 100x148mm</strong></li>
+        <li>Margens: <strong>Nenhum</strong></li>
+        <li>Navegue usando <strong>Tab</strong> até <strong>"Iprimir"</strong></li>
         <br>
         <ul>
             <h3>Seção anterior</h3>
-            <li id="lastName">Nome: </li>
-            <li id="lastLogin">Login: </li>
-            <li id="lastTime">Horário: </li>
+            <li>Nome: <strong id="lastName"></strong></li>
+            <li>Login: <strong id="lastLogin"></strong> </li>
+            <li>Horário: <strong id="lastTime"></strong> </li>
         </ul>
     </ul>
 
