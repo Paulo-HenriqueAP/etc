@@ -1,19 +1,44 @@
+const nameText = document.getElementById("uName");
+const loginText = document.getElementById("uLogin");
 let sum = 0;
 let isItEmpty = document.querySelectorAll(".etc");
 let activeEl = document.activeElement;
-const nameText = document.getElementById("uName");
-const loginText = document.getElementById("uLogin");
 let login;
-
+let avulso = document.getElementById("stuffs");
+let fiveMoney = document.getElementById("stuffs5");
+let ten_20Money = document.getElementById("stuffs10_20");
+let fif_100Money = document.getElementById("stuffs50_100");
 let saveName;
 let saveLogin;
 let saveTime;
+let needMoreInputs = 60;
+let control = 0;
 
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("loginValue").focus()
-    loadState()
-    formSum()
+    createInputs();
+    loadState();
+    formSum();
 });
+
+function createInputs() {
+    console.log("ADICIONOU > " + needMoreInputs)
+    {
+        for (let i = 0; i < needMoreInputs; i++) {
+            const input = document.createElement("input");
+
+            input.type = "number";
+            input.className = "etc";
+            input.min = "1";
+            input.addEventListener("change", function () {
+                formSum()
+            })
+            document.getElementById("allEtcs").appendChild(input);
+        };
+    }
+
+    isItEmpty = document.querySelectorAll(".etc");
+};
 
 function showUserInfos() {
     login = document.getElementById("loginValue").value;
@@ -33,7 +58,7 @@ function showUserInfos() {
     };//store folks in an array ??
 
     loginText.textContent = `(${login})`;
-    document.getElementById("stuffs").focus();
+    avulso.focus();
 
     localStorage.setItem("lastUsedName", nameText.textContent);
     localStorage.setItem("LastLoginCode", login);
@@ -46,14 +71,25 @@ function formSum() {
         if (input.value != "") {
             sum += parseFloat(input.value);
         };
+
+        if (input.value === "" && !input.id) {
+            control++
+        }
     }
     );
     document.getElementById("showSum").textContent = "TOTAL:" + sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
     saveState();
     updateInput();
-};
 
+    console.log("TEM LIVRE " + control)
+
+    if (control <= 2) {
+        needMoreInputs = 4
+        createInputs()
+    }
+    control = 0;
+};
 function updateInput() {
     let findEmpty;//remove the classList if the element is Empty
 
@@ -128,10 +164,6 @@ function putItOnSinais() {
     updateInput();
 };
 
-function addMoreInputs() {
-    document.getElementById("breakPoint1").classList.remove("hidden");
-};
-
 function jumpToNext() {
     let nextEl = document.querySelectorAll("input");
     let index = Array.prototype.indexOf.call(nextEl, document.activeElement);
@@ -141,67 +173,77 @@ function jumpToNext() {
     }
 }
 
-document.addEventListener("keydown", function (event) {
+function goToFreeInput() {
+    for (let i = 0; i < findEmpty.length; i++) {
+        if (findEmpty[i].value === "" && !findEmpty[i].id) {
+            findEmpty[i].focus()
+            break;
+        }
+    }
+}
 
+function findAndClear() {
+    isItEmpty.forEach((input) => {
+        if (input.value == "" && !input.id) {
+            input.style = "display: none;"
+        } else {
+            input.type = "text";//put it on middle
+        }
+
+        if (input.id && input.value === "") {
+            input.value = "NÃO";
+        };
+    });
+
+    let sinaisValues = document.getElementsByClassName("becomeSin");
+
+    for (let i = 0; i < sinaisValues.length; i++) {
+        const sendToSin = document.createElement("input")
+        sendToSin.value = sinaisValues[i].value;
+        sendToSin.tabIndex = "-1";
+        sendToSin.style = " text-align: center; width:55px;font-size: small;"
+
+        document.getElementById("sinValues").appendChild(sendToSin);
+    };
+
+    let devValues = document.getElementsByClassName("becomeDev");
+
+    for (let i = 0; i < devValues.length; i++) {
+        const sendToDev = document.createElement("input")
+        sendToDev.value = devValues[i].value;
+        sendToDev.tabIndex = "-1";
+        sendToDev.style = " text-align: center; width:55px;font-size: small;"
+
+        document.getElementById("devValues").appendChild(sendToDev);
+    };
+}
+
+document.addEventListener("keydown", function (event) {
     switch (event.code) {
         case "F4":
             formSum();
-
             let keepProgress = document.body.cloneNode(true);
             document.getElementById("time").textContent = new Date().toLocaleDateString() + " | " + new Date().toLocaleTimeString();
 
-            isItEmpty.forEach((input) => {
-                if (input.value == "") {
-                    input.style = "display: none;"
-                } else {
-                    input.type = "text";//put it on middle
-                }
-            });
-
-            let sinaisValues = document.getElementsByClassName("becomeSin");
-
-            for (let i = 0; i < sinaisValues.length; i++) {
-                const sendToSin = document.createElement("input")
-                sendToSin.value = sinaisValues[i].value;
-                sendToSin.tabIndex = "-1";
-                sendToSin.style = " text-align: center; width:55px;font-size: small;"
-
-                document.getElementById("sinValues").appendChild(sendToSin);
-            };
-
-            let devValues = document.getElementsByClassName("becomeDev");
-
-            for (let i = 0; i < devValues.length; i++) {
-                const sendToDev = document.createElement("input")
-                sendToDev.value = devValues[i].value;
-                sendToDev.tabIndex = "-1";
-                sendToDev.style = " text-align: center; width:55px;font-size: small;"
-
-                document.getElementById("devValues").appendChild(sendToDev);
-            };
-
+            findAndClear();
             window.print();
 
             document.body.replaceWith(keepProgress);
             isItEmpty = document.querySelectorAll(".etc");
             formSum();
-            document.getElementById("stuffs").focus();
+            avulso.focus();
+            //valores não estão sendo salvos ao clonar o Node e retornar
             break;
         case "F8":
             localStorage.clear();
             location.reload();
             break;
         case "KeyT":
-            document.getElementById("stuffs").focus()
+            avulso.focus()
             break;
         case "KeyL":
             findEmpty = document.querySelectorAll(".etc");
-            findEmpty.forEach((input) => {
-                if (input.value != "") {
-                    input.focus();
-                    jumpToNext()
-                };
-            });
+            goToFreeInput()
             break;
         case "KeyD":
             putItOnDevolucoes();
@@ -209,10 +251,11 @@ document.addEventListener("keydown", function (event) {
         case "KeyS":
             putItOnSinais();
             break;
-        case "Enter":
-            jumpToNext();
-            break;
     };
+
+    if (event.key === "Enter") {
+        jumpToNext();
+    }
 });
 
 function saveState() {

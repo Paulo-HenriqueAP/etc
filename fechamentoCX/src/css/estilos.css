@@ -49,6 +49,7 @@ li {
     text-align: center;
     width: 55px;
     font-size: small;
+    margin: 1px;
 }
 
 #etcValues {
@@ -59,6 +60,7 @@ li {
 .hidden {
     display: none;
 }
+
 
 #loginHub {
     position: absolute;
@@ -116,5 +118,7 @@ input {
     .becomeDev {
         display: none;
     }
-
+    .etc {
+        margin: 0px;
+    }
 }
