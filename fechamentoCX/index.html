@@ -10,10 +10,9 @@
 
 <body>
     <div id="loginHub" class="">
-        <span style="font-weight: bold; font-size: larger;">Digite seu login</span>
-        <br>
+        <h2>Digite seu login</h2>
         <input id="loginValue" type="number" placeholder="e pressione enter" onchange="showUserInfos()"
-            style="text-align: center;">
+            style="text-align: center; font-size: large;">
     </div>
 
     <table id="bodyTable" class="hidden">
@@ -22,23 +21,23 @@
                 <span id="uName">NOME:</span>
                 <br>
                 <span id="uLogin"></span>
-                <br>
-                <span id="time" style="font-size: x-small;"></span>
             </th>
         </tr>
         <tr>
             <th>DINHEIRO</th>
         </tr>
         <tr>
-            <td>AVULSO: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input min="1" onchange="formSum()" id="stuffs" type="number" class="etc"></td>
+            <td>AVULSO: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input min="1" onchange="formSum()" id="stuffs"
+                    type="number" class="etc"></td>
         </tr>
         <tr>
-            <td>5,00: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input min="1" onchange="formSum()" id="stuffs5" type="number"
-                    class="etc"></td>
+            <td>5,00: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input min="1" onchange="formSum()"
+                    id="stuffs5" type="number" class="etc"></td>
         </tr>
         <tr>
             <td>10,00 | 20,00:&nbsp;
-                <input min="1" onchange="formSum()" id="stuffs10_20" type="number" class="etc"></td>
+                <input min="1" onchange="formSum()" id="stuffs10_20" type="number" class="etc">
+            </td>
         </tr>
         <tr>
             <td>50,00 | 100,00: <input min="1" onchange="formSum()" id="stuffs50_100" type="number" class="etc"></td>
@@ -72,6 +71,12 @@
         <tr>
             <th>
                 <h1 id="showSum" style="text-align: left;">TOTAL:</h1>
+                <div class="hidden" id="signature">
+                    <br>
+                    <span>_____________________</span>
+                    <br>
+                    <span id="time" style="font-size: x-small;"></span>
+                </div>
             </th>
         </tr>
     </table>
@@ -86,25 +91,26 @@
         <li><strong>T</strong> volta para o topo</strong>
         <li><strong>L</strong> vai para o próx livre</strong>
         <li><strong>D</strong> adiciona/ remove <strong
-                style="background-color: #009440;border-radius: 3px;">DEVOLUÇÃO</strong>
+                style="background-color: #009440;border-radius: 3px; color: white;">DEVOLUÇÃO</strong>
         </li>
         <li><strong>S</strong> adiciona/ remove <strong
                 style="background-color: #ffcb00;border-radius: 3px;">SINAL</strong>
         </li>
         <li>Está preso? Aperte <strong>F11</strong> e em seguida <strong>L</strong></li>
-        <br>
-        <h3>Configuração na aba de Impressão</h3>
-        <li>Impressora: <strong>Epson TM-T20X Series</strong></li>
-        <li>Tamanho Papel: <strong>Postcard 100x148mm</strong></li>
-        <li>Margens: <strong>Nenhum</strong></li>
-        <li>Navegue usando <strong>Tab</strong> até <strong>"Iprimir"</strong></li>
-        <br>
-        <ul>
+        <div style="font-size: small;">
+            <ul>
+                <h3>Configuração na aba de Impressão</h3>
+                <li>Impressora: <span style="font-weight: bolder; font-style: italic;">Epson TM-T20X Series</span></li>
+                <li>Tamanho Papel: <span style="font-weight: bolder; font-style: italic;">Postcard 100x148mm</span></li>
+                <li>Margens: <span style="font-weight: bolder; font-style: italic;">Nenhum</span></li>
+                <li>Navegue usando <span style="font-weight: bolder; font-style: italic;">Tab até "Iprimir"</span></li>
+            </ul>
+            <br>
             <h3>Seção anterior</h3>
-            <li>Nome: <strong id="lastName"></strong></li>
-            <li>Login: <strong id="lastLogin"></strong> </li>
-            <li>Horário: <strong id="lastTime"></strong> </li>
-        </ul>
+            <li>Nome: <span id="lastName" style="font-weight: bolder;"></span></li>
+            <li>Login: <span id="lastLogin" style="font-weight: bolder;"></span> </li>
+            <li>Horário: <span id="lastTime" style="font-weight: bolder;"></span> </li>
+        </div>
     </ul>
 
 </body>
@@ -112,4 +118,4 @@
 
 </html>
 
-<!--Paulo-henriqueAP Diz: ATENÇÂO! O VALOR TOTAL PODE SER FACILMENTE ALTERADO-->
+<!--Paulo-henriqueAP Diz: ATENÇÂO! O VALOR TOTAL PODE SER ALTERADO-->

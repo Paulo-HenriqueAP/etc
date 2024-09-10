@@ -11,32 +11,42 @@ let fif_100Money = document.getElementById("stuffs50_100");
 let saveName;
 let saveLogin;
 let saveTime;
-let needMoreInputs = 60;
+let needMoreInputs;
 let control = 0;
+let allInputs;
 
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("loginValue").focus()
-    createInputs();
     loadState();
     formSum();
 });
 
+function createRegularInputs() {
+    for (let i = 0; i < allInputs; i++) {
+        const input = document.createElement("input");
+
+        input.type = "number";
+        input.className = "etc";
+        input.min = "1";
+        input.addEventListener("change", function () {
+            formSum()
+        })
+        document.getElementById("allEtcs").appendChild(input);
+    };
+}
+
 function createInputs() {
-    console.log("ADICIONOU > " + needMoreInputs)
-    {
-        for (let i = 0; i < needMoreInputs; i++) {
-            const input = document.createElement("input");
+    for (let i = 0; i < needMoreInputs; i++) {
+        const input = document.createElement("input");
 
-            input.type = "number";
-            input.className = "etc";
-            input.min = "1";
-            input.addEventListener("change", function () {
-                formSum()
-            })
-            document.getElementById("allEtcs").appendChild(input);
-        };
-    }
-
+        input.type = "number";
+        input.className = "etc";
+        input.min = "1";
+        input.addEventListener("change", function () {
+            formSum()
+        })
+        document.getElementById("allEtcs").appendChild(input);
+    };
     isItEmpty = document.querySelectorAll(".etc");
 };
 
@@ -51,7 +61,10 @@ function showUserInfos() {
             nameText.textContent = "Paulo Henrique AP";
             break;
         case "1391":
-            nameText.textContent = "Maycon Douglas"
+            nameText.textContent = "Maycon Douglas";
+            break;
+        case "1306":
+            nameText.textContent = "Ryan";
             break;
         default:
             nameText.style = "position: absolute; left: 1%;";
@@ -66,6 +79,7 @@ function showUserInfos() {
 
 function formSum() {
     sum = 0;
+    control = 0;
 
     isItEmpty.forEach((input) => {
         if (input.value != "") {
@@ -82,13 +96,10 @@ function formSum() {
     saveState();
     updateInput();
 
-    console.log("TEM LIVRE " + control)
-
     if (control <= 2) {
         needMoreInputs = 4
         createInputs()
-    }
-    control = 0;
+    }  
 };
 function updateInput() {
     let findEmpty;//remove the classList if the element is Empty
@@ -185,13 +196,22 @@ function goToFreeInput() {
 function findAndClear() {
     isItEmpty.forEach((input) => {
         if (input.value == "" && !input.id) {
-            input.style = "display: none;"
+            input.classList.add("hidden")
+            setTimeout(function () {
+                input.classList.remove("hidden")
+            }, 2)
         } else {
             input.type = "text";//put it on middle
+            setTimeout(function () {
+                input.type = "number";
+            }, 2);
         }
 
         if (input.id && input.value === "") {
             input.value = "NÃO";
+            setTimeout(function () {
+                input.value = "";
+            }, 2)
         };
     });
 
@@ -204,6 +224,9 @@ function findAndClear() {
         sendToSin.style = " text-align: center; width:55px;font-size: small;"
 
         document.getElementById("sinValues").appendChild(sendToSin);
+        setTimeout(function () {
+            sendToSin.remove()
+        })
     };
 
     let devValues = document.getElementsByClassName("becomeDev");
@@ -215,24 +238,23 @@ function findAndClear() {
         sendToDev.style = " text-align: center; width:55px;font-size: small;"
 
         document.getElementById("devValues").appendChild(sendToDev);
+        setTimeout(function () {
+            sendToDev.remove()
+        })
     };
+
+    //setTimeout volta a pág para o estado anterior
 }
 
 document.addEventListener("keydown", function (event) {
     switch (event.code) {
         case "F4":
             formSum();
-            let keepProgress = document.body.cloneNode(true);
             document.getElementById("time").textContent = new Date().toLocaleDateString() + " | " + new Date().toLocaleTimeString();
-
             findAndClear();
+            document.getElementById("signature").classList.remove("hidden")
             window.print();
-
-            document.body.replaceWith(keepProgress);
-            isItEmpty = document.querySelectorAll(".etc");
-            formSum();
-            avulso.focus();
-            //valores não estão sendo salvos ao clonar o Node e retornar
+            document.getElementById("signature").classList.add("hidden")
             break;
         case "F8":
             localStorage.clear();
@@ -266,9 +288,21 @@ function saveState() {
     });
 
     localStorage.setItem("time", new Date().toLocaleDateString() + " | " + new Date().toLocaleTimeString())
+
+    localStorage.setItem("allInputs", inputs.length);
 }
 
 function loadState() {
+    const lastTotalInputs = localStorage.getItem("allInputs");
+
+    if (lastTotalInputs) {
+        allInputs = parseInt(lastTotalInputs);
+        createRegularInputs()
+    } else {
+        allInputs = 48
+        createRegularInputs()
+    }
+
     const inputs = document.querySelectorAll('.etc');
     inputs.forEach((input, index) => {
         const savedValue = localStorage.getItem(`input${index}`);
@@ -288,4 +322,7 @@ function loadState() {
     document.getElementById("lastLogin").textContent += localStorage.getItem("LastLoginCode");
 
     document.getElementById("lastTime").textContent += localStorage.getItem("time");
+    formSum()
 }
+
+//adicionar logs e entender o motivo de novos inputs serem criados ao recarregar a pág
