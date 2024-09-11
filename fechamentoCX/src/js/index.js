@@ -14,7 +14,11 @@ let saveTime;
 let needMoreInputs;
 let control = 0;
 let allInputs;
-
+const folks = [
+    { uName: "Paulo Henrique AP", loginCod: 1419 },
+    { uName: "Maycon Douglas", loginCod: 1391 },
+    { uName: "Rian", loginCod: 1306 }
+];
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("loginValue").focus()
     loadState();
@@ -52,23 +56,16 @@ function createInputs() {
 
 function showUserInfos() {
     login = document.getElementById("loginValue").value;
+    const loginFind = folks.find(user => user.loginCod == login);
 
     document.getElementById("loginHub").classList.add("hidden");
     document.getElementById("bodyTable").classList.remove("hidden");
 
-    switch (login) {
-        case "1419":
-            nameText.textContent = "Paulo Henrique AP";
-            break;
-        case "1391":
-            nameText.textContent = "Maycon Douglas";
-            break;
-        case "1306":
-            nameText.textContent = "Ryan";
-            break;
-        default:
-            nameText.style = "position: absolute; left: 1%;";
-    };//store folks in an array ??
+    if (loginFind) {
+        nameText.textContent = loginFind.uName;
+    } else {
+        nameText.style = "position: absolute; left: 1%;";
+    };
 
     loginText.textContent = `(${login})`;
     avulso.focus();
@@ -99,7 +96,7 @@ function formSum() {
     if (control <= 2) {
         needMoreInputs = 4
         createInputs()
-    }  
+    }
 };
 function updateInput() {
     let findEmpty;//remove the classList if the element is Empty
@@ -289,7 +286,9 @@ function saveState() {
 
     localStorage.setItem("time", new Date().toLocaleDateString() + " | " + new Date().toLocaleTimeString())
 
-    localStorage.setItem("allInputs", inputs.length);
+    if (inputs.length > 44) {
+        localStorage.setItem("allInputs", inputs.length);
+    }// SOLUCAO TEMPORÁRIA para nn criar novos ao recarregar a pág
 }
 
 function loadState() {
@@ -299,7 +298,7 @@ function loadState() {
         allInputs = parseInt(lastTotalInputs);
         createRegularInputs()
     } else {
-        allInputs = 48
+        allInputs = 36
         createRegularInputs()
     }
 
@@ -324,5 +323,3 @@ function loadState() {
     document.getElementById("lastTime").textContent += localStorage.getItem("time");
     formSum()
 }
-
-//adicionar logs e entender o motivo de novos inputs serem criados ao recarregar a pág

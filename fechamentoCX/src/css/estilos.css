@@ -24,7 +24,7 @@ td {
 }
 
 #bodyTable {
-    max-width: 79mm;
+    max-width: 71mm;
 }
 
 #sinValues,
@@ -61,7 +61,6 @@ li {
 .hidden {
     display: none;
 }
-
 
 #loginHub {
     position: absolute;
