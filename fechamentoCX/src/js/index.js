@@ -17,7 +17,8 @@ let allInputs;
 const folks = [
     { uName: "Paulo Henrique AP", loginCod: 1419 },
     { uName: "Maycon Douglas", loginCod: 1391 },
-    { uName: "Rian", loginCod: 1306 }
+    { uName: "Rian", loginCod: 1306 },
+    { uName: "Alan Matos Vecchi", loginCod: 1439}
 ];
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("loginValue").focus()
