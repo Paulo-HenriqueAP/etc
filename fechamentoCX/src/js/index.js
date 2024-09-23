@@ -1,30 +1,36 @@
-const nameText = document.getElementById("uName");
-const loginText = document.getElementById("uLogin");
+let nameText = document.getElementById("uName");
+let loginText = document.getElementById("uLogin");
 let sum = 0;
 let isItEmpty = document.querySelectorAll(".etc");
 let activeEl = document.activeElement;
 let login;
 let avulso = document.getElementById("stuffs");
-let fiveMoney = document.getElementById("stuffs5");
-let ten_20Money = document.getElementById("stuffs10_20");
-let fif_100Money = document.getElementById("stuffs50_100");
 let saveName;
 let saveLogin;
-let saveTime;
 let needMoreInputs;
 let control = 0;
 let allInputs;
-const folks = [
-    { uName: "Paulo Henrique AP", loginCod: 1419 },
-    { uName: "Maycon Douglas", loginCod: 1391 },
-    { uName: "Rian", loginCod: 1306 },
-    { uName: "Alan Matos Vecchi", loginCod: 1439}
+let simpleLock = true;
+let registerStatus = document.getElementById("regStatus");
+let create_loginCode = document.getElementById("newLoginValue");
+let create_uName = document.getElementById("nameValue");
+let loginFind;
+let edit;
+
+let folks = [
 ];
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("loginValue").focus()
     loadState();
     formSum();
 });
+
+/*const folks = [
+    { uName: "Paulo Henrique AP", loginCod: 1419 },
+    { uName: "Maycon Douglas", loginCod: 1391 },
+    { uName: "Rian", loginCod: 1306 },
+    { uName: "Alan Matos Vecchi", loginCod: 1439 }
+];*/
 
 function createRegularInputs() {
     for (let i = 0; i < allInputs; i++) {
@@ -57,32 +63,78 @@ function createInputs() {
 
 function showUserInfos() {
     login = document.getElementById("loginValue").value;
-    const loginFind = folks.find(user => user.loginCod == login);
-
-    document.getElementById("loginHub").classList.add("hidden");
-    document.getElementById("bodyTable").classList.remove("hidden");
+    if (folks && folks.length > 0) {
+        loginFind = folks.find(user => user.loginCod == login);
+    }
 
     if (loginFind) {
         nameText.textContent = loginFind.uName;
+        document.getElementById("loginHub").classList.add("hidden");
+        document.getElementById("bodyTable").classList.remove("hidden");
+        loginText.textContent = `(${login})`;
+        avulso.focus();
+        localStorage.setItem("LastLoginCode", login);
+        simpleLock = false;
     } else {
-        nameText.style = "position: absolute; left: 1%;";
+        document.getElementById("loginHub").classList.add("hidden");
+        document.getElementById("registerHub").classList.remove("hidden");
+        registerStatus.textContent = `Login '${login}' não encontrado
+   `
+        createEditFolk();
     };
-
-    loginText.textContent = `(${login})`;
-    avulso.focus();
-
-    localStorage.setItem("lastUsedName", nameText.textContent);
-    localStorage.setItem("LastLoginCode", login);
 };
+
+function createEditFolk() {
+    simpleLock = true;
+
+    create_loginCode.value = login;
+    create_uName.value = nameText.textContent
+
+    create_uName.focus();
+
+    if (registerStatus.textContent == "Criando novo") {
+        create_loginCode.focus()
+    }
+}
+
+function saveFolks() {
+    nameText.textContent = create_uName.value
+    loginText.textContent = create_loginCode.value
+
+    findToEdit = create_loginCode.value
+    edit = folks.find(user => user.loginCod == findToEdit);
+
+    if (nameText.textContent == "" || loginText.textContent == "") {
+        return;
+    }
+
+    if (edit) {
+        edit.uName = create_uName.value;
+        edit.loginCod = create_loginCode.value;
+        document.getElementById("registerTittle").textContent = "Editado com sucesso"
+        if (nameText.textContent === "EXCLUIR") {
+            folks.splice(edit);
+            document.getElementById("loginHub").classList.remove("hidden");
+            clearAll();
+        }
+    } else {
+        createFolk = { uName: create_uName.value, loginCod: parseInt(create_loginCode.value) }
+        folks.push(createFolk)
+        document.getElementById("registerTittle").textContent = "Criado com sucesso"
+    }
+    folksJson = JSON.stringify(folks);
+    localStorage.setItem("folks", folksJson);
+    setTimeout(function () {
+        location.reload()
+    }, 1000)
+}
 
 function formSum() {
     sum = 0;
     control = 0;
 
     isItEmpty.forEach((input) => {
-        if (input.value != "") {
-            sum += parseFloat(input.value);
-        };
+        input.value != "" ? sum += parseFloat(input.value) : null
 
         if (input.value === "" && !input.id) {
             control++;
@@ -93,7 +145,6 @@ function formSum() {
 
     saveState();//está criando novos inputs
     updateInput();
-    console.log("control é " + control)
     if (control <= 2) {
         needMoreInputs = 4;
         createInputs();
@@ -116,17 +167,14 @@ function updateInput() {
 
     findEmpty = document.querySelectorAll(".becomeDev");
     findEmpty.forEach((input) => {
-        if (input.value === "") {
-            input.classList.remove("becomeDev");
-        };
+        input.value === "" ? input.classList.remove("becomeDev") : null;
     });
 
     findEmpty = document.querySelectorAll(".becomeSin");
     findEmpty.forEach((input) => {
-        if (input.value === "") {
-            input.classList.remove("becomeSin");
-        };
+        input.value === "" ? input.classList.remove("becomeSin") : null;
     });
+    document.getElementById("showSum").textContent = "TOTAL:" + sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 };
 
 function putItOnDevolucoes() {
@@ -242,6 +290,23 @@ function findAndClear() {
     //setTimeout volta a pág para o estado anterior
 };
 
+function clearAll() {
+    isItEmpty.forEach(function (input) {
+        input.value = ""
+    });
+    document.getElementById("loginValue").value = ""
+    sum = 0;
+    nameText.textContent = "";
+    loginText.textContent = "";
+    login = "";
+    updateInput();
+    saveState();
+    localStorage.removeItem("LastLoginCode");
+    localStorage.removeItem("time");
+    location.reload();
+    localStorage.setItem("allInputs", 36);
+}
+
 document.addEventListener("keydown", function (event) {
     switch (event.code) {
         case "F4":
@@ -253,21 +318,44 @@ document.addEventListener("keydown", function (event) {
             document.getElementById("signature").classList.add("hidden");
             break;
         case "F8":
-            localStorage.clear();
-            location.reload();
+            clearAll()
             break;
         case "KeyT":
+            if (simpleLock === true) {
+                return;
+            }
             avulso.focus();
             break;
         case "KeyL":
+            if (simpleLock === true) {
+                return;
+            }
             findEmpty = document.querySelectorAll(".etc");
             goToFreeInput();
             break;
         case "KeyD":
+            if (simpleLock === true) {
+                return;
+            }
             putItOnDevolucoes();
             break;
         case "KeyS":
+            if (simpleLock === true) {
+                return;
+            }
             putItOnSinais();
+            break;
+        case "F2":
+            if (simpleLock != true) {
+                document.getElementById("loginHub").classList.add("hidden");
+                document.getElementById("registerHub").classList.toggle("hidden");
+                document.getElementById("bodyTable").classList.toggle("hidden");
+            } else {
+                document.getElementById("registerHub").classList.toggle("hidden");
+                document.getElementById("registerHub").classList.contains("hidden") ? document.getElementById("loginValue").focus() : null
+            }
+            login ? registerStatus.textContent = `editando '${login}'` : registerStatus.textContent = "Criando novo";
+            createEditFolk();
             break;
     };
 
@@ -286,11 +374,26 @@ function saveState() {
     localStorage.setItem("time", new Date().toLocaleDateString() + " | " + new Date().toLocaleTimeString())
 
     if (inputs.length > 44) {
+        console.log(inputs.length)
         localStorage.setItem("allInputs", inputs.length);
     };// SOLUCAO TEMPORÁRIA para nn criar novos ao recarregar a pág
 };
 
 function loadState() {
+    folksJson = localStorage.getItem("folks");
+
+    folks = JSON.parse(folksJson)
+
+    if (folks == null) {
+        folks = [
+            { uName: "Paulo Henrique AP", loginCod: 1419 },
+            { uName: "Maycon Douglas", loginCod: 1391 },
+            { uName: "Rian", loginCod: 1306 },
+            { uName: "Alan Matos Vecchi", loginCod: 1439 }
+        ];
+        localStorage.clear()
+    }//primeira utilização
+
     const lastTotalInputs = localStorage.getItem("allInputs");
 
     if (lastTotalInputs) {
@@ -314,10 +417,10 @@ function loadState() {
             input.className = savedClass;
         };
     });
-
-    document.getElementById("lastName").textContent += localStorage.getItem("lastUsedName");
-
-    document.getElementById("lastLogin").textContent += localStorage.getItem("LastLoginCode");
+    if (localStorage.getItem("LastLoginCode")) {
+        document.getElementById("loginValue").value = localStorage.getItem("LastLoginCode");
+        showUserInfos();
+    };
 
     document.getElementById("lastTime").textContent += localStorage.getItem("time");
     formSum();

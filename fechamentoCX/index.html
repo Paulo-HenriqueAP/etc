@@ -10,15 +10,34 @@
 
 <body>
     <div id="loginHub" class="">
-        <h3>Digite seu login</h3>
+        <h4 id="infosTitle">Digite seu login</h4>
         <input id="loginValue" type="number" placeholder="e pressione enter" onchange="showUserInfos()"
             style="text-align: center; font-size: large;">
+    </div>
+
+    <div id="registerHub" class="hidden">
+        <span id="regStatus" style="font-size: small; color: slategray;"></span>
+
+        <h4 id="registerTittle" style="text-align: center; margin-bottom: 20px;">Cadastros</h4>
+        <li><span></span>
+            <label for="newLoginValue">Login</label>
+            <input type="number" id="newLoginValue">
+        </li>
+
+        <li>
+            <label for="nameValue">Nome&nbsp;</label>
+            <input type="text" id="nameValue">
+        </li>
+        <button id="saveButton" onclick="saveFolks()">salvar</button>
+        <br> 
+        <br>
+        <span style="font-size: xx-small;">escreva "EXCLUIR" no nome</span>
     </div>
 
     <table id="bodyTable" class="hidden">
         <tr>
             <th>
-                <span id="uName">NOME:</span>
+                <span id="uName"></span>
                 <br>
                 <span id="uLogin"></span>
             </th>
@@ -86,7 +105,8 @@
             <h2>Como usar</h2>
         <li><strong>Tab</strong> ou <strong>Enter</strong> avança</li>
         <li><strong>Shift e Tab</strong> volta</li>
-        <li> <strong>F4</strong> quando estiver pronto para imprimir</li>
+        <li> <strong>F2</strong> cadastros</li>
+        <li> <strong>F4</strong> para imprimir</li>
         <li><strong>F8</strong> apaga a última seção</strong>
         <li><strong>T</strong> volta para o topo</strong>
         <li><strong>L</strong> vai para o próx livre</strong>
@@ -96,20 +116,17 @@
         <li><strong>S</strong> adiciona/ remove <strong
                 style="background-color: #ffcb00;border-radius: 3px;">SINAL</strong>
         </li>
-        <li>Está preso? Aperte <strong>F11</strong> e em seguida <strong>Tab</strong></li>
+        <br>
+        <li>Está preso? <strong>F11</strong> depois <strong>Tab</strong></li>
         <div style="font-size: small;">
             <ul>
-                <h3>Configuração na aba de Impressão</h3>
+                <h3 style="text-align: center;">Configuração da impresora</h3>
                 <li>Impressora: <span style="font-weight: bolder;">Epson TM-T20X Series</span></li>
                 <li>Tamanho Papel: <span style="font-weight: bolder;">Postcard 100x148mm</span></li>
                 <li>Margens: <span style="font-weight: bolder; ">Nenhum</span></li>
-                <li>Navegue usando <span style="font-weight: bolder;">Tab até "Iprimir"</span></li>
             </ul>
             <br>
-            <h3>Seção anterior</h3>
-            <li>Nome: <span id="lastName" style="font-weight: bolder;"></span></li>
-            <li>Login: <span id="lastLogin" style="font-weight: bolder;"></span> </li>
-            <li>Horário: <span id="lastTime" style="font-weight: bolder;"></span> </li>
+            <li>Seção anterior: <span id="lastTime" style="font-weight: bolder;"></span> </li>
         </div>
     </ul>
 

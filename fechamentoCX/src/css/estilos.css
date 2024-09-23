@@ -24,7 +24,10 @@ td {
 }
 
 #bodyTable {
+    position: absolute;
     max-width: 71mm;
+    z-index: 3;
+    background-color: #F8F8FF;
 }
 
 input.becomeDev {
@@ -67,7 +70,6 @@ li {
     width: 90%;
 }
 
-
 input {
     font-weight: bolder;
     margin: 0;
@@ -80,14 +82,39 @@ input {
     top: 0;
     border-radius: 3px;
     box-shadow: 2px 5px 20px 2px #16161D;
-    padding: 0.5%;
+    padding: 0.6%;
     font-size: larger;
+    z-index: 1;
 }
 
 #devolucoes,
 #sinais {
     font-weight: bolder;
     font-size: small;
+}
+
+#registerHub {
+    font-size: x-large;
+    border: 1px solid;
+    width: max-content;
+    padding: 20px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 3px;
+    background-color: #F8F8FF;
+    z-index: 2;
+}
+
+#registerHub li {
+    margin-bottom: 10px;
+}
+
+#registerHub input {
+    border: 1px solid;
+    border-radius: 3px;
+    padding: 5px;
 }
 
 @media print {
@@ -100,6 +127,10 @@ input {
     }
 
     #loginHub {
+        display: none;
+    }
+
+    #registerHub {
         display: none;
     }
 
@@ -120,4 +151,19 @@ input {
     td {
         border-right: 0;
     }
+}
+
+h4 {
+    margin: 10px;
+}
+
+#saveButton {
+    padding: 6px;
+    cursor: pointer;
+}
+
+#saveButton:focus {
+    background-color: green;
+    color: white;
+    font-weight: bolder;
 }
