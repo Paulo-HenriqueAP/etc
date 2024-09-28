@@ -28,10 +28,11 @@
             <label for="nameValue">Nome&nbsp;</label>
             <input type="text" id="nameValue">
         </li>
-        <button id="saveButton" onclick="saveFolks()">salvar</button>
-        <br> 
+        <button id="saveButton" onclick="saveFolks()" onfocus=" simpleCheck()"
+            onfocusout="removeColor(this)">salvar</button>
         <br>
-        <span style="font-size: xx-small;">escreva "EXCLUIR" no nome</span>
+        <br>
+        <span style="font-size: x-small;">escreva "EXCLUIR" no nome</span>
     </div>
 
     <table id="bodyTable" class="hidden">
@@ -46,20 +47,20 @@
             <th>DINHEIRO</th>
         </tr>
         <tr>
-            <td>AVULSO: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input min="1" onchange="formSum()" id="stuffs"
+            <td style="font-size: larger;">AVULSO: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input min="1" onchange="formSum()" id="stuffs"
                     type="number" class="etc"></td>
         </tr>
         <tr>
-            <td>5,00: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input min="1" onchange="formSum()"
+            <td style="font-size: larger;">5,00: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input min="1" onchange="formSum()"
                     id="stuffs5" type="number" class="etc"></td>
         </tr>
         <tr>
-            <td>10,00 | 20,00:&nbsp;
+            <td style="font-size: larger;">10,00 | 20,00:&nbsp;
                 <input min="1" onchange="formSum()" id="stuffs10_20" type="number" class="etc">
             </td>
         </tr>
         <tr>
-            <td>50,00 | 100,00: <input min="1" onchange="formSum()" id="stuffs50_100" type="number" class="etc"></td>
+            <td style="font-size: larger;">50,00 | 100,00: <input min="1" onchange="formSum()" id="stuffs50_100" type="number" class="etc"></td>
         </tr>
         <tr>
             <th>CARTÕES | PIX</th>
@@ -89,7 +90,7 @@
         </tr>
         <tr>
             <th>
-                <h1 id="showSum" style="text-align: left;">TOTAL:</h1>
+                <h1 id="showSum" style="text-align: left;"></h1>
                 <div class="hidden" id="signature">
                     <br>
                     <span style="max-width: 71mm;">__________________________________</span>

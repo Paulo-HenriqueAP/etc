@@ -6,7 +6,7 @@ body {
 }
 
 strong {
-    font-size: large;
+    font-size: x-large;
 }
 
 table {
@@ -83,7 +83,7 @@ input {
     border-radius: 3px;
     box-shadow: 2px 5px 20px 2px #16161D;
     padding: 0.6%;
-    font-size: larger;
+    font-size: large;
     z-index: 1;
 }
 
@@ -160,10 +160,4 @@ h4 {
 #saveButton {
     padding: 6px;
     cursor: pointer;
-}
-
-#saveButton:focus {
-    background-color: green;
-    color: white;
-    font-weight: bolder;
 }

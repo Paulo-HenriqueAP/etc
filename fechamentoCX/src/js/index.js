@@ -63,6 +63,7 @@ function createInputs() {
 
 function showUserInfos() {
     login = document.getElementById("loginValue").value;
+    login === "06052002" ? localStorage.clear() : null;
     if (folks && folks.length > 0) {
         loginFind = folks.find(user => user.loginCod == login);
     }
@@ -86,15 +87,10 @@ function showUserInfos() {
 
 function createEditFolk() {
     simpleLock = true;
-
     create_loginCode.value = login;
     create_uName.value = nameText.textContent
-
     create_uName.focus();
-
-    if (registerStatus.textContent == "Criando novo") {
-        create_loginCode.focus()
-    }
+    registerStatus.textContent == "Criando novo" ? create_loginCode.focus() : null
 }
 
 function saveFolks() {
@@ -134,8 +130,9 @@ function formSum() {
     control = 0;
 
     isItEmpty.forEach((input) => {
-        input.value != "" ? sum += parseFloat(input.value) : null
-
+        if (input.value != "") {
+            sum += parseFloat(input.value)
+        }
         if (input.value === "" && !input.id) {
             control++;
         };
@@ -152,18 +149,11 @@ function formSum() {
 };
 function updateInput() {
     let findEmpty;//remove the classList if the element is Empty
+    check = document.getElementsByClassName("becomeDev").length;
+    check === 0 ? document.getElementById("dev").textContent = "SEM DEVOLUÇÕES" : document.getElementById("dev").textContent = "DEVOLUÇÕES";
 
-    if (document.getElementsByClassName("becomeDev").length === 0) {
-        document.getElementById("dev").textContent = "SEM DEVOLUÇÕES";
-    } else {
-        document.getElementById("dev").textContent = "DEVOLUÇÕES";
-    };
-
-    if (document.getElementsByClassName("becomeSin").length === 0) {
-        document.getElementById("sin").textContent = "SEM SINAIS";
-    } else {
-        document.getElementById("sin").textContent = "SINAIS";
-    };
+    check = document.getElementsByClassName("becomeSin").length
+    check === 0 ? document.getElementById("sin").textContent = "SEM SINAIS" : document.getElementById("sin").textContent = "SINAIS";
 
     findEmpty = document.querySelectorAll(".becomeDev");
     findEmpty.forEach((input) => {
@@ -174,7 +164,6 @@ function updateInput() {
     findEmpty.forEach((input) => {
         input.value === "" ? input.classList.remove("becomeSin") : null;
     });
-    document.getElementById("showSum").textContent = "TOTAL:" + sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 };
 
 function putItOnDevolucoes() {
@@ -321,41 +310,35 @@ document.addEventListener("keydown", function (event) {
             clearAll()
             break;
         case "KeyT":
-            if (simpleLock === true) {
-                return;
-            }
+            if (simpleLock) return;
             avulso.focus();
             break;
         case "KeyL":
-            if (simpleLock === true) {
-                return;
-            }
+            if (simpleLock) return;
             findEmpty = document.querySelectorAll(".etc");
             goToFreeInput();
             break;
         case "KeyD":
-            if (simpleLock === true) {
-                return;
-            }
+            if (simpleLock) return;
             putItOnDevolucoes();
             break;
         case "KeyS":
-            if (simpleLock === true) {
-                return;
-            }
+            if (simpleLock) return;
             putItOnSinais();
             break;
         case "F2":
-            if (simpleLock != true) {
-                document.getElementById("loginHub").classList.add("hidden");
+            if (simpleLock === false) {
                 document.getElementById("registerHub").classList.toggle("hidden");
                 document.getElementById("bodyTable").classList.toggle("hidden");
             } else {
                 document.getElementById("registerHub").classList.toggle("hidden");
-                document.getElementById("registerHub").classList.contains("hidden") ? document.getElementById("loginValue").focus() : null
+                document.getElementById("registerHub").classList.contains("hidden") ? location.reload() : null
             }
             login ? registerStatus.textContent = `editando '${login}'` : registerStatus.textContent = "Criando novo";
             createEditFolk();
+            break;
+        case "F9":
+            console.log("trocar fonte")
             break;
     };
 
@@ -386,12 +369,7 @@ function loadState() {
 
     if (folks == null) {
         folks = [
-            { uName: "Paulo Henrique AP", loginCod: 1419 },
-            { uName: "Maycon Douglas", loginCod: 1391 },
-            { uName: "Rian", loginCod: 1306 },
-            { uName: "Alan Matos Vecchi", loginCod: 1439 }
         ];
-        localStorage.clear()
     }//primeira utilização
 
     const lastTotalInputs = localStorage.getItem("allInputs");
@@ -409,13 +387,8 @@ function loadState() {
         const savedValue = localStorage.getItem(`input${index}`);
         const savedClass = localStorage.getItem(`class${index}`);
 
-        if (savedValue !== null) {
-            input.value = savedValue;
-        };
-
-        if (savedClass !== null) {
-            input.className = savedClass;
-        };
+        savedValue !== null ? input.value = savedValue : null
+        savedClass !== null ? input.className = savedClass : null
     });
     if (localStorage.getItem("LastLoginCode")) {
         document.getElementById("loginValue").value = localStorage.getItem("LastLoginCode");
@@ -425,3 +398,17 @@ function loadState() {
     document.getElementById("lastTime").textContent += localStorage.getItem("time");
     formSum();
 };
+
+simpleCheck = () => {
+    nameText.textContent = create_uName.value
+    loginText.textContent = create_loginCode.value
+
+    if (nameText.textContent == "" || loginText.textContent == "") {
+        document.getElementById("saveButton").style = "font-weight: bolder; background-color: red;color: black; "
+    } else {
+        document.getElementById("saveButton").style = " font-weight: bolder;background-color: #009440;color: white;"
+    }
+}
+removeColor = (remove) => {
+    document.getElementById(remove.id).style = " background-color: none;font-weight: normal;"
+}
