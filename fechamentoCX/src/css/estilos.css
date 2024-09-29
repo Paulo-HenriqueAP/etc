@@ -68,6 +68,9 @@ li {
     font-size: xx-large;
     text-align: center;
     width: 90%;
+    background-color: #F8F8FF;
+    z-index: 2;
+    width: max-content;
 }
 
 input {
@@ -104,7 +107,7 @@ input {
     left: 50%;
     border-radius: 3px;
     background-color: #F8F8FF;
-    z-index: 2;
+    z-index: 5;
 }
 
 #registerHub li {
@@ -151,6 +154,10 @@ input {
     td {
         border-right: 0;
     }
+
+    #sangria {
+        display: none;
+    }
 }
 
 h4 {
@@ -161,3 +168,28 @@ h4 {
     padding: 6px;
     cursor: pointer;
 }
+
+#sangria {
+    text-align: center;
+    font-size: larger;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    left: 50%;
+    top: 50%;
+    outline: 3px solid #16161D;
+    border-radius: 3px;
+    padding: 2%;
+    background-color: #F8F8FF;
+    z-index: 4;
+}
+
+#sangriaTable {
+    position: absolute;
+    max-width: 71mm;
+}
+
+/*#operCod {
+    font-weight: bold;
+    text-decoration: underline;
+    text-underline-offset: 10px;
+}*/

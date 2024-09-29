@@ -72,8 +72,8 @@ function showUserInfos() {
         nameText.textContent = loginFind.uName;
         document.getElementById("loginHub").classList.add("hidden");
         document.getElementById("bodyTable").classList.remove("hidden");
-        loginText.textContent = `(${login})`;
-        avulso.focus();
+        loginText.textContent = `<${login}>`;
+        goToFreeInput();
         localStorage.setItem("LastLoginCode", login);
         simpleLock = false;
     } else {
@@ -107,7 +107,7 @@ function saveFolks() {
     if (edit) {
         edit.uName = create_uName.value;
         edit.loginCod = create_loginCode.value;
-        document.getElementById("registerTittle").textContent = "Editado com sucesso"
+        document.getElementById("registerTitle").textContent = `'${loginText.textContent}' foi editado`
         if (nameText.textContent === "EXCLUIR") {
             folks.splice(edit);
             document.getElementById("loginHub").classList.remove("hidden");
@@ -116,7 +116,7 @@ function saveFolks() {
     } else {
         createFolk = { uName: create_uName.value, loginCod: parseInt(create_loginCode.value) }
         folks.push(createFolk)
-        document.getElementById("registerTittle").textContent = "Criado com sucesso"
+        document.getElementById("registerTitle").textContent = `Login '${loginText.textContent}' foi criado`
     }
     folksJson = JSON.stringify(folks);
     localStorage.setItem("folks", folksJson);
@@ -132,6 +132,7 @@ function formSum() {
     isItEmpty.forEach((input) => {
         if (input.value != "") {
             sum += parseFloat(input.value)
+            input.value == "0" ? input.value = "" : null;
         }
         if (input.value === "" && !input.id) {
             control++;
@@ -220,6 +221,7 @@ function jumpToNext() {
 };
 
 function goToFreeInput() {
+    findEmpty = document.querySelectorAll(".etc");
     for (let i = 0; i < findEmpty.length; i++) {
         if (findEmpty[i].value === "" && !findEmpty[i].id) {
             findEmpty[i].focus();
@@ -315,7 +317,6 @@ document.addEventListener("keydown", function (event) {
             break;
         case "KeyL":
             if (simpleLock) return;
-            findEmpty = document.querySelectorAll(".etc");
             goToFreeInput();
             break;
         case "KeyD":
@@ -327,6 +328,12 @@ document.addEventListener("keydown", function (event) {
             putItOnSinais();
             break;
         case "F2":
+            sangriaElement = document.getElementById("sangria");
+            sangriaElement.classList.toggle("hidden");
+            !sangriaElement.classList.contains("hidden") ? document.getElementById("sangriaInput").focus() : location.reload()
+            document.getElementById("bodyTable").classList.add("hidden");
+            break;
+        case "F9":
             if (simpleLock === false) {
                 document.getElementById("registerHub").classList.toggle("hidden");
                 document.getElementById("bodyTable").classList.toggle("hidden");
@@ -336,9 +343,6 @@ document.addEventListener("keydown", function (event) {
             }
             login ? registerStatus.textContent = `editando '${login}'` : registerStatus.textContent = "Criando novo";
             createEditFolk();
-            break;
-        case "F9":
-            console.log("trocar fonte")
             break;
     };
 
@@ -357,7 +361,6 @@ function saveState() {
     localStorage.setItem("time", new Date().toLocaleDateString() + " | " + new Date().toLocaleTimeString())
 
     if (inputs.length > 44) {
-        console.log(inputs.length)
         localStorage.setItem("allInputs", inputs.length);
     };// SOLUCAO TEMPORÁRIA para nn criar novos ao recarregar a pág
 };
@@ -397,6 +400,7 @@ function loadState() {
 
     document.getElementById("lastTime").textContent += localStorage.getItem("time");
     formSum();
+    goToFreeInput();
 };
 
 simpleCheck = () => {
@@ -411,4 +415,22 @@ simpleCheck = () => {
 }
 removeColor = (remove) => {
     document.getElementById(remove.id).style = " background-color: none;font-weight: normal;"
+}
+
+defSangria = () => {
+    sangria = parseFloat(document.getElementById("sangriaInput").value)
+    if (sangria < 300) {
+        document.getElementById("sangriaTitle").innerHTML = 'Sangria <br><br> <span style="font-size:smaller;">(Mínimo 300$)</span>'
+        document.getElementById("sangriaInput").focus();
+        return;
+    }
+    document.getElementById("sangriaTable").classList.toggle("hidden");
+    document.getElementById("sangriaInput").classList.toggle("hidden");
+    document.getElementById("sangria").classList.add("hidden");
+    document.getElementById("sumSangria").textContent = "SANGRIA: " + sangria.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    document.getElementById("operCod").textContent = loginText.textContent
+    document.getElementById("timeSangria").textContent = new Date().toLocaleDateString() + " | " + new Date().toLocaleTimeString();
+    document.getElementById("oper").textContent = "Operador: " + uName.textContent;
+    window.print();
+    location.reload();
 }

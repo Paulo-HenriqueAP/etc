@@ -18,7 +18,7 @@
     <div id="registerHub" class="hidden">
         <span id="regStatus" style="font-size: small; color: slategray;"></span>
 
-        <h4 id="registerTittle" style="text-align: center; margin-bottom: 20px;">Cadastros</h4>
+        <h4 id="registerTitle" style="text-align: center; margin-bottom: 20px;">Cadastros</h4>
         <li><span></span>
             <label for="newLoginValue">Login</label>
             <input type="number" id="newLoginValue">
@@ -28,11 +28,37 @@
             <label for="nameValue">Nome&nbsp;</label>
             <input type="text" id="nameValue">
         </li>
-        <button id="saveButton" onclick="saveFolks()" onfocus=" simpleCheck()"
+        <button id="saveButton" onclick="saveFolks()" onfocus="simpleCheck()"
             onfocusout="removeColor(this)">salvar</button>
         <br>
         <br>
         <span style="font-size: x-small;">escreva "EXCLUIR" no nome</span>
+        <br>
+        <span style="font-size: x-small;">F9 cancela edição</span>
+    </div>
+
+    <div class="hidden" id="sangria">
+        <h4 id="sangriaTitle">SANGRIA</h4>
+        <br>
+        <input style="font-size: smaller;"  type="number" min="300" id="sangriaInput" onchange="defSangria()" placeholder="valor e ENTER">
+
+    </div>
+
+    <div id="sangriaTable" class="hidden">
+        <div style="text-align: center;">
+            <span id="oper">Operador: </span>
+            <br>
+            <span id="operCod" style="font-weight: bolder; font-size: large;"></span>
+            <br>------------------------------------</br>
+            <h2 id="sumSangria"></h2>
+            <br>
+            <span>______________________________</span>
+            <br>
+            <span style="font-weight: bold;">↑ Autorização ↑</span></span>
+            <br>
+            <span id="timeSangria"></span>
+        </div>
+
     </div>
 
     <table id="bodyTable" class="hidden">
@@ -40,19 +66,19 @@
             <th>
                 <span id="uName"></span>
                 <br>
-                <span id="uLogin"></span>
+                <span id="uLogin" style="font-weight: bolder; font-size: large;"></span>
             </th>
         </tr>
         <tr>
             <th>DINHEIRO</th>
         </tr>
         <tr>
-            <td style="font-size: larger;">AVULSO: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input min="1" onchange="formSum()" id="stuffs"
-                    type="number" class="etc"></td>
+            <td style="font-size: larger;">AVULSO: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input min="1"
+                    onchange="formSum()" id="stuffs" type="number" class="etc"></td>
         </tr>
         <tr>
-            <td style="font-size: larger;">5,00: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input min="1" onchange="formSum()"
-                    id="stuffs5" type="number" class="etc"></td>
+            <td style="font-size: larger;">5,00: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+                    min="1" onchange="formSum()" id="stuffs5" type="number" class="etc"></td>
         </tr>
         <tr>
             <td style="font-size: larger;">10,00 | 20,00:&nbsp;
@@ -60,10 +86,11 @@
             </td>
         </tr>
         <tr>
-            <td style="font-size: larger;">50,00 | 100,00: <input min="1" onchange="formSum()" id="stuffs50_100" type="number" class="etc"></td>
+            <td style="font-size: larger;">50,00 | 100,00: <input min="1" onchange="formSum()" id="stuffs50_100"
+                    type="number" class="etc"></td>
         </tr>
         <tr>
-            <th>CARTÕES | PIX</th>
+            <th id="etcTitle">CARTÕES | PIX</th>
         </tr>
         <tr>
             <td>
@@ -106,9 +133,10 @@
             <h2>Como usar</h2>
         <li><strong>Tab</strong> ou <strong>Enter</strong> avança</li>
         <li><strong>Shift e Tab</strong> volta</li>
-        <li> <strong>F2</strong> cadastros</li>
+        <li> <strong>F2</strong> papel sangria</li>
         <li> <strong>F4</strong> para imprimir</li>
         <li><strong>F8</strong> apaga a última seção</strong>
+        <li> <strong>F9</strong> cadastros</li>
         <li><strong>T</strong> volta para o topo</strong>
         <li><strong>L</strong> vai para o próx livre</strong>
         <li><strong>D</strong> adiciona/ remove <strong
