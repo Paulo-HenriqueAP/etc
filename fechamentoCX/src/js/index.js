@@ -16,6 +16,7 @@ let create_loginCode = document.getElementById("newLoginValue");
 let create_uName = document.getElementById("nameValue");
 let loginFind;
 let edit;
+let caixa;
 
 let folks = [
 ];
@@ -132,7 +133,7 @@ function formSum() {
     isItEmpty.forEach((input) => {
         if (input.value != "") {
             sum += parseFloat(input.value)
-            input.value == "0" ? input.value = "" : null;
+            input.value <= 0 ? input.value = "" : null;
         }
         if (input.value === "" && !input.id) {
             control++;
@@ -399,6 +400,8 @@ function loadState() {
     };
 
     document.getElementById("lastTime").textContent += localStorage.getItem("time");
+    caixa = localStorage.getItem("caixa");
+    document.getElementById("cxNumber").textContent = " CAIXA " + caixa;
     formSum();
     goToFreeInput();
 };
@@ -418,7 +421,13 @@ removeColor = (remove) => {
 }
 
 defSangria = () => {
-    sangria = parseFloat(document.getElementById("sangriaInput").value)
+    sangria = parseFloat(document.getElementById("sangriaInput").value);
+    console.log(sangria)
+    if (sangria == 69) {
+        caixa = prompt("Qual caixa vc está? :")
+        localStorage.setItem("caixa", caixa);
+        location.reload()
+    }
     if (sangria < 300) {
         document.getElementById("sangriaTitle").innerHTML = 'Sangria <br><br> <span style="font-size:smaller;">(Mínimo 300$)</span>'
         document.getElementById("sangriaInput").focus();
