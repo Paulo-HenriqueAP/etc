@@ -16,7 +16,7 @@ let create_loginCode = document.getElementById("newLoginValue");
 let create_uName = document.getElementById("nameValue");
 let loginFind;
 let edit;
-let caixa;
+let cashier;
 
 let folks = [
 ];
@@ -169,9 +169,6 @@ function updateInput() {
 };
 
 function putItOnDevolucoes() {
-    activeEl = document.activeElement;
-    activeElBackup = activeEl.value;
-
     setTimeout(function () {
         activeEl.value = activeElBackup;
     });//The input becomes empty if Shif + Tab. This function prevents it
@@ -191,9 +188,6 @@ function putItOnDevolucoes() {
 };
 
 function putItOnSinais() {
-    activeEl = document.activeElement;
-    activeElBackup = activeEl.value;
-
     setTimeout(function () {
         activeEl.value = activeElBackup;
     });//The input becomes empty if Shif + Tab. This function prevents it
@@ -322,17 +316,22 @@ document.addEventListener("keydown", function (event) {
             break;
         case "KeyD":
             if (simpleLock) return;
+            activeEl = document.activeElement;
+            activeElBackup = activeEl.value;
             putItOnDevolucoes();
             break;
         case "KeyS":
             if (simpleLock) return;
+            activeEl = document.activeElement;
+            activeElBackup = activeEl.value;
+
             putItOnSinais();
             break;
         case "F2":
+            document.getElementById("bodyTable").classList.add("hidden");
             sangriaElement = document.getElementById("sangria");
             sangriaElement.classList.toggle("hidden");
             !sangriaElement.classList.contains("hidden") ? document.getElementById("sangriaInput").focus() : location.reload()
-            document.getElementById("bodyTable").classList.add("hidden");
             break;
         case "F9":
             if (simpleLock === false) {
@@ -400,8 +399,14 @@ function loadState() {
     };
 
     document.getElementById("lastTime").textContent += localStorage.getItem("time");
-    caixa = localStorage.getItem("caixa");
-    document.getElementById("cxNumber").textContent = " CAIXA " + caixa;
+    cashier = localStorage.getItem("cashier");
+    workShift = new Date().getHours();
+    if (workShift > 15 && workShift < 23) {
+        cashier += ".2";
+    } else {
+        cashier += ".1";
+    };
+    document.getElementById("cxNumber").textContent = " CAIXA " + cashier;
     formSum();
     goToFreeInput();
 };
@@ -422,10 +427,9 @@ removeColor = (remove) => {
 
 defSangria = () => {
     sangria = parseFloat(document.getElementById("sangriaInput").value);
-    console.log(sangria)
     if (sangria == 69) {
-        caixa = prompt("Qual caixa vc está? :")
-        localStorage.setItem("caixa", caixa);
+        cashier = prompt("Este PC é o Caixa")
+        localStorage.setItem("cashier", cashier);
         location.reload()
     }
     if (sangria < 300) {
@@ -443,3 +447,26 @@ defSangria = () => {
     window.print();
     location.reload();
 }
+
+/*
+function sMobileEvents(event) {
+    <li> <strong onclick="sMobileEvents(event)">F2</strong><span style="font-size: small;"> ></span> papel para sangria</li>
+    <li> <strong onclick="sMobileEvents(event)">F4</strong><span style="font-size: small;"> ></span> imprimi o fechamento</li>
+    <li><strong onclick="sMobileEvents(event)">F8</strong><span style="font-size: small;"> ></span> apaga a última seção</strong>
+    <li> <strong onclick="sMobileEvents(event)">F9</strong><span style="font-size: small;"> ></span> cadastros</li>
+
+
+
+
+
+    let chave = event.target.textContent;
+
+    const teclado = new KeyboardEvent('keydown', {
+        code: chave,
+        bubbles: true,
+    });
+    document.dispatchEvent(teclado);
+}
+    
+funcao para funcionar sem a necessidade do teclado. nao esta 100% funcional 
+*/
