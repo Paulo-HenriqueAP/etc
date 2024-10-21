@@ -415,7 +415,7 @@ function loadState() {
     document.getElementById("lastTime").textContent += localStorage.getItem("time");
     cashier = localStorage.getItem("cashier");
     workShift = new Date().getHours();
-    if (workShift > 15 && workShift < 23) {
+    if (workShift >= 14 && workShift < 23) {
         cashier += ".2";
     } else {
         cashier += ".1";
