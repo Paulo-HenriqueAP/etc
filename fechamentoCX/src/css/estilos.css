@@ -161,6 +161,11 @@ input {
     #sangria {
         display: none;
     }
+
+    #fontPH,
+    #fontMH {
+        display: none;
+    }
 }
 
 h4 {
@@ -189,6 +194,14 @@ h4 {
 #sangriaTable {
     position: absolute;
     max-width: 71mm;
+}
+
+#obsText {
+    width: 71mm;
+    height: max-content;
+    position: absolute;
+    z-index: 5;
+    text-align: center;
 }
 
 /*#operCod {

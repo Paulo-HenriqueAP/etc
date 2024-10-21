@@ -40,8 +40,15 @@
     <div class="hidden" id="sangria">
         <h4 id="sangriaTitle">SANGRIA</h4>
         <br>
-        <input style="font-size: smaller;"  type="number" min="300" id="sangriaInput" onchange="defSangria()" placeholder="valor e ENTER">
-
+        <input style="font-size: smaller;" type="number" min="300" id="sangriaInput" onchange="defSangria()"
+            placeholder="valor e ENTER">
+        <br>
+        <span style="font-size: xx-small;">69 altera o caixa</span>
+    </div>
+    <div id="obsTable" class="hidden">
+        <button id="fontMH" onclick="fontSizeM()">fonte--</button> <button id="fontPH" onclick="fontSizeP()">fonte++</button>
+        <div id="obsText" contenteditable style="overflow:hidden">
+            <pre><pre></div>  
     </div>
 
     <div id="sangriaTable" class="hidden">
@@ -147,6 +154,7 @@
         </li>
         <br>
         <li>Está preso? <strong>F11</strong> depois <strong>Tab</strong></li>
+        <li><span style="font-weight: bold;">Shift e ! </span>observações</li>
         <div style="font-size: small;">
             <ul>
                 <h3 style="text-align: center;">Configuração da impresora</h3>
@@ -161,6 +169,17 @@
 
 </body>
 <script src="src/js/index.js"></script>
+<script>
+    let font = 13
+    function fontSizeP() {
+        font++
+        document.getElementById("obsText").style = "font-size:" + font + "px;"
+    }
+    function fontSizeM() {
+        font--
+         document.getElementById("obsText").style = "font-size:" + font + "px;"
+    }
+</script>
 
 </html>
 

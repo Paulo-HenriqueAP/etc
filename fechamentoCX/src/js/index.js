@@ -302,6 +302,9 @@ document.addEventListener("keydown", function (event) {
             document.getElementById("signature").classList.remove("hidden");
             window.print();
             document.getElementById("signature").classList.add("hidden");
+            setTimeout(function() {
+                location.reload()
+            },100)
             break;
         case "F8":
             clearAll()
@@ -324,7 +327,6 @@ document.addEventListener("keydown", function (event) {
             if (simpleLock) return;
             activeEl = document.activeElement;
             activeElBackup = activeEl.value;
-
             putItOnSinais();
             break;
         case "F2":
@@ -345,6 +347,18 @@ document.addEventListener("keydown", function (event) {
             createEditFolk();
             break;
     };
+    if (event.shiftKey && event.key === "!") {
+        simpleLock = true;
+        if (document.getElementById("obsTable").classList.contains("hidden")) {
+            document.getElementById("bodyTable").classList.add("hidden");
+            document.getElementById("obsTable").classList.remove("hidden");
+        }else {
+            location.reload()
+        }
+        setTimeout(function() {
+            document.getElementById("obsText").focus()
+        }, 200)
+    }
 
     if (event.key === "Enter") {
         jumpToNext();
