@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>layout</title>
+    <style>
+        body {
+            margin: 0%;
+            padding: 0%;
+            background-color: blue;
+            text-align: center;
+            font-size: xx-large;
+            font-family: monospace;
+        }
+
+        header {
+            background-color: green;
+            padding: 25px;
+            height: 10%;
+        }
+
+        section {
+            position: absolute;
+            background-color: steelblue;
+            left: 0;
+            height: 80%;
+            width: 20%;
+        }
+
+        footer {
+            position: absolute;
+            width: 100%;
+            bottom: 0;
+            background-color: green;
+            height: 12%;
+        }
+    </style>
+</head>
+<header>TOPO</header>
+<section>
+    <span>LATERAL
+        <br>ESQUERDA</span>
+</section>
+<body>
+    <span style="transform: translate(-50%, -50%); left: 50%; top: 50%; position: absolute;">CONTEÚDO</span>
+    <footer>RODAPÉ</footer>
+</body>
+
+</html>
