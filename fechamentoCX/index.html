@@ -45,10 +45,24 @@
         <br>
         <span style="font-size: xx-small;">69 altera o caixa</span>
     </div>
+
     <div id="obsTable" class="hidden">
-        <button id="fontMH" onclick="fontSizeM()">fonte--</button> <button id="fontPH" onclick="fontSizeP()">fonte++</button>
-        <div id="obsText" contenteditable style="overflow:hidden">
-            <pre><pre></div>  
+        <label for="checkbox">QR CODE?</label>
+        <input type="checkbox" id="qrCheck" onchange="qrCodeSet()">
+
+        <span id="fontLabel">Tamanho da fonte
+            <input type="number" id="fontSizeVar" style="width: 50px; text-align: center;" value="13"
+                onchange="changeFontSize()"> px
+        </span>
+
+        <span id="qrLabel" class="hidden">Tamanho do QR
+            <input type="number" id="qrSizeVar" style="width: 50px; text-align: center;" value="150"
+                onchange="changeQrSize()"> px
+        </span>
+        <div id="obsText" contenteditable style="overflow:hidden"><pre><pre></div>  
+        <div id="qrTable">
+            <li> <img id="qr" src=""></img></li>
+        </div>
     </div>
 
     <div id="sangriaTable" class="hidden">
@@ -122,7 +136,7 @@
             </td>
         </tr>
         </tr>
-        <tr>
+        <tr style="border-bottom: 0.5px solid;">
             <th>
                 <h1 id="showSum" style="text-align: left;"></h1>
                 <div class="hidden" id="signature">
@@ -133,15 +147,16 @@
                 </div>
             </th>
         </tr>
+        <td style="border-bottom: 0.5px solid;"></td>
     </table>
 
     <ul class="howTo">
         <li>
             <h2>Como usar</h2>
         <li><strong>Tab</strong> ou <strong>Enter</strong> avança</li>
-        <li><strong>Shift e Tab</strong> volta</li>
-        <li> <strong>F2</strong> papel para sangria</li>
-        <li> <strong>F4</strong> imprimi o fechamento</li>
+        <li><strong>Shift</strong> e <strong>Tab</strong> volta</li>
+        <li> <strong>F2</strong> papel sangria</li>
+        <li> <strong>F4</strong> imprimi</li>
         <li><strong>F8</strong> apaga a última seção</strong>
         <li> <strong>F9</strong> cadastros</li>
         <li><strong>T</strong> volta para o topo</strong>
@@ -154,7 +169,7 @@
         </li>
         <br>
         <li>Está preso? <strong>F11</strong> depois <strong>Tab</strong></li>
-        <li><span style="font-weight: bold;">Shift e ! </span>observações</li>
+        <li><span style="font-weight: bold;">Shift <span style="font-weight: normal;">e</span> ! </span> qualquer texto</li>
         <div style="font-size: small;">
             <ul>
                 <h3 style="text-align: center;">Configuração da impresora</h3>
@@ -169,18 +184,6 @@
 
 </body>
 <script src="src/js/index.js"></script>
-<script>
-    let font = 13
-    function fontSizeP() {
-        font++
-        document.getElementById("obsText").style = "font-size:" + font + "px;"
-    }
-    function fontSizeM() {
-        font--
-         document.getElementById("obsText").style = "font-size:" + font + "px;"
-    }
-</script>
-
 </html>
 
 <!--Paulo-henriqueAP Diz: NÃO ALTERE O CÓDIGO-->

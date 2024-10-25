@@ -125,23 +125,18 @@ input {
         background-color: transparent;
     }
 
-    .howTo {
-        display: none;
-    }
-
-    #loginHub {
-        display: none;
-    }
-
-    #registerHub {
-        display: none;
-    }
-
-    .becomeSin {
-        display: none;
-    }
-
-    .becomeDev {
+    .howTo,
+    .becomeSin,
+    .becomeDev,
+    #loginHub,
+    #registerHub,
+    #sangria,
+    #fontSizeVar,
+    #qrSizeVar,
+    #qrCheck,
+    #fontLabel,
+    #qrLabel,
+    label {
         display: none;
     }
 
@@ -158,14 +153,15 @@ input {
         border-top: 0;
     }
 
-    #sangria {
-        display: none;
+    #qrTable {
+        text-align: center;
     }
 
-    #fontPH,
-    #fontMH {
-        display: none;
+    #obsText {
+        border: none !important;
+        box-shadow: none !important;
     }
+
 }
 
 h4 {
@@ -201,9 +197,10 @@ h4 {
     height: max-content;
     position: absolute;
     z-index: 5;
-    text-align: center;
+    margin-top: 5px;
+    border: 1px solid;
+    box-shadow: 1px 1px 1px 1px #16161D;
 }
-
 /*#operCod {
     font-weight: bold;
     text-decoration: underline;

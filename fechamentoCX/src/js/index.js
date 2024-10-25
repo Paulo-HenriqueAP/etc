@@ -17,6 +17,7 @@ let create_uName = document.getElementById("nameValue");
 let loginFind;
 let edit;
 let cashier;
+let qrSize = 150;
 
 let folks = [
 ];
@@ -302,12 +303,16 @@ document.addEventListener("keydown", function (event) {
             document.getElementById("signature").classList.remove("hidden");
             window.print();
             document.getElementById("signature").classList.add("hidden");
-            setTimeout(function() {
-                location.reload()
-            },100)
+            setTimeout(function () {
+                goToFreeInput()
+            }, 500)
             break;
         case "F8":
-            clearAll()
+            if (window.confirm("Tem certeza?")) {
+                clearAll();
+            } else {
+                goToFreeInput();
+            }
             break;
         case "KeyT":
             if (simpleLock) return;
@@ -352,10 +357,10 @@ document.addEventListener("keydown", function (event) {
         if (document.getElementById("obsTable").classList.contains("hidden")) {
             document.getElementById("bodyTable").classList.add("hidden");
             document.getElementById("obsTable").classList.remove("hidden");
-        }else {
+        } else {
             location.reload()
         }
-        setTimeout(function() {
+        setTimeout(function () {
             document.getElementById("obsText").focus()
         }, 200)
     }
@@ -462,6 +467,35 @@ defSangria = () => {
     location.reload();
 }
 
+changeFontSize = () => {
+    font = document.getElementById("fontSizeVar").value
+    document.getElementById("obsText").style = "font-size:" + font + "px;"
+}
+changeQrSize = () => {
+    qrSize = document.getElementById("qrSizeVar").value;
+    qrSize <= 0 ? qrSize = 150 : null;
+    qrCodeSet()
+}
+qrCodeSet = () => {
+    let qrCodePNG = document.getElementById("qr");
+    let stats = document.getElementById("qrCheck").checked;
+    let userText = document.getElementById("obsText").textContent;
+    userText.length <= 0 ? userText = "Nada" : null;
+    
+    if (stats === true) {
+        document.getElementById("obsText").classList.add("hidden");
+        document.getElementById("fontLabel").classList.add("hidden")
+        document.getElementById("qrLabel").classList.remove("hidden")
+        qrURL = `https://image-charts.com/chart?chs=${qrSize}x${qrSize}&cht=qr&chl=${userText}`
+        qrCodePNG.setAttribute("src", qrURL);
+    } else {
+        qrCodePNG.setAttribute("src", "");
+        document.getElementById("obsText").classList.remove("hidden");
+        document.getElementById("obsText").focus()
+        document.getElementById("fontLabel").classList.remove("hidden")
+        document.getElementById("qrLabel").classList.add("hidden")
+    }
+}
 /*
 function sMobileEvents(event) {
     <li> <strong onclick="sMobileEvents(event)">F2</strong><span style="font-size: small;"> ></span> papel para sangria</li>
