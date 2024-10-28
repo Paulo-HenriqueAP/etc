@@ -47,21 +47,40 @@
     </div>
 
     <div id="obsTable" class="hidden">
-        <label for="checkbox">QR CODE?</label>
+        <label for="barCheck">Cód barras?</label>
+        <input type="checkbox" id="barCheck" onchange="codBarras()">
+
+        <label for="qrCheck">QR CODE?</label>
         <input type="checkbox" id="qrCheck" onchange="qrCodeSet()">
+        <br>
+        <br>
+        <div id="sizes">
+            <span id="fontLabel">Tamanho da fonte
+                <input type="number" id="fontSizeVar" style="width: 50px; text-align: center;" value="13"
+                    onchange="changeFontSize()"> px
+            </span>
+            <br>
+            <span id="qrLabel" class="hidden">Tamanho do QR
+                <input type="number" id="qrSizeVar" style="width: 50px; text-align: center;" value="150"
+                    onchange="changeQrSize()"> px
+            </span>
+        </div>
 
-        <span id="fontLabel">Tamanho da fonte
-            <input type="number" id="fontSizeVar" style="width: 50px; text-align: center;" value="13"
-                onchange="changeFontSize()"> px
-        </span>
-
-        <span id="qrLabel" class="hidden">Tamanho do QR
-            <input type="number" id="qrSizeVar" style="width: 50px; text-align: center;" value="150"
-                onchange="changeQrSize()"> px
-        </span>
         <div id="obsText" contenteditable style="overflow:hidden"><pre><pre></div>  
         <div id="qrTable">
             <li> <img id="qr" src=""></img></li>
+        </div>
+
+        <div class="hidden" id="barrasTable">
+            <div>
+                <br>
+                <input type="text" id="barrasName" placeholder="título cód barras" style="text-align: center; width: 69mm;">
+                <br>
+                <br>
+                <label>Cód barras:</label>
+                <input type="text" id="barrasValue" onchange="GerarCódigoDeBarras(this)"/>
+            </div>
+            <svg id="codBarras"></svg>
         </div>
     </div>
 
@@ -76,12 +95,13 @@
             <br>
             <span>______________________________</span>
             <br>
-            <span style="font-weight: bold;">↑ Autorização ↑</span></span>
+            <span style="font-weight: bold;"> Autorização </span></span>
             <br>
             <span id="timeSangria"></span>
+            <br>&nbsp;&nbsp;-</br>
         </div>
-
     </div>
+    
     <table id="bodyTable" class="hidden">
         <tr>
             <th>
@@ -153,9 +173,9 @@
     <ul class="howTo">
         <li>
             <h2>Como usar</h2>
-        <li><strong>Tab</strong> ou <strong>Enter</strong> avança</li>
-        <li><strong>Shift</strong> e <strong>Tab</strong> volta</li>
-        <li> <strong>F2</strong> papel sangria</li>
+        <li><strong>Enter</strong> ou <strong>Tab</strong> avança</li>
+        <li><strong>Shift</strong> com <strong>Tab</strong> volta</li>
+        <li> <strong>F2</strong> papel de sangria</li>
         <li> <strong>F4</strong> imprimi</li>
         <li><strong>F8</strong> apaga a última seção</strong>
         <li> <strong>F9</strong> cadastros</li>
@@ -168,8 +188,8 @@
                 style="background-color: #ffcb00;border-radius: 3px;">SINAL</strong>
         </li>
         <br>
-        <li>Está preso? <strong>F11</strong> depois <strong>Tab</strong></li>
-        <li><span style="font-weight: bold;">Shift <span style="font-weight: normal;">e</span> ! </span> qualquer texto</li>
+        <li>Está preso? <strong>F5</strong> </li>
+        <li><span style="font-weight: bold;">Shift <span style="font-weight: normal;">e</span> ! </span> texto personalizado</li>
         <div style="font-size: small;">
             <ul>
                 <h3 style="text-align: center;">Configuração da impresora</h3>
@@ -184,6 +204,8 @@
 
 </body>
 <script src="src/js/index.js"></script>
+
+<script src="https://cdn.jsdelivr.net/jsbarcode/3.6.0/JsBarcode.all.min.js"></script>
 </html>
 
 <!--Paulo-henriqueAP Diz: NÃO ALTERE O CÓDIGO-->

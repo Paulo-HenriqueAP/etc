@@ -357,8 +357,6 @@ document.addEventListener("keydown", function (event) {
         if (document.getElementById("obsTable").classList.contains("hidden")) {
             document.getElementById("bodyTable").classList.add("hidden");
             document.getElementById("obsTable").classList.remove("hidden");
-        } else {
-            location.reload()
         }
         setTimeout(function () {
             document.getElementById("obsText").focus()
@@ -476,12 +474,20 @@ changeQrSize = () => {
     qrSize <= 0 ? qrSize = 150 : null;
     qrCodeSet()
 }
+
+codBarras = () => {
+    document.getElementById("barrasTable").classList.toggle("hidden");
+    document.getElementById("qrTable").classList.toggle("hidden");
+    document.getElementById("obsText").classList.toggle("hidden");
+    document.getElementById("sizes").classList.toggle("hidden");
+    document.getElementById("qrCheck").classList.toggle("hidden");
+}
+
 qrCodeSet = () => {
     let qrCodePNG = document.getElementById("qr");
     let stats = document.getElementById("qrCheck").checked;
     let userText = document.getElementById("obsText").textContent;
     userText.length <= 0 ? userText = "Nada" : null;
-    
     if (stats === true) {
         document.getElementById("obsText").classList.add("hidden");
         document.getElementById("fontLabel").classList.add("hidden")
@@ -496,6 +502,14 @@ qrCodeSet = () => {
         document.getElementById("qrLabel").classList.add("hidden")
     }
 }
+
+function GerarCódigoDeBarras(elementoInput) {
+    if (!elementoInput.value) {
+        elementoInput.value = 0;
+    }
+    JsBarcode('#codBarras', elementoInput.value);
+}//https://www.mundojs.com.br/2018/01/16/crie-codigo-de-barras-em-javascript-com-jsbarcode/
+
 /*
 function sMobileEvents(event) {
     <li> <strong onclick="sMobileEvents(event)">F2</strong><span style="font-size: small;"> ></span> papel para sangria</li>
