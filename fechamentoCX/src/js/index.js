@@ -18,7 +18,7 @@ let loginFind;
 let edit;
 let cashier;
 let qrSize = 150;
-
+let barras = 0;
 let folks = [
 ];
 document.addEventListener("DOMContentLoaded", function () {
@@ -81,8 +81,7 @@ function showUserInfos() {
     } else {
         document.getElementById("loginHub").classList.add("hidden");
         document.getElementById("registerHub").classList.remove("hidden");
-        registerStatus.textContent = `Login '${login}' não encontrado
-   `
+        registerStatus.textContent = `Login '${login}' não encontrado`
         createEditFolk();
     };
 };
@@ -481,6 +480,7 @@ codBarras = () => {
     document.getElementById("obsText").classList.toggle("hidden");
     document.getElementById("sizes").classList.toggle("hidden");
     document.getElementById("qrCheck").classList.toggle("hidden");
+    document.getElementById("barrasValue").focus();
 }
 
 qrCodeSet = () => {
@@ -507,7 +507,36 @@ function GerarCódigoDeBarras(elementoInput) {
     if (!elementoInput.value) {
         elementoInput.value = 0;
     }
-    JsBarcode('#codBarras', elementoInput.value);
+    barras++;
+    const barTable = document.getElementById("barrasElements");
+
+    let configuracao = {
+        width: 1,
+        height: 30,
+        fontSize: 13,
+        margin: 0
+    };
+    const createLi = document.createElement("li");
+    barTable.appendChild(createLi);
+
+    const barName = document.createElement("input");
+    barName.classList.add("barrasTitles");
+    barName.placeholder = `Nome <${elementoInput.value}>`
+    createLi.appendChild(barName);
+
+    const createImg = document.createElement("img");
+    createImg.id = "codBarras" + barras;
+    createLi.appendChild(createImg);
+    const novoCodigobarras = `#${createImg.id}`;
+    createLi.style = " border-bottom: 1px solid;  margin: 0;padding: 0;";
+    JsBarcode(novoCodigobarras, elementoInput.value, configuracao);
+
+    document.getElementById("barrasValue").value = "";
+    barName.focus();
+
+    barName.addEventListener("change", function () {
+        document.getElementById("barrasValue").focus();
+    });
 }//https://www.mundojs.com.br/2018/01/16/crie-codigo-de-barras-em-javascript-com-jsbarcode/
 
 /*

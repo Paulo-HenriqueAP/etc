@@ -161,14 +161,17 @@ input {
         box-shadow: none !important;
     }
 
-    #barrasName {
-        border: none !important;
-    }
-
     #barrasTable {
         border: none !important;
         top: 0;
     }
+
+    .barrasTitles {
+        border: none;
+    }
+   ::-webkit-input-placeholder {
+   color: transparent;
+   }
 }
 
 h4 {
@@ -215,10 +218,15 @@ h4 {
 
 #barrasTable {
     border: 1px solid;
-    text-align: center;
     border-radius: 3px;
     width: 71mm;
     position: absolute;
+    text-align: center;
+}
+
+.barrasTitles {
+    width: 69mm;
+    text-align: center;
 }
 
 /*#operCod {

@@ -67,20 +67,12 @@
         </div>
 
         <div id="obsText" contenteditable style="overflow:hidden"><pre><pre></div>  
-        <div id="qrTable">
-            <li> <img id="qr" src=""></img></li>
-        </div>
+        <div id="qrTable"><li> <img id="qr" src=""></img></li></div>
 
         <div class="hidden" id="barrasTable">
-            <div>
-                <br>
-                <input type="text" id="barrasName" placeholder="título cód barras" style="text-align: center; width: 69mm;">
-                <br>
-                <br>
-                <label>Cód barras:</label>
-                <input type="text" id="barrasValue" onchange="GerarCódigoDeBarras(this)"/>
-            </div>
-            <svg id="codBarras"></svg>
+            <input type="text" id="barrasValue" onchange="GerarCódigoDeBarras(this)" placeholder="novo código" style="width: 65mm; text-align: center; margin: 5px;">
+            <ul id="barrasElements" style="padding: 0;">       
+            </ul>
         </div>
     </div>
 
