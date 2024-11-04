@@ -206,7 +206,7 @@ h4 {
     width: 71mm;
     height: max-content;
     position: absolute;
-    z-index: 5;
+    z-index: 6;
     margin-top: 5px;
     border: 1px solid;
     box-shadow: 1px 1px 1px 1px #16161D;
@@ -222,10 +222,12 @@ h4 {
     width: 71mm;
     position: absolute;
     text-align: center;
+    z-index: 7;
+    background-color: white;
 }
 
 .barrasTitles {
-    width: 69mm;
+    width: 30mm;
     text-align: center;
 }
 

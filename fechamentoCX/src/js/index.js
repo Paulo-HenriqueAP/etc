@@ -523,12 +523,13 @@ function GerarCódigoDeBarras(elementoInput) {
     barName.classList.add("barrasTitles");
     barName.placeholder = `Nome <${elementoInput.value}>`
     createLi.appendChild(barName);
+    createLi.appendChild(document.createElement("br"));
 
     const createImg = document.createElement("img");
     createImg.id = "codBarras" + barras;
     createLi.appendChild(createImg);
     const novoCodigobarras = `#${createImg.id}`;
-    createLi.style = " border-bottom: 1px solid;  margin: 0;padding: 0;";
+    createLi.style = "border-bottom: 1px solid;border-left: 1px solid;  margin: 0;padding: 0; float:left;";
     JsBarcode(novoCodigobarras, elementoInput.value, configuracao);
 
     document.getElementById("barrasValue").value = "";
