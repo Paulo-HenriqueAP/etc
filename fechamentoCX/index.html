@@ -10,8 +10,8 @@
 
 <body>
     <div id="loginHub" class="">
-        <h4 id="infosTitle">Digite seu login</h4>
-        <input id="loginValue" type="number" placeholder="e pressione enter" onchange="showUserInfos()"
+        <h4 id="infosTitle">Login</h4>
+        <input id="loginValue" type="number" placeholder="..." onchange="showUserInfos()"
             style="text-align: center; font-size: large;">
     </div>
 
@@ -38,7 +38,7 @@
     </div>
 
     <div class="hidden" id="sangria">
-        <h4 id="sangriaTitle">SANGRIA</h4>
+        <h4>SANGRIA</h4>
         <br>
         <input style="font-size: smaller;" type="number" min="300" id="sangriaInput" onchange="defSangria()"
             placeholder="valor e ENTER">
@@ -167,21 +167,21 @@
             <h2>Como usar</h2>
         <li><strong>Enter</strong> ou <strong>Tab</strong> avança</li>
         <li><strong>Shift</strong> com <strong>Tab</strong> volta</li>
-        <li> <strong>F2</strong> papel de sangria</li>
-        <li> <strong>F4</strong> imprimi</li>
-        <li><strong>F8</strong> apaga a última seção</strong>
-        <li> <strong>F9</strong> cadastros</li>
-        <li><strong>T</strong> volta para o topo</strong>
-        <li><strong>L</strong> vai para o próx livre</strong>
-        <li><strong>D</strong> adiciona/ remove <strong
+        <li> <strong onclick="sMobileEvents(event)">F2</strong> papel de sangria</li>
+        <li> <strong onclick="sMobileEvents(event)">F4</strong> imprimi</li>
+        <li><strong onclick="sMobileEvents(event)">F8</strong> apaga a seção</strong>
+        <li> <strong onclick="sMobileEvents(event)">F9</strong> opções de cadastro</li>
+        <li><strong>T</strong> volta para AVULSO</strong>
+        <li><strong>L</strong> próx livre</strong>
+        <li id="dTouch"><strong>D</strong> adiciona/ remove <strong
                 style="background-color: #009440;border-radius: 3px; color: ghostwhite;">DEVOLUÇÃO</strong>
         </li>
-        <li><strong>S</strong> adiciona/ remove <strong
+        <li id="sTouch"><strong>S</strong> adiciona/ remove <strong
                 style="background-color: #ffcb00;border-radius: 3px;">SINAL</strong>
         </li>
         <br>
         <li>Está preso? <strong>F5</strong> </li>
-        <li><span style="font-weight: bold;">Shift <span style="font-weight: normal;">e</span> ! </span> texto personalizado</li>
+        <li onclick="tools()"><span style="font-weight: bold;">Shift <span style="font-weight: normal;">com</span> F1 </span> outras ferramentas</li>
         <div style="font-size: small;">
             <ul>
                 <h3 style="text-align: center;">Configuração da impresora</h3>

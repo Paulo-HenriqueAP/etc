@@ -169,6 +169,8 @@ function updateInput() {
 };
 
 function putItOnDevolucoes() {
+    activeEl = document.activeElement;
+    activeElBackup = activeEl.value;
     setTimeout(function () {
         activeEl.value = activeElBackup;
     });//The input becomes empty if Shif + Tab. This function prevents it
@@ -188,6 +190,8 @@ function putItOnDevolucoes() {
 };
 
 function putItOnSinais() {
+    activeEl = document.activeElement;
+    activeElBackup = activeEl.value;
     setTimeout(function () {
         activeEl.value = activeElBackup;
     });//The input becomes empty if Shif + Tab. This function prevents it
@@ -231,7 +235,7 @@ function findAndClear() {
             input.classList.add("hidden");
             setTimeout(function () {
                 input.classList.remove("hidden");
-            }, 2)
+            }, 1000)
         } else {
             input.type = "text";//put it on middle
             setTimeout(function () {
@@ -243,7 +247,7 @@ function findAndClear() {
             input.value = "NÃO";
             setTimeout(function () {
                 input.value = "";
-            }, 2);
+            }, 1000);
         };
     });
 
@@ -252,12 +256,12 @@ function findAndClear() {
     for (let i = 0; i < sinaisValues.length; i++) {
         const sendToSin = document.createElement("input");
         sendToSin.value = sinaisValues[i].value;
-        sendToSin.style = " text-align: center; width:55px;font-size: small;";
+        sendToSin.style = " text-align: center; width:55px;font-size: small;  font-family: monospace;";
 
         document.getElementById("sinValues").appendChild(sendToSin);
         setTimeout(function () {
             sendToSin.remove();
-        });
+        }, 1000);
     };
 
     let devValues = document.getElementsByClassName("becomeDev");
@@ -265,12 +269,12 @@ function findAndClear() {
     for (let i = 0; i < devValues.length; i++) {
         const sendToDev = document.createElement("input");
         sendToDev.value = devValues[i].value;
-        sendToDev.style = " text-align: center; width:55px;font-size: small;";
+        sendToDev.style = " text-align: center; width:55px;font-size: small;  font-family: monospace;";
 
         document.getElementById("devValues").appendChild(sendToDev);
         setTimeout(function () {
             sendToDev.remove();
-        });
+        }, 1000);
     };
 
     //setTimeout volta a pág para o estado anterior
@@ -303,7 +307,7 @@ document.addEventListener("keydown", function (event) {
             window.print();
             document.getElementById("signature").classList.add("hidden");
             setTimeout(function () {
-                goToFreeInput()
+                goToFreeInput();
             }, 500)
             break;
         case "F8":
@@ -323,14 +327,10 @@ document.addEventListener("keydown", function (event) {
             break;
         case "KeyD":
             if (simpleLock) return;
-            activeEl = document.activeElement;
-            activeElBackup = activeEl.value;
             putItOnDevolucoes();
             break;
         case "KeyS":
             if (simpleLock) return;
-            activeEl = document.activeElement;
-            activeElBackup = activeEl.value;
             putItOnSinais();
             break;
         case "F2":
@@ -351,21 +351,25 @@ document.addEventListener("keydown", function (event) {
             createEditFolk();
             break;
     };
-    if (event.shiftKey && event.key === "!") {
+    if (event.shiftKey && event.code === "F1") {
         simpleLock = true;
-        if (document.getElementById("obsTable").classList.contains("hidden")) {
-            document.getElementById("bodyTable").classList.add("hidden");
-            document.getElementById("obsTable").classList.remove("hidden");
-        }
-        setTimeout(function () {
-            document.getElementById("obsText").focus()
-        }, 200)
+        tools();
     }
 
     if (event.key === "Enter") {
         jumpToNext();
     };
 });
+
+tools = () => {
+    if (document.getElementById("obsTable").classList.contains("hidden")) {
+        document.getElementById("bodyTable").classList.add("hidden");
+        document.getElementById("obsTable").classList.remove("hidden");
+    }
+    setTimeout(function () {
+        document.getElementById("obsText").focus()
+    }, 200)
+}
 
 function saveState() {
     const inputs = document.querySelectorAll('.etc');
@@ -428,31 +432,32 @@ function loadState() {
 };
 
 simpleCheck = () => {
-    nameText.textContent = create_uName.value
-    loginText.textContent = create_loginCode.value
+    nameText.textContent = create_uName.value;
+    loginText.textContent = create_loginCode.value;
 
     if (nameText.textContent == "" || loginText.textContent == "") {
-        document.getElementById("saveButton").style = "font-weight: bolder; background-color: red;color: black; "
+        document.getElementById("saveButton").style = "font-weight: bolder; background-color: red;color: black; ";
     } else {
-        document.getElementById("saveButton").style = " font-weight: bolder;background-color: #009440;color: white;"
-    }
-}
+        document.getElementById("saveButton").style = " font-weight: bolder;background-color: #009440;color: white;";
+    };
+};
 removeColor = (remove) => {
-    document.getElementById(remove.id).style = " background-color: none;font-weight: normal;"
-}
+    document.getElementById(remove.id).style = " background-color: none;font-weight: normal;";
+};
 
 defSangria = () => {
     sangria = parseFloat(document.getElementById("sangriaInput").value);
     if (sangria == 69) {
-        cashier = prompt("Este PC é o Caixa")
+        cashier = prompt("Este PC é o Caixa");
         localStorage.setItem("cashier", cashier);
-        location.reload()
-    }
+        location.reload();
+    };
     if (sangria < 300) {
-        document.getElementById("sangriaTitle").innerHTML = 'Sangria <br><br> <span style="font-size:smaller;">(Mínimo 300$)</span>'
-        document.getElementById("sangriaInput").focus();
-        return;
-    }
+        if (!window.confirm("Mínimo 300$, continuar?")) {
+            document.getElementById("sangriaInput").focus();
+            return;
+        }
+    };
     document.getElementById("sangriaTable").classList.toggle("hidden");
     document.getElementById("sangriaInput").classList.toggle("hidden");
     document.getElementById("sangria").classList.add("hidden");
@@ -462,17 +467,18 @@ defSangria = () => {
     document.getElementById("oper").textContent = "Operador: " + uName.textContent;
     window.print();
     location.reload();
-}
+};
 
 changeFontSize = () => {
-    font = document.getElementById("fontSizeVar").value
-    document.getElementById("obsText").style = "font-size:" + font + "px;"
-}
+    font = document.getElementById("fontSizeVar").value;
+    document.getElementById("obsText").style = "font-size:" + font + "px;";
+};
+
 changeQrSize = () => {
     qrSize = document.getElementById("qrSizeVar").value;
     qrSize <= 0 ? qrSize = 150 : null;
-    qrCodeSet()
-}
+    qrCodeSet();
+};
 
 codBarras = () => {
     document.getElementById("barrasTable").classList.toggle("hidden");
@@ -481,7 +487,7 @@ codBarras = () => {
     document.getElementById("sizes").classList.toggle("hidden");
     document.getElementById("qrCheck").classList.toggle("hidden");
     document.getElementById("barrasValue").focus();
-}
+};
 
 qrCodeSet = () => {
     let qrCodePNG = document.getElementById("qr");
@@ -490,18 +496,18 @@ qrCodeSet = () => {
     userText.length <= 0 ? userText = "Nada" : null;
     if (stats === true) {
         document.getElementById("obsText").classList.add("hidden");
-        document.getElementById("fontLabel").classList.add("hidden")
-        document.getElementById("qrLabel").classList.remove("hidden")
-        qrURL = `https://image-charts.com/chart?chs=${qrSize}x${qrSize}&cht=qr&chl=${userText}`
+        document.getElementById("fontLabel").classList.add("hidden");
+        document.getElementById("qrLabel").classList.remove("hidden");
+        qrURL = `https://image-charts.com/chart?chs=${qrSize}x${qrSize}&cht=qr&chl=${userText}`;
         qrCodePNG.setAttribute("src", qrURL);
     } else {
         qrCodePNG.setAttribute("src", "");
         document.getElementById("obsText").classList.remove("hidden");
-        document.getElementById("obsText").focus()
-        document.getElementById("fontLabel").classList.remove("hidden")
-        document.getElementById("qrLabel").classList.add("hidden")
-    }
-}
+        document.getElementById("obsText").focus();
+        document.getElementById("fontLabel").classList.remove("hidden");
+        document.getElementById("qrLabel").classList.add("hidden");
+    };
+};
 
 function GerarCódigoDeBarras(elementoInput) {
     if (!elementoInput.value) {
@@ -540,25 +546,23 @@ function GerarCódigoDeBarras(elementoInput) {
     });
 }//https://www.mundojs.com.br/2018/01/16/crie-codigo-de-barras-em-javascript-com-jsbarcode/
 
-/*
 function sMobileEvents(event) {
-    <li> <strong onclick="sMobileEvents(event)">F2</strong><span style="font-size: small;"> ></span> papel para sangria</li>
-    <li> <strong onclick="sMobileEvents(event)">F4</strong><span style="font-size: small;"> ></span> imprimi o fechamento</li>
-    <li><strong onclick="sMobileEvents(event)">F8</strong><span style="font-size: small;"> ></span> apaga a última seção</strong>
-    <li> <strong onclick="sMobileEvents(event)">F9</strong><span style="font-size: small;"> ></span> cadastros</li>
-
-
-
-
-
-    let chave = event.target.textContent;
-
-    const teclado = new KeyboardEvent('keydown', {
-        code: chave,
+    let simulatedKey = event.target.textContent;
+    const sendKey = new KeyboardEvent('keydown', {
+        code: simulatedKey,
         bubbles: true,
     });
-    document.dispatchEvent(teclado);
-}
-    
-funcao para funcionar sem a necessidade do teclado. nao esta 100% funcional 
-*/
+    document.dispatchEvent(sendKey);
+};
+
+document.getElementById("dTouch").addEventListener("touchstart", (event) => {
+    event.preventDefault();
+    if (simpleLock) return;
+    putItOnDevolucoes();
+});
+
+document.getElementById("sTouch").addEventListener("touchstart", (event) => {
+    event.preventDefault();
+    if (simpleLock) return;
+    putItOnSinais();
+});
