@@ -1,0 +1,35 @@
+1. É possível escrever nomes de variáveis desta maneira: Nome do cliente, Data_Emissão, MensagemAviso!!!, 2aSemana? Justifique.
+   - R. Não é possível criar variáveis com nenhuma das opções. As regras para nomes não podem incluir caracteres especiais, começar com números ou ter espaço.
+
+2. O que é indentação de código? Qual é a importância de indentar o código?
+   - R. Indentação é uma forma de tornar a leitura do código mais agradável, sendo também uma forma de organização e tornar o código mais funcional.
+
+3. Faça uma pesquisa sobre quais são os principais tipos de testes de software.
+   - R. Existem diversos tipos de testes de software, entre os principais estão:
+     - Testes unitários: testam individualmente as menores partes do código (unidades) para garantir que funcionem corretamente.
+     - Testes de integração: verificam se diferentes módulos ou serviços do sistema funcionam bem juntos.
+     - Testes de sistema: avaliam o sistema como um todo, verificando se ele atende aos requisitos especificados.
+     - Testes de aceitação: garantem que o software atende aos critérios definidos pelo cliente ou usuário final.
+     - Testes de regressão: garantem que alterações ou adições no código não introduzam novos bugs.
+     - Testes de desempenho: verificam se o software funciona bem sob carga, avaliando aspectos como velocidade, escalabilidade e estabilidade.
+
+4. Em qual etapa do projeto os fluxogramas são muito úteis?
+   - R. Fluxogramas podem ser úteis na etapa de planejamento e primeiras etapas, onde ainda estão sendo definidos o escopo do programa, sua razão para existir, etc.
+
+5. Qual a importância de se fazer comentários nos códigos dos programas?
+   - R. Os comentários podem te ajudar a relembrar o porquê de um nome da variável, o motivo de tal função estar presente ali, ajudar outros desenvolvedores a entender seu código e auxiliar na documentação.
+
+6. O que é validação de dados? Qual é a importância em validar os dados digitados pelos usuários?
+   - R. Validar os dados ajuda a prevenir que bugs ocorram. Ao validar os dados antes de completar, por exemplo, uma função que conta números, você impede que dados fora do escopo definido sejam contabilizados.
+
+7. O que é controle de versão?
+   - R. Controle de versão é uma forma de backup, sendo possível auxiliar nas próximas atualizações e servindo como ponto de retorno caso muitos problemas ocorram na nova versão. É possível voltar à anterior até que tais bugs sejam corrigidos.
+
+8. Quais são os tipos de controle de versão? Pesquise.
+   - R. Existem três tipos principais de controle de versão:
+     - Controle de versão local: envolve o uso de um banco de dados simples para armazenar versões de arquivos em uma máquina local.
+     - Controle de versão centralizado: utiliza um único servidor para armazenar todas as versões dos arquivos, permitindo que múltiplos usuários acessem esses arquivos.
+     - Controle de versão distribuído: cada colaborador tem uma cópia completa do repositório, permitindo trabalho offline e integração de mudanças em uma única linha de tempo centralizada.
+
+9. Por que é importante ter no mínimo o conhecimento básico de inglês para ser programador? Justifique.
+   - R. O inglês é a língua mais falada do mundo. Ao se limitar ao seu idioma local, você está perdendo acesso a boa parte do conteúdo relacionado à programação. Ter uma base de inglês vai lhe ajudar a criar variáveis, dar nome às funções, entre outros fatores.

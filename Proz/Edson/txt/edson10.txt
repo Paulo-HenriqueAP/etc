@@ -1,0 +1,55 @@
+package application;
+
+public class Liquidificador {
+    private boolean estado;
+    private int velocidade;
+
+    public Liquidificador() {
+        estado = false;
+        velocidade = 0;
+    }
+
+    public void ligaDesliga() {
+        estado = !estado;
+        velocidade = 0;
+    }
+
+    public void maisVelocidade() {
+        if (estado && velocidade < 5) {
+            velocidade++;
+        }
+    }
+
+    public void menosVelocidade() {
+        if (estado && velocidade > 0) {
+            velocidade--;
+        }
+    }
+
+    public void testaAumentaVelocidade() {
+        for (int i = 0; i < 5; i++) {
+            maisVelocidade();
+            System.out.println("Velocidade: " + velocidade);
+        }
+    }
+
+    public void testaDiminuiVelocidade() {
+        for (int i = 0; i < 5; i++) {
+            menosVelocidade();
+            System.out.println("Velocidade: " + velocidade);
+        }
+    }
+
+    public static void main(String[] args) {
+        Liquidificador liquidificador = new Liquidificador();
+        liquidificador.ligaDesliga();
+
+        System.out.println("Testando aumento de velocidade:");
+        liquidificador.testaAumentaVelocidade();
+
+        System.out.println("\nTestando diminuição de velocidade:");
+        liquidificador.testaDiminuiVelocidade();
+    }
+}
+
+Usei um for para verificar se a velocidade aumenta/ diminuí. Resolvi o estado sempre deixando ele sempre 0 quando liga ou desliga 

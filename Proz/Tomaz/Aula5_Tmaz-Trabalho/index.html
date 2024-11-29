@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="src/css/estilos.css">
+</head>
+
+<body>
+    <div class="container">
+        <h2>Formulário do aluno</h2>
+        <li>
+            <strong>Matricula</strong>
+            <br>
+            <input type="number" id="matValue" onfocusout="salvarDados()">
+        </li>
+
+        <li><strong>Nome</strong>
+            <br>
+            <input type="text" id="nomValue" onfocusout="salvarDados()">
+        </li>
+        <li><strong>Endereço</strong>
+            <br>
+            <input type="text" id="endValue" onfocusout="salvarDados()">
+        </li>
+        <li><strong>Disciplina</strong>
+            <br>
+            <input type="text" id="disValue" onfocusout="salvarDados()">
+        </li>
+        <li><strong>Nota</strong> <br>
+            <input type="number" id="notValue" onchange="defNotas(this)" min="0" max="10" onfocusout="salvarDados()">
+        </li>
+        <li><strong>Situação</strong> <br>
+            <select style="width: 250px;" id="sitValue" onchange="salvarDados()">
+                <option value="Aprovado">Aprovado</option>
+                <option value="Reprovado">Reprovado</option>
+                <option value="Em análise" selected>Em análise</option>
+                <option value="Suspenso">Suspenso</option>
+            </select>
+        </li>
+        <li>
+            <div style="text-align: center;">
+                <!-- <button type="button" id="salvar" onclick="pegarDados()">SALVAR</button>-->
+                <button type="button" id="gerar" onclick="criarTexto();salvarDados();">GERAR</button>
+                <button onclick="limparDados()" id="limpar">LIMPAR</button>
+            </div>
+        </li>
+        <li>
+            <div id="textoGerado"></div>
+        </li>
+    </div>
+    <script src="https://js.puter.com/v2/"></script>
+    <script src="src/js/index.js"></script>
+
+</body>
+
+</html>

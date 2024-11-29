@@ -1,0 +1,63 @@
+Algoritmo "semnome"
+//VISUALG 3.0.6.5
+
+Var
+resp:caractere
+Inicio
+repita
+limpatela
+escreval("---------- CENTRAL DO ALUNO ----------")
+escreval
+escreval(" Aluno: Paulo Henrique Alves Pereira")
+escreval
+escreval(" O que você quer fazer hoje?")
+escreval
+escreval(" 1 - Notas e faltas")
+escreval(" 2 - Dúvidas")
+escreval(" 3 - Sair")
+escreval
+escreval
+escreva("Digite a opção :")
+leia(resp)
+escolha resp
+caso "1"
+limpatela
+escreval("-> Notas e faltas <-")
+escreval
+escreval("Aluno: Paulo Henrique Alves Pereira")
+escreval
+escreval
+escreval("Disciplina: A                      | Faltas: 5 - Nota: 10")
+escreval
+escreval("Disciplina: B                      | Faltas: 2 - Nota:  4")
+escreval
+escreval("Disciplina: C                      | Faltas: 3 - Nota:  6")
+escreval
+escreva ("pressione ENTER para continuar")
+leia (resp)
+caso "2"
+limpatela
+limpatela
+escreval("->DÚVIDAS <-")
+escreval
+escreval("Aluno: Paulo Henrique Alves Pereira")
+escreval
+escreva("Minha dúvida é: ")
+leia(resp)
+limpatela
+escreval("Enviado com sucesso para o professor, aguarde contato")
+escreval
+escreva("carregando...")
+timer(1500)
+timer(0)
+caso "3"
+limpatela
+escreval("Seção finalizada")
+fimalgoritmo
+outrocaso
+limpatela
+escreva (" Opção inválida! - Pressione ENTER para continuar")
+leia (resp)
+fimescolha
+ate (resp = "0")
+Fimalgoritmo

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Testes Funcionais com HTML e CSS</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <h1 style="text-align: center;">Teste Funcional Básico com Listas</h1>
+
+    <ul id="listaTarefas">
+        <h2>Lista Tarefas</h2>
+        <li id="i1" onclick="setDone(event)">Estudar HTML</li>
+        <li id="i2" onclick="setDone(event)">Praticar CSS</li>
+        <li id="i3" onclick="setDone(event)">Explorar novos projetos</li>
+    </ul>
+</body>
+<script>
+    function setDone(event) {
+        document.getElementById(event.target.id).classList.toggle("done")
+    }
+</script>
+</html>

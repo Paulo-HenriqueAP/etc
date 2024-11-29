@@ -1,0 +1,59 @@
+1) Qual é o objetivo fundamental da acessibilidade digital em sites e aplicativos? 
+R1 > Tornar o conteúdo do site/ aplicativo equitativo para todos os públicos
+
+2) O que significa "testes de acessibilidade" e qual é a importância de conduzi-lo?
+R2 > Pessoas com diversos tipos de deficiências utilizam o site/ aplicativo de forma real e fornecem feedbacks para os devs. Existem também ferramentas automatizadas. É importante realizar esses testes para garantir que o conteúdo está acessível e atendar os critérios estabelecidos por leis em alguns países.
+
+3) Como legendas, audiodescrições e transcrições contribuem para a acessibilidade em
+conteúdo multimídia?
+R3> Pessoas com deficiências visuais podem ter dificuldades para entender o conteúdo mesmo com fontes grandes e legíveis. Audiodescrições e transcrições ajudam todos os tipos a entender todo o conteúdo, garantindo a dar mais contexto para o conteúdo e auxiliando a leitura.
+
+4) Qual é a relação entre usabilidade, experiência do usuário e acessibilidade?
+R4> Melhorar todo o conteúdo para todos os públicos, garantindo fluxos claros e interface de fácil navegação.
+
+5) Como o design de navegação impacta a acessibilidade de um site ou aplicativo?
+R5 > Ter um design que não se adapta a todos os tipos de tela ou que não tenha tamanho de fontes, cores, contrates adequados, irão impactar negativamente na experiência de todos os usuários. É preciso ter um layout simples com botões claros e concisos. Com opções de acessibilidade que viabilizem a utilização independentemente das capacidades cognitivas do usuário.
+
+6) Quais são os benefícios de integrar práticas de acessibilidade e SEO?
+R6 > Além de abranger um público maior, será benéfico para o site/ app ter melhores resultados em mecanismos de pesquisas, já que é utilizado diversas palavras chaves.
+
+7) 7. Cite duas tecnologias assistivas e explique como elas ajudam usuários com
+deficiências.
+R7 > Leitores de Tela: São ferramentas voltadas para converter todo o texto em áudio, ajudando pessoas com deficiência visual de entender o conteúdo proposto. Também auxilia pessoas com mobilidade reduzida.
+Softwares de Reconhecimento de fala: Ajudam pessoas de diversos tipos de deficiências a se comunicar, convertendo o texto dito em texto sem a necessidade de tocar no dispositivo.
+
+8) O que é uma auditoria de acessibilidade e por que é importante para a criação de
+plataformas inclusivas?
+
+R8 > Envolve uma avaliação detalhada no site/ app para remover barreiras do que estão interferindo na usabilidade do aplicativo. Todo o código é revisado, desde a estrutura básica da interface a elementos multimídia. No final de uma boa auditoria, é fornecido um relatório com soluções para tornar a plataforma mais acessível.
+
+9) Quais são os desafios emergentes na área de acessibilidade digital à medida que a
+tecnologia avança?
+R9 > A falta de conscientização, resulta na falta de apoio financeiro para implementar soluções de acessibilidade. O custo de adaptação e estudos acabam ficando de lado, resultando em menos soluções para inovar o âmbito de acessibilidade.
+
+10) Como o design inclusivo e adaptativo contribui para a acessibilidade de um site ou
+aplicativo?
+
+R10 > Cores de alto contraste, marcação semântica, legendas, entre outros, garantem que o conteúdo proposto seja entregue. O design tem um papel de muita importância, garantindo que esteja interpretável em todas as telas e ferramentas assistivas.
+
+Desafio) Desenvolva uma estratégia abrangente de testes de acessibilidade para um site fictício.
+Inclua a identificação de ferramentas, métodos de avaliação prática e um plano para abordar e
+resolver os problemas de acessibilidade identificados. Apresente sua estratégia de forma clara e detalhada.
+
+Desafio > 1. Identificação de Ferramentas
+- *Automatizadas*: WAVE, axe, Lighthouse.
+- *Assistivas*: Leitores de tela (NVDA, JAWS), teclados adaptativos.
+
+2. Métodos de Avaliação Prática
+- *Testes com Usuários*: Recrutar usuários com diferentes deficiências para testes práticos e coletar feedback.
+- *Auditoria Manual*: Verificar conformidade com WCAG, incluindo texto alternativo e navegação por teclado.
+
+3. Plano para Abordar e Resolver Problemas
+- *Identificação*: Listar problemas encontrados.
+- *Priorização*: Classificar por severidade e impacto.
+- *Resolução*: Corrigir problemas críticos primeiro, seguido por outros.
+- *Reavaliação*: Realizar novos testes para garantir a correção e aprimoramento da acessibilidade.
+
+4. Documentação e Treinamento
+- *Documentar*: Criar relatório detalhado.
+- *Treinamento*: Oferecer treinamento à equipe sobre práticas de acessibilidade e conformidade contínua.

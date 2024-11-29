@@ -1,0 +1,18 @@
+1. Qual é a importância da qualidade de software para o sucesso de uma organização? > Garantir que o software funcione da maneira proposta e que evite custos desnecessários de manutenção.
+
+2. Cite duas áreas em que a qualidade de software é importante? > Área hospitalar, sistemas como Tasy, oferecem uma gama de recursos muito importantes para não estarem de acordo com boas praticas. Segurança de dados, sistemas como armazenamentos em nuvem, necessitam manter uma qualidade de alto nível, garantindo que tudo funcione e que não ocorra problemas.
+
+3. Quantos níveis de Maturidade o modelo MPS.BR tem? > O modelo conta com 7 níveis, começando do G e indo até A.
+
+4. Por que não é possível testar completamente um programa e garantir a ausência de defeitos? > É 'impossível' replicar todos os comportamentos possíveis que o usuário pode realizar. 
+
+5. Defina qualidade de software em suas próprias palavras.
+6. Quais são as principais atividades do processo de teste de software? > Realizar testes para garantir a funcionalidade do software, garantir que as funcionalidades propostas estão funcionando adequadamente, aplicar boas praticas de programação.
+
+7. Explique a diferença entre validação e verificação no contexto de testes de software. > Validar é garantir que o software está de acordo com a proposta, verificação é garantir que tudo funciona 
+
+8. Discuta a relação entre investimento no processo de testes e qualidade do software. > Check
+
+9. Explique o que é O MPS.Br e suas vertentes dentro do modelo.
+10. Divida a Turma em Grupos e peça para os grupos pesquisarem sobre CMMI e MPS.BR
+e apresentarem quais são as diferenças, benefícios e malefícios entres os modelos. > Check
