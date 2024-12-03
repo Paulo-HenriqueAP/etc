@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>fechamentoCX</title>
     <link rel="stylesheet" href="src/css/estilos.css">
+    <link rel="shortcut icon" href="src/icons/favicon.ico">
 </head>
 
 <body>
     <div id="loginHub" class="">
         <h4 id="infosTitle">Login</h4>
-        <input id="loginValue" type="number" placeholder="..." onchange="showUserInfos()"
+        <input id="loginValue" type="number" placeholder="...." onchange="showUserInfos()"
             style="text-align: center; font-size: large;">
     </div>
 
@@ -34,7 +35,7 @@
         <br>
         <span style="font-size: x-small;">escreva "EXCLUIR" no nome</span>
         <br>
-        <span style="font-size: x-small;">F9 cancela edição</span>
+        <span style="font-size: x-small;">F9 cancelar</span>
     </div>
 
     <div class="hidden" id="sangria">
@@ -66,9 +67,15 @@
             </span>
         </div>
 
-        <div id="obsText" contenteditable style="overflow:hidden"><pre><pre></div>  
-        <div id="qrTable"><li> <img id="qr" src=""></img></li></div>
-
+        <div id="obsText" contenteditable style="overflow:hidden;">
+            <pre><pre></div>  
+        <div id="qrTable" class="hidden">
+            <li> 
+            <input type="text" placeholder="Título QR" style="text-align: center;">
+            <br>
+            <img id="qr" src=""></img>
+        </li>
+    </div>
         <div class="hidden" id="barrasTable">
             <input type="text" id="barrasValue" onchange="GerarCódigoDeBarras(this)" placeholder="novo código" style="width: 65mm; text-align: center; margin: 5px;">
             <ul id="barrasElements" style="padding: 0; display: flexbox;">       
@@ -95,6 +102,14 @@
     </div>
     
     <table id="bodyTable" class="hidden">
+        <tr class="">
+            <th id="hiddenHol" class="hidden">
+                <span id="holName"></span>
+                <br>
+                <img src="" class="fer" id="tagImg">
+                <br>
+            </th>
+        </tr>
         <tr>
             <th>
                 <span id="uName"></span>
@@ -133,12 +148,10 @@
                 </ul>
             </td>
         </tr>
-        </tr>
         <tr>
             <th id="dev">SEM DEVOLUÇÕES</th>
         <tr>
-            <td id="devValues">
-            </td>
+            <td id="devValues"></td>
         </tr>
         </tr>
         <tr>
@@ -150,7 +163,7 @@
         </tr>
         <tr style="border-bottom: 0.5px solid;">
             <th>
-                <h1 id="showSum" style="text-align: left;"></h1>
+                <h1 id="showSum"></h1>
                 <div class="hidden" id="signature">
                     <br>
                     <span style="max-width: 71mm;">__________________________________</span>
@@ -189,8 +202,7 @@
                 <li>Tamanho Papel: <span style="font-weight: bolder;">Postcard 100x148mm</span></li>
                 <li>Margens: <span style="font-weight: bolder; ">Nenhum</span></li>
             </ul>
-            <br>
-            <li>Seção anterior: <span id="lastTime" style="font-weight: bolder;"></span> </li>
+          <!--<br><li>Seção anterior: <span id="lastTime" style="font-weight: bolder;"></span> </li>--> 
         </div>
     </ul>
 

@@ -4,7 +4,6 @@ let sum = 0;
 let isItEmpty = document.querySelectorAll(".etc");
 let activeEl = document.activeElement;
 let login;
-let avulso = document.getElementById("stuffs");
 let saveName;
 let saveLogin;
 let needMoreInputs;
@@ -21,10 +20,35 @@ let qrSize = 150;
 let barras = 0;
 let folks = [
 ];
+let day;
+const avulso = document.getElementById("stuffs");
+const signature = document.getElementById("signature");
+const bodyTable = document.getElementById("bodyTable");
+const sangriaElement = document.getElementById("sangria");
+const sangriaInput = document.getElementById("sangriaInput");
+const registerHub = document.getElementById("registerHub");
+
+const holidays = {
+    "01/01": { holName: `Feliz ${new Date().getFullYear()} 🎉`, holImg: "src/icons/anoNovo.png" },
+    "21/04": { holName: "Dia de Tiradentes", holImg: "src/icons/tiradentes.png" },
+    "01/05": { holName: "Dia do Trabalhador", holImg: "src/icons/trabalhador.png" },
+    "07/09": { holName: "Independência do Brasil", holImg: "src/icons/independencia.png" },
+    "12/10": { holName: "Dia de Nossa Senhora Aparecida", holImg: "src/icons/aparecida.png" },
+    "02/11": { holName: "Dia dos Finados", holImg: "src/icons/finados.png" },
+    "15/11": { holName: "Proclamação da República", holImg: "src/icons/republica.png" },
+    "20/11": { holName: "Consciência Negra", holImg: "src/icons/consciencia.png" },
+    "25/12": { holName: "Feliz Natal 🎁", holImg: "src/icons/natal.png" },
+};
 document.addEventListener("DOMContentLoaded", function () {
-    document.getElementById("loginValue").focus()
+    document.getElementById("loginValue").focus();
     loadState();
     formSum();
+
+    day = `${new Date().toLocaleDateString().slice(0, 5)}`
+    Object.keys(holidays).forEach(hol => {
+        day === hol ? setHol() : null;
+    });
+    //loginFind = folks.find(user => user.loginCod == login);
 });
 
 /*const folks = [
@@ -68,19 +92,19 @@ function showUserInfos() {
     login === "06052002" ? localStorage.clear() : null;
     if (folks && folks.length > 0) {
         loginFind = folks.find(user => user.loginCod == login);
-    }
+    };
 
     if (loginFind) {
         nameText.textContent = loginFind.uName;
         document.getElementById("loginHub").classList.add("hidden");
-        document.getElementById("bodyTable").classList.remove("hidden");
+        bodyTable.classList.remove("hidden");
         loginText.textContent = `<${login}>`;
         goToFreeInput();
         localStorage.setItem("LastLoginCode", login);
         simpleLock = false;
     } else {
         document.getElementById("loginHub").classList.add("hidden");
-        document.getElementById("registerHub").classList.remove("hidden");
+        registerHub.classList.remove("hidden");
         registerStatus.textContent = `Login '${login}' não encontrado`
         createEditFolk();
     };
@@ -91,57 +115,55 @@ function createEditFolk() {
     create_loginCode.value = login;
     create_uName.value = nameText.textContent
     create_uName.focus();
-    registerStatus.textContent == "Criando novo" ? create_loginCode.focus() : null
-}
+    registerStatus.textContent == "Criando novo" ? create_loginCode.focus() : null;
+};
 
 function saveFolks() {
-    nameText.textContent = create_uName.value
-    loginText.textContent = create_loginCode.value
+    nameText.textContent = create_uName.value;
+    loginText.textContent = create_loginCode.value;
 
-    findToEdit = create_loginCode.value
+    findToEdit = create_loginCode.value;
     edit = folks.find(user => user.loginCod == findToEdit);
 
     if (nameText.textContent == "" || loginText.textContent == "") {
         return;
-    }
+    };
 
     if (edit) {
         edit.uName = create_uName.value;
         edit.loginCod = create_loginCode.value;
-        document.getElementById("registerTitle").textContent = `'${loginText.textContent}' foi editado`
+        document.getElementById("registerTitle").textContent = `'${loginText.textContent}' foi editado`;
         if (nameText.textContent === "EXCLUIR") {
             folks.splice(edit);
             document.getElementById("loginHub").classList.remove("hidden");
             clearAll();
-        }
+        };
     } else {
-        createFolk = { uName: create_uName.value, loginCod: parseInt(create_loginCode.value) }
-        folks.push(createFolk)
-        document.getElementById("registerTitle").textContent = `Login '${loginText.textContent}' foi criado`
+        createFolk = { uName: create_uName.value, loginCod: parseInt(create_loginCode.value) };
+        folks.push(createFolk);
+        document.getElementById("registerTitle").textContent = `Login '${loginText.textContent}' foi criado`;
     }
     folksJson = JSON.stringify(folks);
     localStorage.setItem("folks", folksJson);
     setTimeout(function () {
-        location.reload()
+        location.reload();
     }, 1000)
-}
+};
 
 function formSum() {
     sum = 0;
     control = 0;
 
     isItEmpty.forEach((input) => {
-        if (input.value != "") {
+        if (input.value != "" && input.value > 0) {
             sum += parseFloat(input.value)
-            input.value <= 0 ? input.value = "" : null;
-        }
+        };
         if (input.value === "" && !input.id) {
             control++;
         };
-    }
-    );
+        input.value <= 0 ? input.value = "" : null;
+    });
     document.getElementById("showSum").textContent = "TOTAL:" + sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-
     saveState();//está criando novos inputs
     updateInput();
     if (control <= 2) {
@@ -236,18 +258,15 @@ function findAndClear() {
             setTimeout(function () {
                 input.classList.remove("hidden");
             }, 1000)
-        } else {
-            input.type = "text";//put it on middle
-            setTimeout(function () {
-                input.type = "number";
-            }, 2);
-        };
+        }
 
         if (input.id && input.value === "") {
+            input.type = "text";
             input.value = "NÃO";
             setTimeout(function () {
                 input.value = "";
-            }, 1000);
+                input.type = "number";
+            }, 500);
         };
     });
 
@@ -256,7 +275,7 @@ function findAndClear() {
     for (let i = 0; i < sinaisValues.length; i++) {
         const sendToSin = document.createElement("input");
         sendToSin.value = sinaisValues[i].value;
-        sendToSin.style = " text-align: center; width:55px;font-size: small;  font-family: monospace;";
+        sendToSin.style = "text-align: center;width: 55px;font-size: small;margin: 1px;font-family: Arial, Helvetica, sans-serif;";
 
         document.getElementById("sinValues").appendChild(sendToSin);
         setTimeout(function () {
@@ -269,7 +288,7 @@ function findAndClear() {
     for (let i = 0; i < devValues.length; i++) {
         const sendToDev = document.createElement("input");
         sendToDev.value = devValues[i].value;
-        sendToDev.style = " text-align: center; width:55px;font-size: small;  font-family: monospace;";
+        sendToDev.style = "text-align: center;width: 55px;font-size: small;margin: 1px;font-family: Arial, Helvetica, sans-serif;";
 
         document.getElementById("devValues").appendChild(sendToDev);
         setTimeout(function () {
@@ -292,23 +311,30 @@ function clearAll() {
     updateInput();
     saveState();
     localStorage.removeItem("LastLoginCode");
-    localStorage.removeItem("time");
-    location.reload();
     localStorage.setItem("allInputs", 36);
-}
+    location.reload();
+};
+document.addEventListener("keydown", (function (event) {
+    if (event.shiftKey && event.code === "F1") {
+        simpleLock = true;
+        tools();
+    };
 
-document.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+        jumpToNext();
+    };
+
     switch (event.code) {
         case "F4":
             formSum();
-            document.getElementById("time").textContent = new Date().toLocaleDateString() + " | " + new Date().toLocaleTimeString();
+            document.getElementById("time").textContent = `${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()} | CX > ${cashier}`;
             findAndClear();
-            document.getElementById("signature").classList.remove("hidden");
+            signature.classList.remove("hidden");
             window.print();
-            document.getElementById("signature").classList.add("hidden");
+            signature.classList.add("hidden");
             setTimeout(function () {
                 goToFreeInput();
-            }, 500)
+            }, 300)
             break;
         case "F8":
             if (window.confirm("Tem certeza?")) {
@@ -334,51 +360,44 @@ document.addEventListener("keydown", function (event) {
             putItOnSinais();
             break;
         case "F2":
-            document.getElementById("bodyTable").classList.add("hidden");
-            sangriaElement = document.getElementById("sangria");
+            bodyTable.classList.add("hidden");
             sangriaElement.classList.toggle("hidden");
-            !sangriaElement.classList.contains("hidden") ? document.getElementById("sangriaInput").focus() : location.reload()
+            !sangriaElement.classList.contains("hidden") ? sangriaInput.focus() : location.reload()
             break;
         case "F9":
             if (simpleLock === false) {
-                document.getElementById("registerHub").classList.toggle("hidden");
-                document.getElementById("bodyTable").classList.toggle("hidden");
+                registerHub.classList.toggle("hidden");
+                bodyTable.classList.toggle("hidden");
             } else {
-                document.getElementById("registerHub").classList.toggle("hidden");
-                document.getElementById("registerHub").classList.contains("hidden") ? location.reload() : null
+                registerHub.classList.toggle("hidden");
+                registerHub.classList.contains("hidden") ? location.reload() : null
             }
             login ? registerStatus.textContent = `editando '${login}'` : registerStatus.textContent = "Criando novo";
             createEditFolk();
             break;
     };
-    if (event.shiftKey && event.code === "F1") {
-        simpleLock = true;
-        tools();
-    }
-
-    if (event.key === "Enter") {
-        jumpToNext();
-    };
-});
+}));
 
 tools = () => {
     if (document.getElementById("obsTable").classList.contains("hidden")) {
-        document.getElementById("bodyTable").classList.add("hidden");
+        bodyTable.classList.add("hidden");
         document.getElementById("obsTable").classList.remove("hidden");
     }
     setTimeout(function () {
-        document.getElementById("obsText").focus()
-    }, 200)
-}
+        document.getElementById("obsText").focus();
+    }, 200);
+};
 
 function saveState() {
     const inputs = document.querySelectorAll('.etc');
     inputs.forEach((input, index) => {
-        localStorage.setItem(`input${index}`, input.value);
-        localStorage.setItem(`class${index}`, input.classList.toString());
+        if (inputs.value != "") {
+            localStorage.setItem(`input${index} `, input.value);
+            localStorage.setItem(`class${index} `, input.classList.toString());
+        }
     });
 
-    localStorage.setItem("time", new Date().toLocaleDateString() + " | " + new Date().toLocaleTimeString())
+    //localStorage.setItem("time", `${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`);
 
     if (inputs.length > 44) {
         localStorage.setItem("allInputs", inputs.length);
@@ -407,8 +426,8 @@ function loadState() {
 
     const inputs = document.querySelectorAll('.etc');
     inputs.forEach((input, index) => {
-        const savedValue = localStorage.getItem(`input${index}`);
-        const savedClass = localStorage.getItem(`class${index}`);
+        const savedValue = localStorage.getItem(`input${index} `);
+        const savedClass = localStorage.getItem(`class${index} `);
 
         savedValue !== null ? input.value = savedValue : null
         savedClass !== null ? input.className = savedClass : null
@@ -418,7 +437,7 @@ function loadState() {
         showUserInfos();
     };
 
-    document.getElementById("lastTime").textContent += localStorage.getItem("time");
+    //document.getElementById("lastTime").textContent += localStorage.getItem("time");
     cashier = localStorage.getItem("cashier");
     workShift = new Date().getHours();
     if (workShift >= 14 && workShift < 23) {
@@ -446,24 +465,26 @@ removeColor = (remove) => {
 };
 
 defSangria = () => {
-    sangria = parseFloat(document.getElementById("sangriaInput").value);
+    sangria = parseFloat(sangriaInput.value);
     if (sangria == 69) {
         cashier = prompt("Este PC é o Caixa");
         localStorage.setItem("cashier", cashier);
-        location.reload();
+        setTimeout(function () {
+            location.reload();
+        }, 1000);
     };
     if (sangria < 300) {
         if (!window.confirm("Mínimo 300$, continuar?")) {
-            document.getElementById("sangriaInput").focus();
+            sangriaInput.focus();
             return;
         }
     };
     document.getElementById("sangriaTable").classList.toggle("hidden");
-    document.getElementById("sangriaInput").classList.toggle("hidden");
+    sangriaInput.classList.toggle("hidden");
     document.getElementById("sangria").classList.add("hidden");
     document.getElementById("sumSangria").textContent = "SANGRIA: " + sangria.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
     document.getElementById("operCod").textContent = loginText.textContent
-    document.getElementById("timeSangria").textContent = new Date().toLocaleDateString() + " | " + new Date().toLocaleTimeString();
+    document.getElementById("timeSangria").textContent = `${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`
     document.getElementById("oper").textContent = "Operador: " + uName.textContent;
     window.print();
     location.reload();
@@ -482,7 +503,7 @@ changeQrSize = () => {
 
 codBarras = () => {
     document.getElementById("barrasTable").classList.toggle("hidden");
-    document.getElementById("qrTable").classList.toggle("hidden");
+    document.getElementById("qrTable").classList.add("hidden");
     document.getElementById("obsText").classList.toggle("hidden");
     document.getElementById("sizes").classList.toggle("hidden");
     document.getElementById("qrCheck").classList.toggle("hidden");
@@ -490,6 +511,8 @@ codBarras = () => {
 };
 
 qrCodeSet = () => {
+    document.getElementById("qrTable").classList.toggle("hidden");
+    document.getElementById("barCheck").classList.toggle("hidden");
     let qrCodePNG = document.getElementById("qr");
     let stats = document.getElementById("qrCheck").checked;
     let userText = document.getElementById("obsText").textContent;
@@ -535,7 +558,7 @@ function GerarCódigoDeBarras(elementoInput) {
     createImg.id = "codBarras" + barras;
     createLi.appendChild(createImg);
     const novoCodigobarras = `#${createImg.id}`;
-    createLi.style = "border-bottom: 1px solid;border-left: 1px solid;  margin: 0;padding: 0; float:left;";
+    createLi.style = "border: 1px solid;  margin: 0;padding: 0; float:left;";
     JsBarcode(novoCodigobarras, elementoInput.value, configuracao);
 
     document.getElementById("barrasValue").value = "";
@@ -556,13 +579,17 @@ function sMobileEvents(event) {
 };
 
 document.getElementById("dTouch").addEventListener("touchstart", (event) => {
-    event.preventDefault();
     if (simpleLock) return;
     putItOnDevolucoes();
-});
+}, { passive: true });
 
 document.getElementById("sTouch").addEventListener("touchstart", (event) => {
-    event.preventDefault();
     if (simpleLock) return;
     putItOnSinais();
-});
+}, { passive: true });
+
+function setHol() {
+    document.getElementById("hiddenHol").classList.remove("hidden");
+    document.getElementById("holName").textContent = holidays[day].holName;
+    document.getElementById("tagImg").setAttribute("src", holidays[day].holImg);
+};
