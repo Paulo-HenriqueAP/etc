@@ -38,6 +38,7 @@ const holidays = {
     "15/11": { holName: "Proclamação da República", holImg: "src/icons/republica.png" },
     "20/11": { holName: "Consciência Negra", holImg: "src/icons/consciencia.png" },
     "25/12": { holName: "Feliz Natal 🎁", holImg: "src/icons/natal.png" },
+    "07/12": { holName: "Dia de Nossa Senhora Imaculada Conceição", holImg: "src/icons/Imaculada.png" }
 };
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("loginValue").focus();
