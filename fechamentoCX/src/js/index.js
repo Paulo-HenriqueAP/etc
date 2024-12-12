@@ -6,7 +6,7 @@ let activeEl = document.activeElement;
 let login;
 let saveName;
 let saveLogin;
-let needMoreInputs;
+let create;
 let control = 0;
 let allInputs;
 let simpleLock = true;
@@ -29,27 +29,29 @@ const sangriaInput = document.getElementById("sangriaInput");
 const registerHub = document.getElementById("registerHub");
 
 const holidays = {
-    "01/01": { holName: `Feliz ${new Date().getFullYear()} 🎉`, holImg: "src/icons/anoNovo.png" },
+    "01/01": { holName: `Feliz ${new Date().getFullYear()}`, holImg: "src/icons/anoNovo.png" },
+    "18/04": { holName: "Sexta Feira Santa", holImg: "src/icons/sexta.png" }/*VARIA*/,
     "21/04": { holName: "Dia de Tiradentes", holImg: "src/icons/tiradentes.png" },
     "01/05": { holName: "Dia do Trabalhador", holImg: "src/icons/trabalhador.png" },
+    "15/08": { holName: "Dia de Nossa Senhora da Boa Viagem", holImg: "src/icons/viagem.png" },
     "07/09": { holName: "Independência do Brasil", holImg: "src/icons/independencia.png" },
     "12/10": { holName: "Dia de Nossa Senhora Aparecida", holImg: "src/icons/aparecida.png" },
     "02/11": { holName: "Dia dos Finados", holImg: "src/icons/finados.png" },
     "15/11": { holName: "Proclamação da República", holImg: "src/icons/republica.png" },
     "20/11": { holName: "Consciência Negra", holImg: "src/icons/consciencia.png" },
+    "08/12": { holName: "Dia de Nossa Senhora Imaculada Conceição", holImg: "src/icons/Imaculada.png" },
     "25/12": { holName: "Feliz Natal 🎁", holImg: "src/icons/natal.png" },
-    "08/12": { holName: "Dia de Nossa Senhora Imaculada Conceição", holImg: "src/icons/Imaculada.png" }
 };
+
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("loginValue").focus();
     loadState();
     formSum();
-
+    console.log(Object.keys(localStorage))
     day = `${new Date().toLocaleDateString().slice(0, 5)}`
     Object.keys(holidays).forEach(hol => {
         day === hol ? setHol() : null;
     });
-    //loginFind = folks.find(user => user.loginCod == login);
 });
 
 /*const folks = [
@@ -65,7 +67,7 @@ function createRegularInputs() {
 
         input.type = "number";
         input.className = "etc";
-        input.min = "1";
+        input.min = "-1";
         input.addEventListener("change", function () {
             formSum();
         });
@@ -74,12 +76,13 @@ function createRegularInputs() {
 };
 
 function createInputs() {
-    for (let i = 0; i < needMoreInputs; i++) {
+    create = 8;
+    for (let i = 0; i < create; i++) {
         const input = document.createElement("input");
 
         input.type = "number";
         input.className = "etc";
-        input.min = "1";
+        input.min = "-1";
         input.addEventListener("change", function () {
             formSum();
         });
@@ -134,11 +137,6 @@ function saveFolks() {
         edit.uName = create_uName.value;
         edit.loginCod = create_loginCode.value;
         document.getElementById("registerTitle").textContent = `'${loginText.textContent}' foi editado`;
-        if (nameText.textContent === "EXCLUIR") {
-            folks.splice(edit);
-            document.getElementById("loginHub").classList.remove("hidden");
-            clearAll();
-        };
     } else {
         createFolk = { uName: create_uName.value, loginCod: parseInt(create_loginCode.value) };
         folks.push(createFolk);
@@ -153,25 +151,29 @@ function saveFolks() {
 
 function formSum() {
     sum = 0;
-    control = 0;
 
-    isItEmpty.forEach((input) => {
+    document.querySelectorAll(".etc").forEach((input) => {
         if (input.value != "" && input.value > 0) {
             sum += parseFloat(input.value)
         };
-        if (input.value === "" && !input.id) {
-            control++;
-        };
+
         input.value <= 0 ? input.value = "" : null;
     });
+
     document.getElementById("showSum").textContent = "TOTAL:" + sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-    saveState();//está criando novos inputs
+
+    document.querySelectorAll(".etc").forEach((input) => {
+        if (input.value < 1 && !input.id) {
+            control++
+        };
+    });
+    control < 2 ? createInputs() : null;
+    control = 0;
+
+    saveState();
     updateInput();
-    if (control <= 2) {
-        needMoreInputs = 4;
-        createInputs();
-    };
 };
+
 function updateInput() {
     let findEmpty;//remove the classList if the element is Empty
     check = document.getElementsByClassName("becomeDev").length;
@@ -301,20 +303,17 @@ function findAndClear() {
 };
 
 function clearAll() {
-    isItEmpty.forEach(function (input) {
-        input.value = ""
+    const keepIt = ["folks", "cashier"]
+    const dataSaved = Object.keys(localStorage)
+    dataSaved.forEach(key => {
+        if (!keepIt.includes(key)) {
+            localStorage.removeItem(key)
+        };
     });
-    document.getElementById("loginValue").value = ""
-    sum = 0;
-    nameText.textContent = "";
-    loginText.textContent = "";
-    login = "";
-    updateInput();
-    saveState();
-    localStorage.removeItem("LastLoginCode");
-    localStorage.setItem("allInputs", 36);
+  
     location.reload();
 };
+
 document.addEventListener("keydown", (function (event) {
     if (event.shiftKey && event.code === "F1") {
         simpleLock = true;
@@ -391,21 +390,28 @@ tools = () => {
 
 function saveState() {
     const inputs = document.querySelectorAll('.etc');
-    inputs.forEach((input, index) => {
-        if (inputs.value != "") {
-            localStorage.setItem(`input${index} `, input.value);
-            localStorage.setItem(`class${index} `, input.classList.toString());
-        }
+    let notEmp = 0;
+
+    inputs.forEach((input) => {
+        input.value != "" ? notEmp++ : null
     });
 
-    //localStorage.setItem("time", `${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`);
+    inputs.forEach((input, index) => {
+        localStorage.setItem(`input${index} `, input.value);
+        localStorage.setItem(`class${index} `, input.classList.toString());
 
-    if (inputs.length > 44) {
-        localStorage.setItem("allInputs", inputs.length);
-    };// SOLUCAO TEMPORÁRIA para nn criar novos ao recarregar a pág
+    });
+    notEmp > 40 ? localStorage.setItem("allInputs", notEmp) : localStorage.removeItem("allInputs");
+    //localStorage.setItem("time", `${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`);
 };
 
 function loadState() {
+    document.querySelectorAll(".etc").forEach((input) => {
+        if (input.value < 1 && !input.id) {
+            control++
+        };
+    });
+    control < 2 ? createInputs() : null;
     folksJson = localStorage.getItem("folks");
 
     folks = JSON.parse(folksJson)
@@ -421,7 +427,7 @@ function loadState() {
         allInputs = parseInt(lastTotalInputs);
         createRegularInputs();
     } else {
-        allInputs = 36;
+        allInputs = 32;
         createRegularInputs();
     };
 
@@ -461,6 +467,7 @@ simpleCheck = () => {
         document.getElementById("saveButton").style = " font-weight: bolder;background-color: #009440;color: white;";
     };
 };
+
 removeColor = (remove) => {
     document.getElementById(remove.id).style = " background-color: none;font-weight: normal;";
 };
@@ -498,7 +505,7 @@ changeFontSize = () => {
 
 changeQrSize = () => {
     qrSize = document.getElementById("qrSizeVar").value;
-    qrSize <= 0 ? qrSize = 150 : null;
+    qrSize <= 29 ? qrSize = 29 : null;
     qrCodeSet();
 };
 
@@ -512,8 +519,9 @@ codBarras = () => {
 };
 
 qrCodeSet = () => {
-    document.getElementById("qrTable").classList.toggle("hidden");
-    document.getElementById("barCheck").classList.toggle("hidden");
+    document.getElementById("qrTable").classList.remove("hidden");
+    document.getElementById("barCheck").classList.add("hidden");
+
     let qrCodePNG = document.getElementById("qr");
     let stats = document.getElementById("qrCheck").checked;
     let userText = document.getElementById("obsText").textContent;
@@ -525,11 +533,11 @@ qrCodeSet = () => {
         qrURL = `https://image-charts.com/chart?chs=${qrSize}x${qrSize}&cht=qr&chl=${userText}`;
         qrCodePNG.setAttribute("src", qrURL);
     } else {
-        qrCodePNG.setAttribute("src", "");
         document.getElementById("obsText").classList.remove("hidden");
-        document.getElementById("obsText").focus();
         document.getElementById("fontLabel").classList.remove("hidden");
         document.getElementById("qrLabel").classList.add("hidden");
+        document.getElementById("qrTable").classList.add("hidden");
+        document.getElementById("barCheck").classList.remove("hidden");
     };
 };
 
@@ -547,11 +555,12 @@ function GerarCódigoDeBarras(elementoInput) {
         margin: 0
     };
     const createLi = document.createElement("li");
+    createLi.id = "barLi" + elementoInput.value;
     barTable.appendChild(createLi);
 
     const barName = document.createElement("input");
     barName.classList.add("barrasTitles");
-    barName.placeholder = `Nome <${elementoInput.value}>`
+    barName.placeholder = `Nome ${elementoInput.value}`
     createLi.appendChild(barName);
     createLi.appendChild(document.createElement("br"));
 
@@ -567,6 +576,8 @@ function GerarCódigoDeBarras(elementoInput) {
 
     barName.addEventListener("change", function () {
         document.getElementById("barrasValue").focus();
+        barCode = "barLi" + this.placeholder.slice(5)
+        this.value == "#Del#" ? document.getElementById(barCode).remove() : null;
     });
 }//https://www.mundojs.com.br/2018/01/16/crie-codigo-de-barras-em-javascript-com-jsbarcode/
 
@@ -594,3 +605,9 @@ function setHol() {
     document.getElementById("holName").textContent = holidays[day].holName;
     document.getElementById("tagImg").setAttribute("src", holidays[day].holImg);
 };
+/*
+var i;
+for (i = 0; i < localStorage.length; i++) {
+    console.log(localStorage.key(i) + "=[" + localStorage.getItem(localStorage.key(i)) + "]");
+}
+    */

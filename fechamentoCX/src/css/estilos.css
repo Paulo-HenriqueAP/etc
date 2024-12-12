@@ -164,6 +164,8 @@ input {
     #obsText {
         border: none !important;
         box-shadow: none !important;
+        top: 0!important;
+        left: 0!important;
     }
 
     #barrasTable {
@@ -177,6 +179,14 @@ input {
 
     ::-webkit-input-placeholder {
         color: transparent;
+    }
+
+    #barrasTuto {
+        display: none;
+    }
+
+    .blankValue {
+        display: none;
     }
 }
 
@@ -213,10 +223,11 @@ h4 {
     height: max-content;
     position: absolute;
     z-index: 6;
-    margin-top: 5px;
+    margin-top: 6px;
     border: 1px solid;
     box-shadow: 1px 1px 1px 1px #16161D;
     left: 1%;
+    background-color: #F8F8FF;
 }
 
 #qrTable {

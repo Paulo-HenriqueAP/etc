@@ -33,9 +33,7 @@
             onfocusout="removeColor(this)">salvar</button>
         <br>
         <br>
-        <span style="font-size: x-small;">escreva "EXCLUIR" no nome</span>
-        <br>
-        <span style="font-size: x-small;">F9 cancelar</span>
+        <span style="font-size: x-small;">F9 cancela</span>
     </div>
 
     <div class="hidden" id="sangria">
@@ -56,27 +54,27 @@
         <br>
         <br>
         <div id="sizes">
-            <span id="fontLabel">Tamanho da fonte
+            <b id="fontLabel">Tamanho da fonte
                 <input type="number" id="fontSizeVar" style="width: 50px; text-align: center;" value="13"
                     onchange="changeFontSize()"> px
-            </span>
+            </b>
             <br>
-            <span id="qrLabel" class="hidden">Tamanho do QR
+            <b id="qrLabel" class="hidden">Tamanho do QR
                 <input type="number" id="qrSizeVar" style="width: 50px; text-align: center;" value="150"
                     onchange="changeQrSize()"> px
-            </span>
+            </b>
         </div>
-
-        <div id="obsText" contenteditable style="overflow:hidden;"><pre><pre></div>  
+        <br>
+        <div id="obsText" contenteditable style="overflow:hidden;"><pre><pre></div>
         <div id="qrTable" class="hidden">
-            <li> 
-            <input type="text" placeholder="Título QR" style="text-align: center;">
             <br>
-            <img id="qr" src=""></img>
-        </li>
+            <li><input id="qrName" type="text" placeholder="Título QR" style="text-align: center;" class="blankValue" onfocus="document.getElementById('qrName').classList.remove('blankValue')"></li>
+            <br>
+            <li> <img id="qr" src=""></img></li>
     </div>
         <div class="hidden" id="barrasTable">
             <input type="text" id="barrasValue" onchange="GerarCódigoDeBarras(this)" placeholder="novo código" style="width: 65mm; text-align: center; margin: 5px;">
+            <span id="barrasTuto"><b>#Del#</b> remove</span>
             <ul id="barrasElements" style="padding: 0; display: flexbox;">       
             </ul>
         </div>
@@ -120,20 +118,20 @@
             <th>DINHEIRO</th>
         </tr>
         <tr>
-            <td style="font-size: larger;">AVULSO: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input min="1"
+            <td style="font-size: larger;">AVULSO: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input min="-1"
                     onchange="formSum()" id="stuffs" type="number" class="etc"></td>
         </tr>
         <tr>
             <td style="font-size: larger;">5,00: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
-                    min="1" onchange="formSum()" id="stuffs5" type="number" class="etc"></td>
+                    min="-1" onchange="formSum()" id="stuffs5" type="number" class="etc"></td>
         </tr>
         <tr>
             <td style="font-size: larger;">10,00 | 20,00:&nbsp;
-                <input min="1" onchange="formSum()" id="stuffs10_20" type="number" class="etc">
+                <input min="-1" onchange="formSum()" id="stuffs10_20" type="number" class="etc">
             </td>
         </tr>
         <tr>
-            <td style="font-size: larger;">50,00 | 100,00: <input min="1" onchange="formSum()" id="stuffs50_100"
+            <td style="font-size: larger;">50,00 | 100,00: <input min="-1" onchange="formSum()" id="stuffs50_100"
                     type="number" class="etc"></td>
         </tr>
         <tr>
