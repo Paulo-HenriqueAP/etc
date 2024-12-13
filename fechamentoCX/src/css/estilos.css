@@ -165,7 +165,6 @@ input {
         border: none !important;
         box-shadow: none !important;
         top: 0!important;
-        left: 0!important;
     }
 
     #barrasTable {
@@ -226,7 +225,6 @@ h4 {
     margin-top: 6px;
     border: 1px solid;
     box-shadow: 1px 1px 1px 1px #16161D;
-    left: 1%;
     background-color: #F8F8FF;
 }
 

@@ -27,7 +27,7 @@
 
         <li>
             <label for="nameValue">Nome&nbsp;</label>
-            <input type="text" id="nameValue">
+            <input type="text" id="nameValue" onchange="document.getElementById('saveButton').focus()">
         </li>
         <button id="saveButton" onclick="saveFolks()" onfocus="simpleCheck()"
             onfocusout="removeColor(this)">salvar</button>
@@ -65,7 +65,7 @@
             </b>
         </div>
         <br>
-        <div id="obsText" contenteditable style="overflow:hidden;"><pre><pre></div>
+        <div contenteditable style="overflow:hidden;" id="obsText"><pre><pre></div>
         <div id="qrTable" class="hidden">
             <br>
             <li><input id="qrName" type="text" placeholder="Título QR" style="text-align: center;" class="blankValue" onfocus="document.getElementById('qrName').classList.remove('blankValue')"></li>
@@ -177,27 +177,28 @@
             <h2>Como usar</h2>
         <li><strong>Enter</strong> ou <strong>Tab</strong> avança</li>
         <li><strong>Shift</strong> com <strong>Tab</strong> volta</li>
-        <li> <strong onclick="sMobileEvents(event)">F2</strong> papel de sangria</li>
-        <li> <strong onclick="sMobileEvents(event)">F4</strong> imprimi</li>
-        <li><strong onclick="sMobileEvents(event)">F8</strong> apaga a seção</strong>
-        <li> <strong onclick="sMobileEvents(event)">F9</strong> opções de cadastro</li>
+        <li><strong>WASD</strong> também navega</li>
+        <li> <strong onclick="sMobileEvents(event)" style="cursor: pointer;">F2</strong> papel de sangria</li>
+        <li> <strong onclick="sMobileEvents(event)" style="cursor: pointer;">F4</strong> imprimi</li>
+        <li><strong onclick="sMobileEvents(event)" style="cursor: pointer;">F8</strong> apaga a seção</strong>
+        <li> <strong onclick="sMobileEvents(event)" style="cursor: pointer;">F9</strong> opções de cadastro</li>
         <li><strong>T</strong> volta para AVULSO</strong>
         <li><strong>L</strong> próx livre</strong>
-        <li id="dTouch"><strong>D</strong> adiciona/ remove <strong
+        <li id="vTouch"><strong>V</strong> adiciona/ remove <strong
                 style="background-color: #009440;border-radius: 3px; color: ghostwhite;">DEVOLUÇÃO</strong>
         </li>
-        <li id="sTouch"><strong>S</strong> adiciona/ remove <strong
+        <li id="nTouch"><strong>N</strong> adiciona/ remove <strong
                 style="background-color: #ffcb00;border-radius: 3px;">SINAL</strong>
         </li>
         <br>
         <li>Está preso? <strong>F5</strong> </li>
-        <li onclick="tools()"><span style="font-weight: bold;">Shift <span style="font-weight: normal;">com</span> F1 </span> outras ferramentas</li>
+        <li style="cursor: pointer;" onclick="tools()"><b>Shift</b> com <b>F1</b> outras ferramentas</li>
         <div style="font-size: small;">
             <ul>
                 <h3 style="text-align: center;">Configuração da impresora</h3>
-                <li>Impressora: <span style="font-weight: bolder;">Epson TM-T20X Series</span></li>
-                <li>Tamanho Papel: <span style="font-weight: bolder;">Postcard 100x148mm</span></li>
-                <li>Margens: <span style="font-weight: bolder; ">Nenhum</span></li>
+                <li>Impressora: <b>Epson TM-T20X Series</b></li>
+                <li>Tamanho Papel: <b>Postcard 100x148mm</b></li>
+                <li>Margens: <b>Nenhum</b></span></li>
             </ul>
           <!--<br><li>Seção anterior: <span id="lastTime" style="font-weight: bolder;"></span> </li>--> 
         </div>

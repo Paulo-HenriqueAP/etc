@@ -1,7 +1,6 @@
 let nameText = document.getElementById("uName");
 let loginText = document.getElementById("uLogin");
 let sum = 0;
-let isItEmpty = document.querySelectorAll(".etc");
 let activeEl = document.activeElement;
 let login;
 let saveName;
@@ -47,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("loginValue").focus();
     loadState();
     formSum();
-    console.log(Object.keys(localStorage))
+    //console.log(Object.keys(localStorage))
     day = `${new Date().toLocaleDateString().slice(0, 5)}`
     Object.keys(holidays).forEach(hol => {
         day === hol ? setHol() : null;
@@ -88,7 +87,6 @@ function createInputs() {
         });
         document.getElementById("allEtcs").appendChild(input);
     };
-    isItEmpty = document.querySelectorAll(".etc");
 };
 
 function showUserInfos() {
@@ -155,9 +153,9 @@ function formSum() {
     document.querySelectorAll(".etc").forEach((input) => {
         if (input.value != "" && input.value > 0) {
             sum += parseFloat(input.value)
+        } else {
+            input.value = "";
         };
-
-        input.value <= 0 ? input.value = "" : null;
     });
 
     document.getElementById("showSum").textContent = "TOTAL:" + sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -238,10 +236,20 @@ function putItOnSinais() {
 function jumpToNext() {
     let nextEl = document.querySelectorAll("input");
     let index = Array.prototype.indexOf.call(nextEl, document.activeElement);
-    if (index > -1) {
-        let jumpTo = nextEl[index + 1] || nextEl[0];
-        jumpTo.focus();
+
+    try {
+        nextEl[index + 1].focus()
+    } catch (error) {
+        avulso.focus()
     };
+
+};
+
+function jumpBack() {
+    let nextEl = document.querySelectorAll("input");
+    let index = Array.prototype.indexOf.call(nextEl, document.activeElement);
+    nextEl[index - 1].focus()
+    index == 10 ? goToFreeInput() : null;
 };
 
 function goToFreeInput() {
@@ -255,13 +263,12 @@ function goToFreeInput() {
 };
 
 function findAndClear() {
-    isItEmpty.forEach((input) => {
+    document.querySelectorAll(".etc").forEach((input) => {
         if (input.value == "" && !input.id) {
             input.classList.add("hidden");
-            setTimeout(function () {
-                input.classList.remove("hidden");
-            }, 1000)
-        }
+        } setTimeout(function () {
+            input.classList.remove("hidden");
+        }, 500)
 
         if (input.id && input.value === "") {
             input.type = "text";
@@ -310,7 +317,7 @@ function clearAll() {
             localStorage.removeItem(key)
         };
     });
-  
+
     location.reload();
 };
 
@@ -325,16 +332,19 @@ document.addEventListener("keydown", (function (event) {
     };
 
     switch (event.code) {
+        case "KeyE":
+            !simpleLock ? event.preventDefault() : null;
+            break;
         case "F4":
             formSum();
             document.getElementById("time").textContent = `${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()} | CX > ${cashier}`;
             findAndClear();
             signature.classList.remove("hidden");
             window.print();
-            signature.classList.add("hidden");
             setTimeout(function () {
+                signature.classList.add("hidden");
                 goToFreeInput();
-            }, 300)
+            }, 300);
             break;
         case "F8":
             if (window.confirm("Tem certeza?")) {
@@ -351,13 +361,33 @@ document.addEventListener("keydown", (function (event) {
             if (simpleLock) return;
             goToFreeInput();
             break;
-        case "KeyD":
+        case "KeyW":
             if (simpleLock) return;
-            putItOnDevolucoes();
+            seek = document.querySelectorAll(".etc");
+            activeEl = Array.from(seek).indexOf(document.activeElement)
+            try {
+                activeEl <= 7 ? seek[activeEl -= 1].focus() : seek[activeEl -= 4].focus();
+            } catch (error) {
+                seek[seek.length - 1].focus();
+            }
+            break;
+        case "KeyA":
+            if (simpleLock) return;
+            jumpBack();
             break;
         case "KeyS":
             if (simpleLock) return;
-            putItOnSinais();
+            seek = document.querySelectorAll(".etc");
+            activeEl = Array.from(seek).indexOf(document.activeElement)
+            try {
+                activeEl <= 3 ? seek[activeEl += 1].focus() : seek[activeEl += 4].focus();
+            } catch (error) {
+                jumpToNext();
+            }
+            break;
+        case "KeyD":
+            if (simpleLock) return;
+            jumpToNext();
             break;
         case "F2":
             bodyTable.classList.add("hidden");
@@ -374,6 +404,14 @@ document.addEventListener("keydown", (function (event) {
             }
             login ? registerStatus.textContent = `editando '${login}'` : registerStatus.textContent = "Criando novo";
             createEditFolk();
+            break;
+        case "KeyN":
+            if (simpleLock) return;
+            putItOnSinais();
+            break;
+        case "KeyV":
+            if (simpleLock) return;
+            putItOnDevolucoes();
             break;
     };
 }));
@@ -505,7 +543,7 @@ changeFontSize = () => {
 
 changeQrSize = () => {
     qrSize = document.getElementById("qrSizeVar").value;
-    qrSize <= 29 ? qrSize = 29 : null;
+    qrSize <= 4 ? qrSize = 4 : null;
     qrCodeSet();
 };
 
@@ -522,7 +560,6 @@ qrCodeSet = () => {
     document.getElementById("qrTable").classList.remove("hidden");
     document.getElementById("barCheck").classList.add("hidden");
 
-    let qrCodePNG = document.getElementById("qr");
     let stats = document.getElementById("qrCheck").checked;
     let userText = document.getElementById("obsText").textContent;
     userText.length <= 0 ? userText = "Nada" : null;
@@ -530,8 +567,7 @@ qrCodeSet = () => {
         document.getElementById("obsText").classList.add("hidden");
         document.getElementById("fontLabel").classList.add("hidden");
         document.getElementById("qrLabel").classList.remove("hidden");
-        qrURL = `https://image-charts.com/chart?chs=${qrSize}x${qrSize}&cht=qr&chl=${userText}`;
-        qrCodePNG.setAttribute("src", qrURL);
+        document.getElementById("qr").setAttribute("src", `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${userText}`);
     } else {
         document.getElementById("obsText").classList.remove("hidden");
         document.getElementById("fontLabel").classList.remove("hidden");
@@ -590,12 +626,12 @@ function sMobileEvents(event) {
     document.dispatchEvent(sendKey);
 };
 
-document.getElementById("dTouch").addEventListener("touchstart", (event) => {
+document.getElementById("vTouch").addEventListener("touchstart", () => {
     if (simpleLock) return;
     putItOnDevolucoes();
 }, { passive: true });
 
-document.getElementById("sTouch").addEventListener("touchstart", (event) => {
+document.getElementById("nTouch").addEventListener("touchstart", () => {
     if (simpleLock) return;
     putItOnSinais();
 }, { passive: true });
