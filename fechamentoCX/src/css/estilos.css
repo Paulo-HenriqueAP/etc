@@ -87,12 +87,18 @@ input {
 .howTo {
     position: absolute;
     right: 0%;
-    top: 0;
+    top: 0%;
     border-radius: 3px;
     box-shadow: 2px 5px 20px 2px #16161D;
     padding: 0.6%;
     font-size: large;
     z-index: 1;
+}
+.howTo li {
+   border: 1px solid;
+   border-radius: 3px;
+   margin-bottom: 6px;
+    padding: 3px;
 }
 
 #devolucoes,

@@ -65,7 +65,8 @@
             </b>
         </div>
         <br>
-        <div contenteditable style="overflow:hidden;" id="obsText"><pre><pre></div>
+        <div contenteditable style="overflow:hidden;" id="obsText">
+            <pre><pre></div>
         <div id="qrTable" class="hidden">
             <br>
             <li><input id="qrName" type="text" placeholder="Título QR" style="text-align: center;" class="blankValue" onfocus="document.getElementById('qrName').classList.remove('blankValue')"></li>
@@ -87,7 +88,7 @@
             <span id="operCod" style="font-weight: bolder; font-size: large;"></span>
             <span id="cxNumber"></span>
             <br>------------------------------------</br>
-            <h2 id="sumSangria"></h2>
+            <h2 id="sumSangria" style="max-width: 71mm; word-wrap: break-word;"></h2>
             <br>
             <span>______________________________</span>
             <br>
@@ -109,9 +110,12 @@
         </tr>
         <tr>
             <th>
+                <span id="date" style="font-size: larger; font-weight: normal;"></span>
+                <br>
                 <span id="uName"></span>
                 <br>
                 <span id="uLogin" style="font-weight: bolder; font-size: large;"></span>
+                <b id="cx" style="font-size: large;"></b>
             </th>
         </tr>
         <tr>
@@ -143,6 +147,7 @@
                     <li id="allEtcs">
                     </li>
                 </ul>
+                <h2 class="hidden" id="subtotal" style="max-width: 71mm;  word-wrap: break-word;">SubTOTAL:</h2>
             </td>
         </tr>
         <tr>
@@ -173,24 +178,23 @@
     </table>
 
     <ul class="howTo">
-        <li>
-            <h2>Como usar</h2>
+       <span style="font-size: x-large;">Como usar:</span>
+       <br><br>
         <li><strong>Enter</strong> ou <strong>Tab</strong> avança</li>
         <li><strong>Shift</strong> com <strong>Tab</strong> volta</li>
         <li><strong>WASD</strong> também navega</li>
         <li> <strong onclick="sMobileEvents(event)" style="cursor: pointer;">F2</strong> papel de sangria</li>
         <li> <strong onclick="sMobileEvents(event)" style="cursor: pointer;">F4</strong> imprimi</li>
-        <li><strong onclick="sMobileEvents(event)" style="cursor: pointer;">F8</strong> apaga a seção</strong>
+        <li><strong onclick="sMobileEvents(event)" style="cursor: pointer;">F8</strong> limpa a seção</strong>
         <li> <strong onclick="sMobileEvents(event)" style="cursor: pointer;">F9</strong> opções de cadastro</li>
         <li><strong>T</strong> volta para AVULSO</strong>
         <li><strong>L</strong> próx livre</strong>
-        <li id="vTouch"><strong>V</strong> adiciona/ remove <strong
-                style="background-color: #009440;border-radius: 3px; color: ghostwhite;">DEVOLUÇÃO</strong>
+        <li id="vTouch" style="text-align: center;"><strong>Shift</strong> com <strong>D</strong><br>
+             adiciona/ remove <strong style="background-color: #009440;border-radius: 3px; color: ghostwhite;">DEVOLUÇÃO</strong>
         </li>
-        <li id="nTouch"><strong>N</strong> adiciona/ remove <strong
-                style="background-color: #ffcb00;border-radius: 3px;">SINAL</strong>
+        <li id="nTouch" style="text-align: center;"><strong>Shift</strong> com <strong>S</strong><br> adiciona/ remove 
+            <strong style="background-color: #ffcb00;border-radius: 3px;">SINAL</strong>
         </li>
-        <br>
         <li>Está preso? <strong>F5</strong> </li>
         <li style="cursor: pointer;" onclick="tools()"><b>Shift</b> com <b>F1</b> outras ferramentas</li>
         <div style="font-size: small;">

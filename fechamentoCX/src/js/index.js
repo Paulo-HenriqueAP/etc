@@ -1,6 +1,7 @@
 let nameText = document.getElementById("uName");
 let loginText = document.getElementById("uLogin");
 let sum = 0;
+let subSum = 0
 let activeEl = document.activeElement;
 let login;
 let saveName;
@@ -51,6 +52,8 @@ document.addEventListener("DOMContentLoaded", function () {
     Object.keys(holidays).forEach(hol => {
         day === hol ? setHol() : null;
     });
+    document.getElementById("date").textContent = `${new Date().toLocaleDateString()}`;
+    document.getElementById("cx").textContent = "CX " + cashier;
 });
 
 /*const folks = [
@@ -100,7 +103,7 @@ function showUserInfos() {
         nameText.textContent = loginFind.uName;
         document.getElementById("loginHub").classList.add("hidden");
         bodyTable.classList.remove("hidden");
-        loginText.textContent = `<${login}>`;
+        loginText.textContent = `<${login}> `;
         goToFreeInput();
         localStorage.setItem("LastLoginCode", login);
         simpleLock = false;
@@ -149,6 +152,7 @@ function saveFolks() {
 
 function formSum() {
     sum = 0;
+    subSum = 0;
 
     document.querySelectorAll(".etc").forEach((input) => {
         if (input.value != "" && input.value > 0) {
@@ -156,6 +160,11 @@ function formSum() {
         } else {
             input.value = "";
         };
+
+        if (!input.id && input.value != "" && input.classList == "etc") {
+            subSum += parseFloat(input.value)
+            document.getElementById("subtotal").textContent = "SubTotal:" + subSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+        }
     });
 
     document.getElementById("showSum").textContent = "TOTAL:" + sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -165,6 +174,7 @@ function formSum() {
             control++
         };
     });
+
     control < 2 ? createInputs() : null;
     control = 0;
 
@@ -189,6 +199,7 @@ function updateInput() {
     findEmpty.forEach((input) => {
         input.value === "" ? input.classList.remove("becomeSin") : null;
     });
+    saveState()
 };
 
 function putItOnDevolucoes() {
@@ -337,12 +348,14 @@ document.addEventListener("keydown", (function (event) {
             break;
         case "F4":
             formSum();
-            document.getElementById("time").textContent = `${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()} | CX > ${cashier}`;
+            document.getElementById("time").textContent = `${new Date().toLocaleTimeString()}`;
             findAndClear();
             signature.classList.remove("hidden");
+            document.getElementById("subtotal").classList.remove("hidden");
             window.print();
             setTimeout(function () {
                 signature.classList.add("hidden");
+                document.getElementById("subtotal").classList.add("hidden");
                 goToFreeInput();
             }, 300);
             break;
@@ -363,6 +376,7 @@ document.addEventListener("keydown", (function (event) {
             break;
         case "KeyW":
             if (simpleLock) return;
+            if (event.ctrlKey) return;
             seek = document.querySelectorAll(".etc");
             activeEl = Array.from(seek).indexOf(document.activeElement)
             try {
@@ -373,21 +387,29 @@ document.addEventListener("keydown", (function (event) {
             break;
         case "KeyA":
             if (simpleLock) return;
+            if (event.ctrlKey) return;
             jumpBack();
             break;
         case "KeyS":
             if (simpleLock) return;
-            seek = document.querySelectorAll(".etc");
-            activeEl = Array.from(seek).indexOf(document.activeElement)
-            try {
-                activeEl <= 3 ? seek[activeEl += 1].focus() : seek[activeEl += 4].focus();
-            } catch (error) {
-                jumpToNext();
+            if (event.ctrlKey) return;
+            if (event.shiftKey) {
+                putItOnSinais()
+            } else {
+                seek = document.querySelectorAll(".etc");
+                activeEl = Array.from(seek).indexOf(document.activeElement)
+
+                try {
+                    activeEl <= 3 ? seek[activeEl += 1].focus() : seek[activeEl += 4].focus();
+                } catch (error) {
+                    jumpToNext();
+                }
             }
             break;
         case "KeyD":
             if (simpleLock) return;
-            jumpToNext();
+            if (event.ctrlKey) return;
+            event.shiftKey ? putItOnDevolucoes() : jumpToNext();
             break;
         case "F2":
             bodyTable.classList.add("hidden");
@@ -404,14 +426,6 @@ document.addEventListener("keydown", (function (event) {
             }
             login ? registerStatus.textContent = `editando '${login}'` : registerStatus.textContent = "Criando novo";
             createEditFolk();
-            break;
-        case "KeyN":
-            if (simpleLock) return;
-            putItOnSinais();
-            break;
-        case "KeyV":
-            if (simpleLock) return;
-            putItOnDevolucoes();
             break;
     };
 }));
