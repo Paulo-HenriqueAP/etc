@@ -1,7 +1,10 @@
 let nameText = document.getElementById("uName");
 let loginText = document.getElementById("uLogin");
 let sum = 0;
-let subSum = 0
+let subSum = 0;
+let cashSum = 0;
+let devSum = 0;
+let sinSum = 0;
 let activeEl = document.activeElement;
 let login;
 let saveName;
@@ -53,7 +56,7 @@ document.addEventListener("DOMContentLoaded", function () {
         day === hol ? setHol() : null;
     });
     document.getElementById("date").textContent = `${new Date().toLocaleDateString()}`;
-    document.getElementById("cx").textContent = "CX " + cashier;
+    document.getElementById("cx").textContent = `[${cashier}]`;
 });
 
 /*const folks = [
@@ -153,21 +156,31 @@ function saveFolks() {
 function formSum() {
     sum = 0;
     subSum = 0;
+    cashSum = 0;
+    devSum = 0;
+    sinSum = 0;
 
     document.querySelectorAll(".etc").forEach((input) => {
-        if (input.value != "" && input.value > 0) {
-            sum += parseFloat(input.value)
-        } else {
-            input.value = "";
-        };
-
-        if (!input.id && input.value != "" && input.classList == "etc") {
-            subSum += parseFloat(input.value)
-            document.getElementById("subtotal").textContent = "SubTotal:" + subSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })
+        const iValue = parseFloat(input.value);
+        if (isNaN(iValue) || iValue <= 0) {
+            iValue.value = "";
+            return;
         }
-    });
+        if (input.id) {
+            cashSum += iValue;
+        } else if (input.classList.contains("etc") && input.classList.contains("becomeDev")) {
+            devSum += iValue;
+        } else if (input.classList.contains("etc") && input.classList.contains("becomeSin")) {
+            sinSum += iValue;
+        } else if (input.classList.contains("etc")) {
+            subSum += iValue;
+        }
 
+        sum += iValue;
+    });
     document.getElementById("showSum").textContent = "TOTAL:" + sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    document.getElementById("subtotal").textContent = "SubTotal:" + subSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    document.getElementById("cash").textContent = "DINHEIRO: " + cashSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
     document.querySelectorAll(".etc").forEach((input) => {
         if (input.value < 1 && !input.id) {
@@ -185,10 +198,10 @@ function formSum() {
 function updateInput() {
     let findEmpty;//remove the classList if the element is Empty
     check = document.getElementsByClassName("becomeDev").length;
-    check === 0 ? document.getElementById("dev").textContent = "SEM DEVOLUÇÕES" : document.getElementById("dev").textContent = "DEVOLUÇÕES";
+    check === 0 ? document.getElementById("dev").textContent = "SEM DEVOLUÇÕES" : document.getElementById("dev").textContent = "DEVOLUÇÕES: " + devSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
     check = document.getElementsByClassName("becomeSin").length
-    check === 0 ? document.getElementById("sin").textContent = "SEM SINAIS" : document.getElementById("sin").textContent = "SINAIS";
+    check === 0 ? document.getElementById("sin").textContent = "SEM SINAIS" : document.getElementById("sin").textContent = "SINAIS: " + sinSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
     findEmpty = document.querySelectorAll(".becomeDev");
     findEmpty.forEach((input) => {
@@ -199,7 +212,7 @@ function updateInput() {
     findEmpty.forEach((input) => {
         input.value === "" ? input.classList.remove("becomeSin") : null;
     });
-    saveState()
+    saveState();
 };
 
 function putItOnDevolucoes() {
@@ -211,16 +224,15 @@ function putItOnDevolucoes() {
 
     if (activeEl.classList.contains("becomeDev")) {
         activeEl.classList.remove("becomeDev");
-        updateInput();
+        formSum()
         return;
     };//remove if alrealdy has
 
     if (activeEl.tagName === "INPUT" && activeEl.value != "" && !activeEl.id) {
         activeEl.classList.remove("becomeSin");
         activeEl.classList.add("becomeDev");
-        document.getElementById("dev").textContent = "DEVOLUÇÕES";
     };
-    updateInput();
+    formSum();
 };
 
 function putItOnSinais() {
@@ -232,7 +244,7 @@ function putItOnSinais() {
 
     if (activeEl.classList.contains("becomeSin")) {
         activeEl.classList.remove("becomeSin");
-        updateInput();
+        formSum()
         return;
     };//remove if alrealdy has
 
@@ -241,7 +253,7 @@ function putItOnSinais() {
         activeEl.classList.add("becomeSin");
         document.getElementById("sin").textContent = "SINAIS";
     };
-    updateInput();
+    formSum()
 };
 
 function jumpToNext() {
@@ -348,7 +360,7 @@ document.addEventListener("keydown", (function (event) {
             break;
         case "F4":
             formSum();
-            document.getElementById("time").textContent = `${new Date().toLocaleTimeString()}`;
+            document.getElementById("time").textContent = `${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()}`;
             findAndClear();
             signature.classList.remove("hidden");
             document.getElementById("subtotal").classList.remove("hidden");
@@ -374,42 +386,52 @@ document.addEventListener("keydown", (function (event) {
             if (simpleLock) return;
             goToFreeInput();
             break;
-        case "KeyW":
-            if (simpleLock) return;
-            if (event.ctrlKey) return;
+        /*
+    case "KeyW":
+        if (simpleLock) return;
+        if (event.ctrlKey) return;
+        seek = document.querySelectorAll(".etc");
+        activeEl = Array.from(seek).indexOf(document.activeElement)
+        try {
+            activeEl <= 7 ? seek[activeEl -= 1].focus() : seek[activeEl -= 4].focus();
+        } catch (error) {
+            seek[seek.length - 1].focus();
+        }
+        break;
+    case "KeyA":
+        if (simpleLock) return;
+        if (event.ctrlKey) return;
+        jumpBack();
+        break;
+    case "KeyS":
+        if (simpleLock) return;
+        if (event.ctrlKey) return;
+        if (event.shiftKey) {
+            putItOnSinais()
+        } else {
             seek = document.querySelectorAll(".etc");
             activeEl = Array.from(seek).indexOf(document.activeElement)
+
             try {
-                activeEl <= 7 ? seek[activeEl -= 1].focus() : seek[activeEl -= 4].focus();
+                activeEl <= 3 ? seek[activeEl += 1].focus() : seek[activeEl += 4].focus();
             } catch (error) {
-                seek[seek.length - 1].focus();
+                jumpToNext();
             }
-            break;
-        case "KeyA":
-            if (simpleLock) return;
-            if (event.ctrlKey) return;
-            jumpBack();
-            break;
+        }
+        break;
+    case "KeyD":
+        if (simpleLock) return;
+        if (event.ctrlKey) return;
+        event.shiftKey ? putItOnDevolucoes() : jumpToNext();
+        break;
+    */
         case "KeyS":
             if (simpleLock) return;
-            if (event.ctrlKey) return;
-            if (event.shiftKey) {
-                putItOnSinais()
-            } else {
-                seek = document.querySelectorAll(".etc");
-                activeEl = Array.from(seek).indexOf(document.activeElement)
-
-                try {
-                    activeEl <= 3 ? seek[activeEl += 1].focus() : seek[activeEl += 4].focus();
-                } catch (error) {
-                    jumpToNext();
-                }
-            }
+            event.shiftKey ? putItOnSinais() : null;
             break;
         case "KeyD":
             if (simpleLock) return;
-            if (event.ctrlKey) return;
-            event.shiftKey ? putItOnDevolucoes() : jumpToNext();
+            event.shiftKey ? putItOnDevolucoes() : null;
             break;
         case "F2":
             bodyTable.classList.add("hidden");
@@ -497,7 +519,7 @@ function loadState() {
     };
 
     //document.getElementById("lastTime").textContent += localStorage.getItem("time");
-    cashier = localStorage.getItem("cashier");
+    localStorage.getItem("cashier") ? cashier = localStorage.getItem("cashier") : cashier = "69"
     workShift = new Date().getHours();
     if (workShift >= 14 && workShift < 23) {
         cashier += ".2";
@@ -640,12 +662,12 @@ function sMobileEvents(event) {
     document.dispatchEvent(sendKey);
 };
 
-document.getElementById("vTouch").addEventListener("touchstart", () => {
+document.getElementById("dTouch").addEventListener("touchstart", () => {
     if (simpleLock) return;
     putItOnDevolucoes();
 }, { passive: true });
 
-document.getElementById("nTouch").addEventListener("touchstart", () => {
+document.getElementById("sTouch").addEventListener("touchstart", () => {
     if (simpleLock) return;
     putItOnSinais();
 }, { passive: true });
