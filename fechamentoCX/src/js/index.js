@@ -115,6 +115,7 @@ function showUserInfos() {
         registerHub.classList.remove("hidden");
         registerStatus.textContent = `Login '${login}' não encontrado`
         createEditFolk();
+        simpleCheck();
     };
 };
 
@@ -122,8 +123,6 @@ function createEditFolk() {
     simpleLock = true;
     create_loginCode.value = login;
     create_uName.value = nameText.textContent
-    create_uName.focus();
-    registerStatus.textContent == "Criando novo" ? create_loginCode.focus() : null;
 };
 
 function saveFolks() {
@@ -141,6 +140,7 @@ function saveFolks() {
         edit.uName = create_uName.value;
         edit.loginCod = create_loginCode.value;
         document.getElementById("registerTitle").textContent = `'${loginText.textContent}' foi editado`;
+        registerStatus.textContent = `editou '${login}'`
     } else {
         createFolk = { uName: create_uName.value, loginCod: parseInt(create_loginCode.value) };
         folks.push(createFolk);
@@ -265,15 +265,15 @@ function jumpToNext() {
     } catch (error) {
         avulso.focus()
     };
-
 };
-
+/*
 function jumpBack() {
     let nextEl = document.querySelectorAll("input");
     let index = Array.prototype.indexOf.call(nextEl, document.activeElement);
     nextEl[index - 1].focus()
     index == 10 ? goToFreeInput() : null;
 };
+*/
 
 function goToFreeInput() {
     findEmpty = document.querySelectorAll(".etc");
@@ -350,7 +350,7 @@ document.addEventListener("keydown", (function (event) {
         tools();
     };
 
-    if (event.key === "Enter") {
+    if (event.key === "Enter" && simpleLock == false) {
         jumpToNext();
     };
 
@@ -448,6 +448,9 @@ document.addEventListener("keydown", (function (event) {
             }
             login ? registerStatus.textContent = `editando '${login}'` : registerStatus.textContent = "Criando novo";
             createEditFolk();
+            simpleCheck();
+            registerStatus.textContent == `editando '${login}'` ? create_uName.focus() : null;
+            registerStatus.textContent == `editando '${login}'` ? document.getElementById("registerTitle").textContent = "Edição" : null;
             break;
     };
 }));
@@ -526,25 +529,31 @@ function loadState() {
     } else {
         cashier += ".1";
     };
-    document.getElementById("cxNumber").textContent = " CAIXA " + cashier;
     formSum();
     goToFreeInput();
 };
 
 simpleCheck = () => {
-    nameText.textContent = create_uName.value;
     loginText.textContent = create_loginCode.value;
+    nameText.textContent = create_uName.value;
 
-    if (nameText.textContent == "" || loginText.textContent == "") {
-        document.getElementById("saveButton").style = "font-weight: bolder; background-color: red;color: black; ";
+    if (loginText.textContent == "") {
+        document.getElementById("saveButton").classList.add("error");
+        create_loginCode.focus();
+    } else if (nameText.textContent == "") {
+        document.getElementById("saveButton").classList.add("error");
+        create_uName.focus();
     } else {
-        document.getElementById("saveButton").style = " font-weight: bolder;background-color: #009440;color: white;";
+        document.getElementById("saveButton").classList.remove("error");
+        document.getElementById("saveButton").focus();
     };
 };
 
-removeColor = (remove) => {
+/*removeColor = (remove) => {
     document.getElementById(remove.id).style = " background-color: none;font-weight: normal;";
-};
+
+    onfocus="simpleCheck()" onfocusout="removeColor(this)"
+};*/
 
 defSangria = () => {
     sangria = parseFloat(sangriaInput.value);
@@ -566,8 +575,9 @@ defSangria = () => {
     document.getElementById("sangria").classList.add("hidden");
     document.getElementById("sumSangria").textContent = "SANGRIA: " + sangria.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
     document.getElementById("operCod").textContent = loginText.textContent
-    document.getElementById("timeSangria").textContent = `${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`
-    document.getElementById("oper").textContent = "Operador: " + uName.textContent;
+    document.getElementById("timeSangria").textContent = `${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()}`
+    document.getElementById("oper").textContent = uName.textContent;
+    document.getElementById("cxNumber").textContent = `[${cashier}]`;
     window.print();
     location.reload();
 };

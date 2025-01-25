@@ -120,6 +120,8 @@ input {
     border-radius: 3px;
     background-color: #F8F8FF;
     z-index: 5;
+    box-shadow: 1px 1px 2px 1px #16161D;
+
 }
 
 #registerHub li {
@@ -158,10 +160,12 @@ input {
     table,
     th,
     td {
-        border: 1px dashed;
-        border-right: 0;
-        border-left: 0;
-        border-top: 0;
+        border: none;
+        border-bottom: 1px dashed;
+    }
+
+    #cash {
+        border-bottom: 1px solid;
     }
 
     #qrTable {
@@ -194,6 +198,14 @@ input {
     .blankValue {
         display: none;
     }
+
+    #etcTitle,
+    #dev,
+    #sin {
+        border: none;
+        text-decoration: underline;
+        text-underline-offset: 3px;
+    }
 }
 
 h4 {
@@ -201,8 +213,18 @@ h4 {
 }
 
 #saveButton {
-    padding: 6px;
     cursor: pointer;
+    padding: 6px;
+    border: none;
+    border-radius: 3px;
+    background-color: #009440;
+    color: whitesmoke;
+    box-shadow: 1px 1px 1px 1px #16161D;
+}
+
+.error {
+    background-color: red !important;
+    color: black !important;
 }
 
 #sangria {
@@ -212,11 +234,12 @@ h4 {
     transform: translate(-50%, -50%);
     left: 50%;
     top: 50%;
-    outline: 3px solid #16161D;
+    outline: 1px solid #16161D;
     border-radius: 3px;
     padding: 2%;
     background-color: #F8F8FF;
     z-index: 4;
+    box-shadow: 2px 2px 3px 1px #16161D;
 }
 
 #sangriaTable {
