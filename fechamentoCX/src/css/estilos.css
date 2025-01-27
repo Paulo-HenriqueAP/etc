@@ -203,8 +203,6 @@ input {
     #dev,
     #sin {
         border: none;
-        text-decoration: underline;
-        text-underline-offset: 3px;
     }
 }
 

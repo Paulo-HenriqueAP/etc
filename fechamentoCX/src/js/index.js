@@ -49,7 +49,6 @@ const holidays = {
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("loginValue").focus();
     loadState();
-    formSum();
     //console.log(Object.keys(localStorage))
     day = `${new Date().toLocaleDateString().slice(0, 5)}`
     Object.keys(holidays).forEach(hol => {
@@ -161,11 +160,18 @@ function formSum() {
     sinSum = 0;
 
     document.querySelectorAll(".etc").forEach((input) => {
-        const iValue = parseFloat(input.value);
-        if (isNaN(iValue) || iValue <= 0) {
-            iValue.value = "";
+        if (input.value.trim() === "") {
             return;
-        }
+        };
+
+        const iValue = parseFloat(input.value)
+
+        if (isNaN(iValue) || iValue <= 0) {
+            input.value = "";
+            !input.id ? goToFreeInput() : null;
+            return;
+        };
+
         if (input.id) {
             cashSum += iValue;
         } else if (input.classList.contains("etc") && input.classList.contains("becomeDev")) {
@@ -174,7 +180,7 @@ function formSum() {
             sinSum += iValue;
         } else if (input.classList.contains("etc")) {
             subSum += iValue;
-        }
+        };
 
         sum += iValue;
     });
@@ -574,7 +580,7 @@ defSangria = () => {
     sangriaInput.classList.toggle("hidden");
     document.getElementById("sangria").classList.add("hidden");
     document.getElementById("sumSangria").textContent = "SANGRIA: " + sangria.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-    document.getElementById("operCod").textContent = loginText.textContent
+    document.getElementById("operCod").textContent = `<${login}>`
     document.getElementById("timeSangria").textContent = `${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()}`
     document.getElementById("oper").textContent = uName.textContent;
     document.getElementById("cxNumber").textContent = `[${cashier}]`;
