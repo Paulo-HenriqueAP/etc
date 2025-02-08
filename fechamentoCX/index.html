@@ -30,17 +30,23 @@
             <input type="text" id="nameValue" onchange="simpleCheck()">
         </li>
         <button id="saveButton" onclick="saveFolks()">salvar</button>
-            
+
         <br>
         <br>
         <span style="font-size: x-small;">▪ F9 cancela</span>
     </div>
 
     <div class="hidden" id="sangria">
-        <b style="font-size: x-large;">SANGRIA</b>
+        <b style="font-size: x-large;">NOVA SANGRIA</b>
         <br>
         <input style="font-size: large; margin-top: 20px;" type="number" min="300" id="sangriaInput"
             onchange="defSangria()" placeholder="valor > ENTER">
+        <br>
+
+
+        <ul id="sangriaEdit">
+            <h4>REALIZADAS</h4>
+        </ul>
         <br>
         <span style="font-size: xx-small;">69 altera o caixa</span>
     </div>
@@ -83,7 +89,8 @@
             </b>
         </div>
         <br>
-        <div contenteditable style="overflow:hidden;" id="obsText"><pre><pre></div>
+        <div contenteditable style="overflow:hidden;" id="obsText">
+            <pre><pre></div>
         <div id="qrTable" class="hidden">
             <br>
             <li><input id="qrName" type="text" placeholder="Título QR" style="text-align: center;" class="blankValue" onfocus="document.getElementById('qrName').classList.remove('blankValue')"></li>
@@ -121,20 +128,20 @@
             <th id="cash">DINHEIRO</th>
         </tr>
         <tr>
-            <td style="font-size: larger;">AVULSO: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input min="-1"
+            <td style="font-size: larger;">AVULSO &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input min="-1"
                     onchange="formSum()" id="stuffs" type="number" class="etc"></td>
         </tr>
         <tr>
-            <td style="font-size: larger;">5,00: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+            <td style="font-size: larger;">5$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
                     min="-1" onchange="formSum()" id="stuffs5" type="number" class="etc"></td>
         </tr>
         <tr>
-            <td style="font-size: larger;">10,00 | 20,00:&nbsp;
+            <td style="font-size: larger;">10$ | 20$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <input min="-1" onchange="formSum()" id="stuffs10_20" type="number" class="etc">
             </td>
         </tr>
         <tr>
-            <td style="font-size: larger;">50,00 | 100,00: <input min="-1" onchange="formSum()" id="stuffs50_100"
+            <td style="font-size: larger;">50$ | 100$ | 200$ <input min="-1" onchange="formSum()" id="stuffs50_100"
                     type="number" class="etc"></td>
         </tr>
         <tr>
@@ -162,6 +169,16 @@
             </td>
         </tr>
         </tr>
+
+        <tr>
+            <th id="sangriasTitle">SEM SANGRIAS</th>
+        </tr>
+        <tr>
+            <td>
+                <ul id="sangriasUL"></ul>
+            </td>
+        </tr>
+
         <tr style="border-bottom: 0.5px solid;">
             <th>
                 <h1 id="showSum"></h1>

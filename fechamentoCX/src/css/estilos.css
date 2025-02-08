@@ -201,7 +201,8 @@ input {
 
     #etcTitle,
     #dev,
-    #sin {
+    #sin,
+    #sangriasTitle {
         border: none;
     }
 }
@@ -221,7 +222,7 @@ h4 {
 }
 
 .error {
-    background-color: red !important;
+    background-color: #d80000 !important;
     color: black !important;
 }
 
@@ -238,11 +239,51 @@ h4 {
     background-color: #F8F8FF;
     z-index: 4;
     box-shadow: 2px 2px 3px 1px #16161D;
+    max-width: 100%;
+    word-wrap: break-word;
 }
 
 #sangriaTable {
     position: absolute;
     max-width: 71mm;
+}
+
+#sangriasUL {
+    padding: 0%;
+    width: 100%;
+    word-wrap: break-word;
+    max-width: 71mm;
+}
+
+#sangriasUL li {
+    border: 1px solid;
+    font-size: large;
+}
+
+#sangriaEdit {
+    padding: 0;
+    border: 1px solid black;
+    border-radius: 3px;
+}
+
+#sangriaEdit button {
+    border: none;
+    cursor: pointer;
+    box-shadow: 1px 1px 1px 1px #16161D;
+    border-radius: 3px;
+    background-color: #d80000;
+    color: white;
+}
+
+#sangriaEdit li {
+    border: 1px solid;
+    margin: 6px;
+    padding: 3px;
+    border-radius: 3px;
+    width: max-content;
+    transform: translateX(-50%);
+    left: 50%;
+    position: relative;
 }
 
 #obsText {

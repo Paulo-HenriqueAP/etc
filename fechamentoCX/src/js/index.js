@@ -23,6 +23,9 @@ let qrSize = 150;
 let barras = 0;
 let folks = [
 ];
+let sangriasSaved = [
+    //{ sangriaValue: "R$ 500,00'", sangriaTime: "07/02/2025 | 23:01:22" }
+];
 let day;
 const avulso = document.getElementById("stuffs");
 const signature = document.getElementById("signature");
@@ -184,6 +187,13 @@ function formSum() {
 
         sum += iValue;
     });
+
+    if (localStorage.getItem("sangriasSaved")) {
+        sangriasSaved.forEach(function (createSangriasLi) {
+            sum += parseFloat(createSangriasLi.sangriaValue);
+        });
+    }
+
     document.getElementById("showSum").textContent = "TOTAL:" + sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
     document.getElementById("subtotal").textContent = "SubTotal:" + subSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
     document.getElementById("cash").textContent = "DINHEIRO: " + cashSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -378,7 +388,7 @@ document.addEventListener("keydown", (function (event) {
             }, 300);
             break;
         case "F8":
-            if (window.confirm("Tem certeza?")) {
+            if (window.confirm("Vai apagar tudo! Tem certeza?")) {
                 clearAll();
             } else {
                 goToFreeInput();
@@ -499,6 +509,55 @@ function loadState() {
 
     folks = JSON.parse(folksJson)
 
+    if (localStorage.getItem("sangriasSaved")) {
+        sangriasSaved = JSON.parse(localStorage.getItem("sangriasSaved"));
+
+        sangriaStatus = document.getElementById("sangriasTitle");
+        if (sangriasSaved.length <= 0) {
+            sangriaStatus.textContent = "SEM SANGRIAS"
+        } else if (sangriasSaved.length == 1) {
+            sangriaStatus.textContent = "SANGRIA";
+        } else {
+            sangriaStatus.textContent = "SANGRIAS";
+        };
+
+        sangriasSaved.forEach(function (createSangriasLi, index) {
+            li = document.createElement("li");
+            li.innerHTML = `<b>${createSangriasLi.sangriaValue.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</b> > ${createSangriasLi.sangriaTime}`;
+            document.getElementById("sangriasUL").appendChild(li)
+
+            removeSangria = document.createElement("li");
+            removeSangria.textContent = `${createSangriasLi.sangriaValue}$ | `
+
+            removeSangriaButton = document.createElement("button");
+            removeSangriaButton.textContent = "✖"
+            removeSangriaButton.id = "remove" + index
+
+
+            removeSangriaButton.addEventListener("focus", function () {
+                document.getElementById(this.id).parentNode.style = "background-color: #d80000; color:white; border:3px solid black;";
+            })
+
+            removeSangriaButton.addEventListener("focusout", function () {
+                document.getElementById(this.id).parentNode.style = "background-color: #F8F8FF; color:black; border:3px solid black;";
+            })
+
+            removeSangriaButton.addEventListener("click", function () {
+                if (window.confirm(`EXCLUIR sangria de ${sangriasSaved[this.id.slice(6)].sangriaValue}$ ?`)) {
+
+                    this.id.slice(6) !== -1 ? sangriasSaved.splice(this.id.slice(6), 1) : null;
+                    console.log(sangriasSaved)
+                    localStorage.setItem("sangriasSaved", JSON.stringify(sangriasSaved))
+                    location.reload();
+                }
+            })
+
+            removeSangria.appendChild(removeSangriaButton)
+            document.getElementById("sangriaEdit").appendChild(removeSangria)
+        });
+
+    }
+
     if (folks == null) {
         folks = [
         ];
@@ -584,6 +643,9 @@ defSangria = () => {
     document.getElementById("timeSangria").textContent = `${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()}`
     document.getElementById("oper").textContent = uName.textContent;
     document.getElementById("cxNumber").textContent = `[${cashier}]`;
+    sangriaMade = { sangriaValue: sangria, sangriaTime: new Date().toLocaleTimeString() }
+    sangriasSaved.push(sangriaMade);
+    localStorage.setItem("sangriasSaved", JSON.stringify(sangriasSaved))
     window.print();
     location.reload();
 };
