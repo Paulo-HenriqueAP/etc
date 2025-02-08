@@ -546,7 +546,6 @@ function loadState() {
                 if (window.confirm(`EXCLUIR sangria de ${sangriasSaved[this.id.slice(6)].sangriaValue}$ ?`)) {
 
                     this.id.slice(6) !== -1 ? sangriasSaved.splice(this.id.slice(6), 1) : null;
-                    console.log(sangriasSaved)
                     localStorage.setItem("sangriasSaved", JSON.stringify(sangriasSaved))
                     location.reload();
                 }
