@@ -211,7 +211,7 @@ function updateInput() {
     if (check <= 0) {
         checkText.textContent = "SEM DEVOLUÇÕES";
     } else if (check == 1) {
-        checkText.textContent = `${check} DEVOLUÇÃO: ${devSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
+        checkText.textContent = `UMA DEVOLUÇÃO: ${devSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
     } else {
         checkText.textContent = `${check} DEVOLUÇÕES: ${devSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
     }
@@ -222,7 +222,7 @@ function updateInput() {
     if (check <= 0) {
         checkText.textContent = "SEM SINAIS";
     } else if (check == 1) {
-        checkText.textContent = `${check} SINAL: ${sinSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
+        checkText.textContent = `UM SINAL: ${sinSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
     } else {
         checkText.textContent = `${check} SINAIS: ${sinSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
     }
@@ -236,7 +236,7 @@ function updateInput() {
 
         sangriaStatus = document.getElementById("sangriasTitle");
         if (sangriasSaved.length == 1) {
-            sangriaStatus.textContent = `${sangriasSaved.length} SANGRIA: ${sanSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} `;
+            sangriaStatus.textContent = `UMA SANGRIA: ${sanSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} `;
         } else {
             sangriaStatus.textContent = `${sangriasSaved.length} SANGRIAS: ${sanSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} `;
         };
