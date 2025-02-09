@@ -63,9 +63,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
 /*const folks = [
     { uName: "Paulo Henrique AP", loginCod: 1419 },
-    { uName: "Maycon Douglas", loginCod: 1391 },
-    { uName: "Rian", loginCod: 1306 },
-    { uName: "Alan Matos Vecchi", loginCod: 1439 }
 ];*/
 
 function createRegularInputs() {
@@ -161,6 +158,9 @@ function formSum() {
     cashSum = 0;
     devSum = 0;
     sinSum = 0;
+    sanSum = 0;
+
+    etcCount = 0;
 
     document.querySelectorAll(".etc").forEach((input) => {
         if (input.value.trim() === "") {
@@ -179,45 +179,21 @@ function formSum() {
             cashSum += iValue;
         } else if (input.classList.contains("etc") && input.classList.contains("becomeDev")) {
             devSum += iValue;
+
         } else if (input.classList.contains("etc") && input.classList.contains("becomeSin")) {
             sinSum += iValue;
         } else if (input.classList.contains("etc")) {
+            etcCount++
             subSum += iValue;
         };
-
         sum += iValue;
     });
 
-    if (localStorage.getItem("sangriasSaved")) {
-        sangriasSaved.forEach(function (createSangriasLi) {
-            sum += parseFloat(createSangriasLi.sangriaValue);
-        });
-    }
-
-    document.getElementById("showSum").textContent = "TOTAL:" + sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-    document.getElementById("subtotal").textContent = "SubTotal:" + subSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-    document.getElementById("cash").textContent = "DINHEIRO: " + cashSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-
-    document.querySelectorAll(".etc").forEach((input) => {
-        if (input.value < 1 && !input.id) {
-            control++
-        };
-    });
-
-    control < 2 ? createInputs() : null;
-    control = 0;
-
-    saveState();
     updateInput();
 };
 
 function updateInput() {
     let findEmpty;//remove the classList if the element is Empty
-    check = document.getElementsByClassName("becomeDev").length;
-    check === 0 ? document.getElementById("dev").textContent = "SEM DEVOLUÇÕES" : document.getElementById("dev").textContent = "DEVOLUÇÕES: " + devSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-
-    check = document.getElementsByClassName("becomeSin").length
-    check === 0 ? document.getElementById("sin").textContent = "SEM SINAIS" : document.getElementById("sin").textContent = "SINAIS: " + sinSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 
     findEmpty = document.querySelectorAll(".becomeDev");
     findEmpty.forEach((input) => {
@@ -228,6 +204,57 @@ function updateInput() {
     findEmpty.forEach((input) => {
         input.value === "" ? input.classList.remove("becomeSin") : null;
     });
+
+    check = document.getElementsByClassName("becomeDev").length;
+    checkText = document.getElementById("dev");
+
+    if (check <= 0) {
+        checkText.textContent = "SEM DEVOLUÇÕES";
+    } else if (check == 1) {
+        checkText.textContent = `${check} DEVOLUÇÃO: ${devSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
+    } else {
+        checkText.textContent = `${check} DEVOLUÇÕES: ${devSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
+    }
+
+    check = document.getElementsByClassName("becomeSin").length
+    checkText = document.getElementById("sin");
+
+    if (check <= 0) {
+        checkText.textContent = "SEM SINAIS";
+    } else if (check == 1) {
+        checkText.textContent = `${check} SINAL: ${sinSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
+    } else {
+        checkText.textContent = `${check} SINAIS: ${sinSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
+    }
+
+
+    if (localStorage.getItem("sangriasSaved")) {
+        sangriasSaved.forEach(function (createSangriasLi) {
+            sanSum += parseFloat(createSangriasLi.sangriaValue);
+            sum += sanSum;
+        });
+
+        sangriaStatus = document.getElementById("sangriasTitle");
+        if (sangriasSaved.length == 1) {
+            sangriaStatus.textContent = `${sangriasSaved.length} SANGRIA: ${sanSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} `;
+        } else {
+            sangriaStatus.textContent = `${sangriasSaved.length} SANGRIAS: ${sanSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} `;
+        };
+    };
+
+    document.getElementById("showSum").textContent = "TOTAL:" + sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    document.getElementById("subtotal").textContent = "SubTotal:" + subSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    document.getElementById("cash").textContent = "DINHEIRO: " + cashSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    document.getElementById("etcTitle").textContent = etcCount + " CARTÕES - PIX"
+    document.querySelectorAll(".etc").forEach((input) => {
+        if (input.value < 1 && !input.id) {
+            control++
+        };
+    });
+
+    control < 2 ? createInputs() : null;
+    control = 0;
+
     saveState();
 };
 
@@ -376,7 +403,7 @@ document.addEventListener("keydown", (function (event) {
             break;
         case "F4":
             formSum();
-            document.getElementById("time").textContent = `${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()}`;
+            document.getElementById("time").textContent = `${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()} `;
             findAndClear();
             signature.classList.remove("hidden");
             document.getElementById("subtotal").classList.remove("hidden");
@@ -388,8 +415,21 @@ document.addEventListener("keydown", (function (event) {
             }, 300);
             break;
         case "F8":
-            if (window.confirm("Vai apagar tudo! Tem certeza?")) {
+            if (window.confirm("APAGAR todos os valores da seção ?")) {
                 clearAll();
+                /*
+                document.getElementById("loginHub").classList.add("lastChange");
+                document.getElementById("loginValue").classList.add("hidden");
+                document.getElementById("infosTitle").innerHTML = `'F5' < br > <strong style="color: #16161D;">abortar (3)</strong>`
+                let i = 3;
+                setInterval(function () {
+                    i--
+                    document.getElementById("infosTitle").innerHTML = `'F5' < br > <strong style="color: #16161D;">abortar (${i})</strong>`
+                }, 1000)
+                setTimeout(function () {
+                    clearAll();
+                }, 3000)
+                */
             } else {
                 goToFreeInput();
             }
@@ -495,7 +535,7 @@ function saveState() {
 
     });
     notEmp > 40 ? localStorage.setItem("allInputs", notEmp) : localStorage.removeItem("allInputs");
-    //localStorage.setItem("time", `${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`);
+    //localStorage.setItem("time", `${ new Date().toLocaleDateString() } - ${ new Date().toLocaleTimeString() } `);
 };
 
 function loadState() {
@@ -512,22 +552,13 @@ function loadState() {
     if (localStorage.getItem("sangriasSaved")) {
         sangriasSaved = JSON.parse(localStorage.getItem("sangriasSaved"));
 
-        sangriaStatus = document.getElementById("sangriasTitle");
-        if (sangriasSaved.length <= 0) {
-            sangriaStatus.textContent = "SEM SANGRIAS"
-        } else if (sangriasSaved.length == 1) {
-            sangriaStatus.textContent = "SANGRIA";
-        } else {
-            sangriaStatus.textContent = "SANGRIAS";
-        };
-
         sangriasSaved.forEach(function (createSangriasLi, index) {
             li = document.createElement("li");
-            li.innerHTML = `<b>${createSangriasLi.sangriaValue.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</b> > ${createSangriasLi.sangriaTime}`;
+            li.innerHTML = `<b> ${createSangriasLi.sangriaValue.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</b > > ${createSangriasLi.sangriaTime} `;
             document.getElementById("sangriasUL").appendChild(li)
 
             removeSangria = document.createElement("li");
-            removeSangria.textContent = `${createSangriasLi.sangriaValue}$ | `
+            removeSangria.textContent = `${createSangriasLi.sangriaValue} $ | `
 
             removeSangriaButton = document.createElement("button");
             removeSangriaButton.textContent = "✖"
@@ -539,12 +570,11 @@ function loadState() {
             })
 
             removeSangriaButton.addEventListener("focusout", function () {
-                document.getElementById(this.id).parentNode.style = "background-color: #F8F8FF; color:black; border:3px solid black;";
+                document.getElementById(this.id).parentNode.style = "background-color: #F8F8FF; color:black; border:default;";
             })
 
             removeSangriaButton.addEventListener("click", function () {
-                if (window.confirm(`EXCLUIR sangria de ${sangriasSaved[this.id.slice(6)].sangriaValue}$ ?`)) {
-
+                if (window.confirm(`APAGAR sangria de ${sangriasSaved[this.id.slice(6)].sangriaValue} $ ? `)) {
                     this.id.slice(6) !== -1 ? sangriasSaved.splice(this.id.slice(6), 1) : null;
                     localStorage.setItem("sangriasSaved", JSON.stringify(sangriasSaved))
                     location.reload();
@@ -593,6 +623,11 @@ function loadState() {
     } else {
         cashier += ".1";
     };
+
+    document.getElementById("operCod").textContent = `< ${login}> `
+    document.getElementById("cxNumber").textContent = `[${cashier}]`;
+    document.getElementById("oper").textContent = uName.textContent;
+
     formSum();
     goToFreeInput();
 };
@@ -613,12 +648,6 @@ simpleCheck = () => {
     };
 };
 
-/*removeColor = (remove) => {
-    document.getElementById(remove.id).style = " background-color: none;font-weight: normal;";
-
-    onfocus="simpleCheck()" onfocusout="removeColor(this)"
-};*/
-
 defSangria = () => {
     sangria = parseFloat(sangriaInput.value);
     if (sangria == 69) {
@@ -638,10 +667,7 @@ defSangria = () => {
     sangriaInput.classList.toggle("hidden");
     document.getElementById("sangria").classList.add("hidden");
     document.getElementById("sumSangria").textContent = "SANGRIA: " + sangria.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-    document.getElementById("operCod").textContent = `<${login}>`
-    document.getElementById("timeSangria").textContent = `${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()}`
-    document.getElementById("oper").textContent = uName.textContent;
-    document.getElementById("cxNumber").textContent = `[${cashier}]`;
+    document.getElementById("timeSangria").textContent = `${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()} `
     sangriaMade = { sangriaValue: sangria, sangriaTime: new Date().toLocaleTimeString() }
     sangriasSaved.push(sangriaMade);
     localStorage.setItem("sangriasSaved", JSON.stringify(sangriasSaved))

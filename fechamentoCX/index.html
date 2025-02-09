@@ -89,8 +89,7 @@
             </b>
         </div>
         <br>
-        <div contenteditable style="overflow:hidden;" id="obsText">
-            <pre><pre></div>
+        <div contenteditable style="overflow:hidden;" id="obsText"><pre><pre></div>
         <div id="qrTable" class="hidden">
             <br>
             <li><input id="qrName" type="text" placeholder="Título QR" style="text-align: center;" class="blankValue" onfocus="document.getElementById('qrName').classList.remove('blankValue')"></li>
@@ -128,20 +127,20 @@
             <th id="cash">DINHEIRO</th>
         </tr>
         <tr>
-            <td style="font-size: larger;">AVULSO &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input min="-1"
+            <td style="font-size: larger;">AVULSO &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ <input min="-1"
                     onchange="formSum()" id="stuffs" type="number" class="etc"></td>
         </tr>
         <tr>
-            <td style="font-size: larger;">5$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
+            <td style="font-size: larger;">5$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;→ <input
                     min="-1" onchange="formSum()" id="stuffs5" type="number" class="etc"></td>
         </tr>
         <tr>
-            <td style="font-size: larger;">10$ | 20$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <td style="font-size: larger;">10$ | 20$ &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;→
                 <input min="-1" onchange="formSum()" id="stuffs10_20" type="number" class="etc">
             </td>
         </tr>
         <tr>
-            <td style="font-size: larger;">50$ | 100$ | 200$ <input min="-1" onchange="formSum()" id="stuffs50_100"
+            <td style="font-size: larger;">50$ | 100$ | 200$ → <input min="-1" onchange="formSum()" id="stuffs50_100_200"
                     type="number" class="etc"></td>
         </tr>
         <tr>
@@ -219,7 +218,6 @@
           <!--<br><li>Seção anterior: <span id="lastTime" style="font-weight: bolder;"></span> </li>--> 
         </div>
     </div>
-
 </body>
 <script src="src/js/index.js"></script>
 

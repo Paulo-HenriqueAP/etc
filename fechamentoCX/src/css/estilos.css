@@ -253,11 +253,13 @@ h4 {
     width: 100%;
     word-wrap: break-word;
     max-width: 71mm;
+    margin: 0;
 }
 
 #sangriasUL li {
     border: 1px solid;
     font-size: large;
+    margin: 6px;
 }
 
 #sangriaEdit {
@@ -272,7 +274,7 @@ h4 {
     box-shadow: 1px 1px 1px 1px #16161D;
     border-radius: 3px;
     background-color: #d80000;
-    color: white;
+    color: white
 }
 
 #sangriaEdit li {
@@ -337,4 +339,21 @@ input[type=number]::-webkit-outer-spin-button {
     width: 18mm;
     border-radius: 3px;
     margin-top: 3px;
+}
+
+#stuffs,
+#stuffs5,
+#stuffs10_20,
+#stuffs50_100_200 {
+    border: 2px solid;
+    border-radius: 3px;
+}
+
+.lastChange {
+    display: flex;
+    background-color: #d80000 !important;
+    z-index: 8 !important;
+    color: white;
+    border:  1px solid black;
+    border-radius: 3px;
 }
