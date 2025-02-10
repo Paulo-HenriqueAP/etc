@@ -6,8 +6,3 @@ This project was developed to automate the cash register closing process, in whi
 
 
 works better on Chromium
-
-<div style="display: flex; justify-content: space-around;">
-  <img src="README/oldFechamento.jpg" alt="Old Fechamento" width="40%" />
-  <img src="README/newFechamento.jpg" alt="New Fechamento" width="40%" />
-</div>

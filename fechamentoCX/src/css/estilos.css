@@ -54,6 +54,8 @@ li {
     font-size: small;
     margin: 1px;
     font-family: Arial, Helvetica, sans-serif;
+    min-width: 55px;
+    max-width: 90%;
 }
 
 #etcValues {
@@ -162,6 +164,10 @@ input {
     td {
         border: none;
         border-bottom: 1px dashed;
+    }
+
+    .sTD {
+        border-bottom: 1px dashed !important;
     }
 
     #cash {
@@ -349,11 +355,40 @@ input[type=number]::-webkit-outer-spin-button {
     border-radius: 3px;
 }
 
+.arrow::before {
+    content: "⥊";
+    margin-left: 3px;
+}
+
+.arrow {
+    width: max-content;
+    max-width: 85%;
+}
+
+.sTD {
+    font-size: larger;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-left: 3px;
+    margin-right: 3px;
+    border: none;
+    border-bottom: 1px solid;
+}
+
+#cash,
+#etcTitle,
+#dev,
+#sin,
+#sangriasTitle {
+    word-wrap: break-word;
+}
+
 .lastChange {
     display: flex;
     background-color: #d80000 !important;
     z-index: 8 !important;
     color: white;
-    border:  1px solid black;
+    border: 1px solid black;
     border-radius: 3px;
 }

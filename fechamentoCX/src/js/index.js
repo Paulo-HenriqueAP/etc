@@ -109,6 +109,8 @@ function showUserInfos() {
         goToFreeInput();
         localStorage.setItem("LastLoginCode", login);
         simpleLock = false;
+        document.getElementById("operCod").textContent = `<${login}> `;
+        document.getElementById("oper").textContent = uName.textContent;
     } else {
         document.getElementById("loginHub").classList.add("hidden");
         registerHub.classList.remove("hidden");
@@ -163,6 +165,7 @@ function formSum() {
     etcCount = 0;
 
     document.querySelectorAll(".etc").forEach((input) => {
+        input.value.length >= 8 ? input.style = `width:${input.scrollWidth}px;` : input.style = "width:default";
         if (input.value.trim() === "") {
             return;
         };
@@ -188,6 +191,13 @@ function formSum() {
         };
         sum += iValue;
     });
+
+    if (localStorage.getItem("sangriasSaved")) {
+        sangriasSaved.forEach(function (createSangriasLi) {
+            sanSum += parseFloat(createSangriasLi.sangriaValue);
+        });
+        sum += sanSum;
+    };
 
     updateInput();
 };
@@ -227,19 +237,14 @@ function updateInput() {
         checkText.textContent = `${check} SINAIS: ${sinSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
     }
 
-
-    if (localStorage.getItem("sangriasSaved")) {
-        sangriasSaved.forEach(function (createSangriasLi) {
-            sanSum += parseFloat(createSangriasLi.sangriaValue);
-            sum += sanSum;
-        });
-
-        sangriaStatus = document.getElementById("sangriasTitle");
-        if (sangriasSaved.length == 1) {
-            sangriaStatus.textContent = `UMA SANGRIA: ${sanSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} `;
-        } else {
-            sangriaStatus.textContent = `${sangriasSaved.length} SANGRIAS: ${sanSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} `;
-        };
+    sangriaStatus = document.getElementById("sangriasTitle");
+    if (sangriasSaved.length <= 0) {
+        sangriaStatus.textContent = "SEM SANGRIAS"
+    }
+    else if (sangriasSaved.length == 1) {
+        sangriaStatus.textContent = `UMA SANGRIA: ${sanSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} `;
+    } else {
+        sangriaStatus.textContent = `${sangriasSaved.length} SANGRIAS: ${sanSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} `;
     };
 
     document.getElementById("showSum").textContent = "TOTAL:" + sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
@@ -624,9 +629,7 @@ function loadState() {
         cashier += ".1";
     };
 
-    document.getElementById("operCod").textContent = `< ${login}> `
     document.getElementById("cxNumber").textContent = `[${cashier}]`;
-    document.getElementById("oper").textContent = uName.textContent;
 
     formSum();
     goToFreeInput();
