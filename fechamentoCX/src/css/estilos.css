@@ -260,12 +260,18 @@ h4 {
     word-wrap: break-word;
     max-width: 71mm;
     margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 #sangriasUL li {
     border: 1px solid;
     font-size: large;
     margin: 6px;
+    width: max-content;
+    border-radius: 3px;
+    padding: 3px;
 }
 
 #sangriaEdit {
@@ -289,9 +295,6 @@ h4 {
     padding: 3px;
     border-radius: 3px;
     width: max-content;
-    transform: translateX(-50%);
-    left: 50%;
-    position: relative;
 }
 
 #obsText {

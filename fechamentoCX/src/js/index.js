@@ -221,7 +221,7 @@ function updateInput() {
     if (check <= 0) {
         checkText.textContent = "SEM DEVOLUÇÕES";
     } else if (check == 1) {
-        checkText.textContent = `UMA DEVOLUÇÃO: ${devSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
+        checkText.textContent = `UMA DEVOLUÇÃO ⤦`
     } else {
         checkText.textContent = `${check} DEVOLUÇÕES: ${devSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
     }
@@ -232,7 +232,7 @@ function updateInput() {
     if (check <= 0) {
         checkText.textContent = "SEM SINAIS";
     } else if (check == 1) {
-        checkText.textContent = `UM SINAL: ${sinSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
+        checkText.textContent = `UM SINAL ⤦`
     } else {
         checkText.textContent = `${check} SINAIS: ${sinSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
     }
@@ -242,7 +242,7 @@ function updateInput() {
         sangriaStatus.textContent = "SEM SANGRIAS"
     }
     else if (sangriasSaved.length == 1) {
-        sangriaStatus.textContent = `UMA SANGRIA: ${sanSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} `;
+        sangriaStatus.textContent = `UMA SANGRIA ⤦`;
     } else {
         sangriaStatus.textContent = `${sangriasSaved.length} SANGRIAS: ${sanSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} `;
     };
@@ -559,11 +559,14 @@ function loadState() {
 
         sangriasSaved.forEach(function (createSangriasLi, index) {
             li = document.createElement("li");
-            li.innerHTML = `<b> ${createSangriasLi.sangriaValue.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</b > > ${createSangriasLi.sangriaTime} `;
+
+
+            li.textContent = `${createSangriasLi.sangriaValue}$`
+
             document.getElementById("sangriasUL").appendChild(li)
 
             removeSangria = document.createElement("li");
-            removeSangria.textContent = `${createSangriasLi.sangriaValue} $ | `
+            removeSangria.innerHTML = `<b> ${createSangriasLi.sangriaValue.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}</b> | ${createSangriasLi.sangriaTime} `;
 
             removeSangriaButton = document.createElement("button");
             removeSangriaButton.textContent = "✖"
