@@ -227,6 +227,10 @@ input {
     #etiquetarTable span {
         display: contents;
     }
+
+    #fontLabel, #qrLabel {
+        display: none;
+    }
 }
 
 h4 {
