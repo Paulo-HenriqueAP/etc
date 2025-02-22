@@ -831,12 +831,15 @@ function labelProduct() {
 
     document.getElementById("etiName").textContent = product.toUpperCase();
     document.getElementById("etiPrice").textContent = priceFormated;
-   
+
     document.getElementById("etiquetar").classList.add("hidden");
     document.getElementById("etiquetarTable").classList.remove("hidden");
     window.print();
     document.getElementById("etiquetar").classList.remove("hidden");
     document.getElementById("etiquetarTable").classList.add("hidden");
+
+    document.getElementById("etiNameValue").value = "";
+    document.getElementById("etiPriceValue").value = "";
 };
 /*
 var i;

@@ -173,9 +173,10 @@ input {
         border-bottom: 1px solid;
     }
 
-    #obsTable h2,
-    section,
-    span {
+    #obsTable section {
+        display: none;
+    }
+    #toolsH2 {
         display: none;
     }
 
