@@ -27,6 +27,8 @@ let sangriasSaved = [
     //{ sangriaValue: "R$ 500,00'", sangriaTime: "07/02/2025 | 23:01:22" }
 ];
 let day;
+let optName = document.getElementById("toolsH2");
+
 const avulso = document.getElementById("stuffs");
 const signature = document.getElementById("signature");
 const bodyTable = document.getElementById("bodyTable");
@@ -68,14 +70,14 @@ document.addEventListener("DOMContentLoaded", function () {
 function createRegularInputs() {
     for (let i = 0; i < allInputs; i++) {
         const input = document.createElement("input");
-
         input.type = "number";
         input.className = "etc";
         input.min = "-1";
         input.addEventListener("change", function () {
             formSum();
         });
-        document.getElementById("allEtcs").appendChild(input);
+
+        document.getElementById("etcValues").appendChild(input);
     };
 };
 
@@ -90,7 +92,7 @@ function createInputs() {
         input.addEventListener("change", function () {
             formSum();
         });
-        document.getElementById("allEtcs").appendChild(input);
+        document.getElementById("etcValues").appendChild(input);
     };
 };
 
@@ -407,12 +409,19 @@ document.addEventListener("keydown", (function (event) {
             !simpleLock ? event.preventDefault() : null;
             break;
         case "F4":
-            formSum();
-            document.getElementById("time").textContent = `${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()} `;
-            findAndClear();
-            signature.classList.remove("hidden");
-            document.getElementById("subtotal").classList.remove("hidden");
-            window.print();
+            try {
+                formSum();
+                document.getElementById("time").textContent = `${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()} `;
+                findAndClear();
+                signature.classList.remove("hidden");
+                document.getElementById("subtotal").classList.remove("hidden");
+            } catch (err) {
+                alert("Ocorreu um erro ao imprimir > " + err);
+                location.reload()
+
+            } finally {
+                window.print();
+            }
             setTimeout(function () {
                 signature.classList.add("hidden");
                 document.getElementById("subtotal").classList.add("hidden");
@@ -488,11 +497,11 @@ document.addEventListener("keydown", (function (event) {
     */
         case "KeyS":
             if (simpleLock) return;
-            event.shiftKey ? putItOnSinais() : null;
+            putItOnSinais()
             break;
         case "KeyD":
             if (simpleLock) return;
-            event.shiftKey ? putItOnDevolucoes() : null;
+            putItOnDevolucoes()
             break;
         case "F2":
             bodyTable.classList.add("hidden");
@@ -520,6 +529,7 @@ tools = () => {
     if (document.getElementById("obsTable").classList.contains("hidden")) {
         bodyTable.classList.add("hidden");
         document.getElementById("obsTable").classList.remove("hidden");
+        simpleLock = true;
     }
     setTimeout(function () {
         document.getElementById("obsText").focus();
@@ -692,34 +702,56 @@ changeQrSize = () => {
     qrCodeSet();
 };
 
-codBarras = () => {
-    document.getElementById("barrasTable").classList.toggle("hidden");
-    document.getElementById("qrTable").classList.add("hidden");
-    document.getElementById("obsText").classList.toggle("hidden");
-    document.getElementById("sizes").classList.toggle("hidden");
-    document.getElementById("qrCheck").classList.toggle("hidden");
-    document.getElementById("barrasValue").focus();
-};
-
 qrCodeSet = () => {
-    document.getElementById("qrTable").classList.remove("hidden");
-    document.getElementById("barCheck").classList.add("hidden");
-
-    let stats = document.getElementById("qrCheck").checked;
     let userText = document.getElementById("obsText").textContent;
     userText.length <= 0 ? userText = "Nada" : null;
-    if (stats === true) {
-        document.getElementById("obsText").classList.add("hidden");
-        document.getElementById("fontLabel").classList.add("hidden");
-        document.getElementById("qrLabel").classList.remove("hidden");
-        document.getElementById("qr").setAttribute("src", `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${userText}`);
-    } else {
-        document.getElementById("obsText").classList.remove("hidden");
-        document.getElementById("fontLabel").classList.remove("hidden");
-        document.getElementById("qrLabel").classList.add("hidden");
-        document.getElementById("qrTable").classList.add("hidden");
-        document.getElementById("barCheck").classList.remove("hidden");
-    };
+    document.getElementById("qr").setAttribute("src", `https://api.qrserver.com/v1/create-qr-code/?size=${qrSize}x${qrSize}&data=${userText}`);
+    document.getElementById("obsText").focus();
+
+};
+
+function hClass(opt, index, toolName, startPoint) {
+    document.getElementById("obsText").classList.add("hidden");
+    document.getElementById("barSec").classList.add("hidden");
+    document.getElementById("qrSec").classList.add("hidden");
+    document.getElementById("etiSec").classList.add("hidden");
+    document.getElementById("caSec").classList.add("hidden");
+    document.getElementById("qrTable").classList.add("hidden");
+    document.getElementById("barrasTable").classList.add("hidden");
+    document.getElementById("fontLabel").classList.add("hidden");
+    document.getElementById("backSec").classList.remove("hidden");
+    document.getElementById("etiquetar").classList.add("hidden");
+    document.getElementById("etiquetarTable").classList.add("hidden");
+
+    optName.textContent = toolName;
+    setTimeout(() => document.getElementById(startPoint).focus(), 100)
+
+    let ions = {
+        0: ["barrasTable", "barrasValue"],
+        1: ["obsText", "qrTable"],
+        2: ["etiquetar"]
+    }
+
+    if (document.getElementById(opt).classList.contains("hidden")) {
+        ions[index].forEach(function (id) {
+            document.getElementById(id).classList.remove("hidden");
+        });
+    }
+}
+
+sClass = () => {
+    document.getElementById("qrTable").classList.add("hidden");
+    document.getElementById("barrasTable").classList.add("hidden");
+    document.getElementById("barSec").classList.remove("hidden");
+    document.getElementById("qrSec").classList.remove("hidden");
+    document.getElementById("etiSec").classList.remove("hidden");
+    document.getElementById("caSec").classList.remove("hidden");
+    document.getElementById("obsText").classList.remove("hidden");
+    document.getElementById("fontLabel").classList.remove("hidden");
+    document.getElementById("backSec").classList.add("hidden");
+    document.getElementById("etiquetar").classList.add("hidden");
+    optName.textContent = "Texto ⤵";
+    document.getElementById("obsText").focus();
 };
 
 function GerarCódigoDeBarras(elementoInput) {
@@ -733,7 +765,8 @@ function GerarCódigoDeBarras(elementoInput) {
         width: 1,
         height: 30,
         fontSize: 13,
-        margin: 0
+        margin: 3,
+        border: 1
     };
     const createLi = document.createElement("li");
     createLi.id = "barLi" + elementoInput.value;
@@ -741,7 +774,8 @@ function GerarCódigoDeBarras(elementoInput) {
 
     const barName = document.createElement("input");
     barName.classList.add("barrasTitles");
-    barName.placeholder = `Nome ${elementoInput.value}`
+    //barName.placeholder = `Nome ${elementoInput.value}`
+    barName.placeholder = "#Del# exclui"
     createLi.appendChild(barName);
     createLi.appendChild(document.createElement("br"));
 
@@ -749,7 +783,6 @@ function GerarCódigoDeBarras(elementoInput) {
     createImg.id = "codBarras" + barras;
     createLi.appendChild(createImg);
     const novoCodigobarras = `#${createImg.id}`;
-    createLi.style = "border: 1px solid;  margin: 0;padding: 0; float:left;";
     JsBarcode(novoCodigobarras, elementoInput.value, configuracao);
 
     document.getElementById("barrasValue").value = "";
@@ -758,7 +791,7 @@ function GerarCódigoDeBarras(elementoInput) {
     barName.addEventListener("change", function () {
         document.getElementById("barrasValue").focus();
         barCode = "barLi" + this.placeholder.slice(5)
-        this.value == "#Del#" ? document.getElementById(barCode).remove() : null;
+        this.value == "#Del#" ? this.parentElement.remove() : null;
     });
 }//https://www.mundojs.com.br/2018/01/16/crie-codigo-de-barras-em-javascript-com-jsbarcode/
 
@@ -785,6 +818,25 @@ function setHol() {
     document.getElementById("hiddenHol").classList.remove("hidden");
     document.getElementById("holName").textContent = holidays[day].holName;
     document.getElementById("tagImg").setAttribute("src", holidays[day].holImg);
+};
+
+function labelProduct() {
+    let product = document.getElementById("etiNameValue").value;
+    let price = document.getElementById("etiPriceValue").value;
+
+    let priceFormated = parseFloat(price).toLocaleString("pt-BR", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+    });
+
+    document.getElementById("etiName").textContent = product.toUpperCase();
+    document.getElementById("etiPrice").textContent = priceFormated;
+   
+    document.getElementById("etiquetar").classList.add("hidden");
+    document.getElementById("etiquetarTable").classList.remove("hidden");
+    window.print();
+    document.getElementById("etiquetar").classList.remove("hidden");
+    document.getElementById("etiquetarTable").classList.add("hidden");
 };
 /*
 var i;

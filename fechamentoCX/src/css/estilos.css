@@ -150,8 +150,7 @@ input {
     #qrCheck,
     #sizes,
     #barCheck,
-    #barrasValue,
-    label {
+    #barrasValue {
         display: none;
     }
 
@@ -174,6 +173,21 @@ input {
         border-bottom: 1px solid;
     }
 
+    #obsTable h2,
+    section,
+    span {
+        display: none;
+    }
+
+    #obsTable {
+        border: none !important;
+        box-shadow: none !important;
+        left: 0 !important;
+        top: 0 !important;
+        transform: none !important;
+        padding: 0 !important;
+    }
+
     #qrTable {
         text-align: center;
     }
@@ -182,10 +196,12 @@ input {
         border: none !important;
         box-shadow: none !important;
         top: 0 !important;
+        position: absolute;
     }
 
     #barrasTable {
         border: none !important;
+        box-shadow: none !important;
         top: 0;
     }
 
@@ -197,10 +213,6 @@ input {
         color: transparent;
     }
 
-    #barrasTuto {
-        display: none;
-    }
-
     .blankValue {
         display: none;
     }
@@ -210,6 +222,10 @@ input {
     #sin,
     #sangriasTitle {
         border: none;
+    }
+
+    #etiquetarTable span {
+        display: contents;
     }
 }
 
@@ -298,28 +314,41 @@ h4 {
 }
 
 #obsText {
+    max-width: 71mm;
     width: 71mm;
     height: max-content;
-    position: absolute;
     z-index: 6;
     margin-top: 6px;
     border: 1px solid;
-    box-shadow: 1px 1px 1px 1px #16161D;
     background-color: #F8F8FF;
+    border-radius: 3px;
+
 }
 
 #qrTable {
     width: 71mm;
+    border-radius: 3px;
 }
 
 #barrasTable {
-    border: 1px solid;
-    border-radius: 3px;
     width: 71mm;
-    position: absolute;
+    max-width: 71mm;
     text-align: center;
     z-index: 7;
-    background-color: white;
+    border-radius: 3px;
+}
+
+#barrasElements {
+    max-width: 71mm;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0;
+}
+
+#barrasElements li {
+    border: 1px solid;
+    margin: 2px;
 }
 
 .barrasTitles {
@@ -387,11 +416,65 @@ input[type=number]::-webkit-outer-spin-button {
     word-wrap: break-word;
 }
 
-.lastChange {
+/*.lastChange {
     display: flex;
     background-color: #d80000 !important;
     z-index: 8 !important;
     color: white;
     border: 1px solid black;
     border-radius: 3px;
+}
+    */
+
+#obsTable {
+    border: 1px solid;
+    width: max-content;
+    padding: 20px;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 3px;
+    background-color: #F8F8FF;
+    z-index: 5;
+    box-shadow: 1px 1px 2px 1px #16161D;
+    text-align: center;
+}
+
+#obsTable section {
+    border: none;
+    margin-top: 10px;
+    padding: 6px;
+    width: max-content;
+    text-align: center;
+    border-radius: 3px;
+    box-shadow: 1px 1px 1px 1px #16161D;
+}
+
+#obsTable button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+#obsTable a {
+    text-decoration: none;
+    color: black;
+    cursor: pointer;
+}
+
+#obsTable h2 {
+    padding: 6px;
+    border-radius: 3px;
+    width: max-content;
+}
+
+#etiquetar li {
+    padding: 15px;
+    border: 1px solid;
+    border-radius: 3px;
+}
+
+#etiquetar input {
+    font-size: large;
 }
