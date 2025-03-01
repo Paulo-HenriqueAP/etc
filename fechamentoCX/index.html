@@ -1,3 +1,4 @@
+<!--Paulo-henriqueAP Diz: NÃO ALTERE O CÓDIGO-->
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -11,8 +12,8 @@
 
 <body>
     <div id="loginHub" class="">
-        <h4 id="infosTitle">Login</h4>
-        <input id="loginValue" type="number" placeholder="...." onchange="showUserInfos()"
+        <h4 id="infosTitle">Login</Login></h4>
+        <input id="loginValue" type="number" placeholder="&lt....&gt" onchange="showUserInfos()"
             style="text-align: center; font-size: large;">
     </div>
 
@@ -47,7 +48,7 @@
             <h4>REALIZADAS</h4>
         </ul>
         <br>
-        <span style="font-size: xx-small;">69 altera o caixa</span>
+        <span style="font-size: x-small;">▪ 69 altera o caixa</span>
     </div>
 
     <div id="sangriaTable" class="hidden">
@@ -69,12 +70,13 @@
     </div>
 
     <div id="obsTable" class="hidden">
-        <section id="backSec" class="hidden" style="background-color: #16161D"><button id="back" onclick="sClass()" style="color: white;">⤺ voltar</button></section>
+        <section id="backSec" class="hidden" style="background-color: #16161D"><button id="back" onclick="sClass()"
+                style="color: white;">⤺ voltar</button></section>
 
         <h2 id="toolsH2">Texto ⤵</h2>
 
         <div contenteditable style="overflow:hidden;" id="obsText" oninput="qrCodeSet()"></div>
-        
+
         <b id="fontLabel">
             <br>
             Tamanho da fonte
@@ -87,11 +89,13 @@
         </section>
 
         <section style="background-color: turquoise; " id="qrSec">
-            <button onclick="hClass('qrTable', 1, 'QR code ⤵', 'obsText'), qrCodeSet()">▪ QR code&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+            <button onclick="hClass('qrTable', 1, 'QR code ⤵', 'obsText'), qrCodeSet()">▪ QR
+                code&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
         </section>
 
         <section style="background-color: coral;" id="etiSec">
-            <button onclick="hClass('etiquetar', 2, 'Etiquetar produtos','etiNameValue')">▪ Etiquetar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
+            <button onclick="hClass('etiquetar', 2, 'Etiquetar produtos','etiNameValue')">▪
+                Etiquetar&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
         </section>
 
         <section style="background-color: silver;" id="caSec">
@@ -125,7 +129,8 @@
         </div>
 
         <div id="etiquetar" class="hidden" style="font-size: large;">
-            <li>Nome&nbsp; > <input type="text" id="etiNameValue" onchange="document.getElementById('etiPriceValue').focus()">
+            <li>Nome&nbsp; > <input type="text" id="etiNameValue"
+                    onchange="document.getElementById('etiPriceValue').focus()">
                 <br>
                 <br>
                 Preço > <input type="number" id="etiPriceValue" onchange="labelProduct()">
@@ -133,7 +138,8 @@
 
         </div>
 
-        <div id="etiquetarTable" class="hidden" style="border: 2px solid; width: 71mm;word-wrap: break-word; text-align: center;">
+        <div id="etiquetarTable" class="hidden"
+            style="border: 2px solid; width: 71mm;word-wrap: break-word; text-align: center;">
             <br>
             <li style="width: 100%;border-bottom: 1px solid;">
                 <span style="font-size: x-large;   font-family: Arial" id="etiName">Sabao omo</span>
@@ -155,6 +161,7 @@
                 <br>
             </th>
         </tr>
+
         <tr>
             <th>
                 <span id="date"
@@ -166,9 +173,11 @@
                 <b id="cx" style="font-size: large;"></b>
             </th>
         </tr>
+
         <tr>
             <th id="cash">DINHEIRO</th>
         </tr>
+
         <tr>
             <td class="sTD">AVULSO
                 <span class="arrow">
@@ -177,6 +186,7 @@
 
             </td>
         </tr>
+
         <tr>
             <td class="sTD">5$
                 <span class="arrow">
@@ -185,6 +195,7 @@
 
             </td>
         </tr>
+
         <tr>
             <td class="sTD">10$ | 20$
                 <span class="arrow">
@@ -192,6 +203,7 @@
                 </span>
             </td>
         </tr>
+
         <tr>
             <td class="sTD" style="border: none;">50$ | 100$ | 200$
                 <span class="arrow">
@@ -199,32 +211,43 @@
                 </span>
             </td>
         </tr>
+
         <tr>
-            <th id="etcTitle">CARTÕES - PIX</th>
+            <th id="etcTitle">VIAS</th>
         </tr>
+
         <tr>
             <td>
                 <ul id="etcValues"></ul>
                 <h3 class="hidden" id="subtotal" style="max-width: 71mm;  word-wrap: break-word; ">SubTOTAL:</h3>
             </td>
         </tr>
+
         <tr>
-            <th id="dev">SEM DEVOLUÇÕES</th>
+            <th id="dev">SEM DEVOLUÇÕES ou SINAIS</th>
         <tr>
             <td id="devValues"></td>
         </tr>
         </tr>
-        <tr>
+
+        <tr id="sinHub" class="hidden">
             <th id="sin">SEM SINAIS</th>
         <tr>
-            <td id="sinValues">
-            </td>
+            <td id="sinValues"></td>
         </tr>
+        </tr>
+
+        <tr id="pixHub" class="hidden">
+            <th id="pix">PIX CELULAR</th>
+            <tr>
+                <td id="pixValues"></td>
+            </tr>
         </tr>
 
         <tr>
             <th id="sangriasTitle">SEM SANGRIAS</th>
         </tr>
+
         <tr>
             <td>
                 <ul id="sangriasUL"></ul>
@@ -262,6 +285,9 @@
         <li id="sTouch" style="border: 1px solid; border-color: black; background-color: #ffcb00;border-radius: 3px;">
             <strong>S</strong> adiciona/ remove SINAL
         </li>
+        <li id="pTouch" style="border: 1px solid; border-color: black; background-color: #37b4aa;border-radius: 3px;">
+            <strong>P</strong> adiciona/ remove ❖ PIX CELULAR
+        </li>
         <!-- <li id="oTouch" style="border: 1px solid; border-color: black; background-color: #3498db ;border-radius: 3px;"><strong>O</strong> adiciona/ remove OBSERVAÇÃO</li>-->
         <li>Está preso? <strong>F5</strong> </li>
         <li style="cursor: pointer;" onclick="tools()"><b>Shift</b> com <b>F1</b> outras ferramentas</li>
@@ -281,5 +307,3 @@
 <script src="https://cdn.jsdelivr.net/jsbarcode/3.6.0/JsBarcode.all.min.js"></script>
 
 </html>
-
-<!--Paulo-henriqueAP Diz: NÃO ALTERE O CÓDIGO-->

@@ -148,6 +148,7 @@ function saveFolks() {
         createFolk = { uName: create_uName.value, loginCod: parseInt(create_loginCode.value) };
         folks.push(createFolk);
         document.getElementById("registerTitle").textContent = `Login '${loginText.textContent}' foi criado`;
+        localStorage.setItem("LastLoginCode", login);
     }
     folksJson = JSON.stringify(folks);
     localStorage.setItem("folks", folksJson);
@@ -162,12 +163,13 @@ function formSum() {
     cashSum = 0;
     devSum = 0;
     sinSum = 0;
+    pixSum = 0;
     sanSum = 0;
-
     etcCount = 0;
 
     document.querySelectorAll(".etc").forEach((input) => {
-        input.value.length >= 8 ? input.style = `width:${input.scrollWidth}px;` : input.style = "width:default";
+        input.value.length >= 8 ? input.style = `width:${input.value.length}ch;` : input.style = "width:default";
+
         if (input.value.trim() === "") {
             return;
         };
@@ -187,7 +189,10 @@ function formSum() {
 
         } else if (input.classList.contains("etc") && input.classList.contains("becomeSin")) {
             sinSum += iValue;
-        } else if (input.classList.contains("etc")) {
+        } else if (input.classList.contains("etc") && input.classList.contains("becomePix")) {
+            pixSum += iValue;
+        }
+        else if (input.classList.contains("etc")) {
             etcCount++
             subSum += iValue;
         };
@@ -217,42 +222,52 @@ function updateInput() {
         input.value === "" ? input.classList.remove("becomeSin") : null;
     });
 
-    check = document.getElementsByClassName("becomeDev").length;
-    checkText = document.getElementById("dev");
+    findEmpty = document.querySelectorAll(".becomePix");
+    findEmpty.forEach((input) => {
+        input.value === "" ? input.classList.remove("becomePix") : null;
+    });
 
-    if (check <= 0) {
-        checkText.textContent = "SEM DEVOLUÇÕES";
-    } else if (check == 1) {
-        checkText.textContent = `UMA DEVOLUÇÃO ⤦`
-    } else {
-        checkText.textContent = `${check} DEVOLUÇÕES: ${devSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
-    }
-
-    check = document.getElementsByClassName("becomeSin").length
-    checkText = document.getElementById("sin");
-
-    if (check <= 0) {
-        checkText.textContent = "SEM SINAIS";
-    } else if (check == 1) {
-        checkText.textContent = `UM SINAL ⤦`
-    } else {
-        checkText.textContent = `${check} SINAIS: ${sinSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
-    }
-
+    checkDev = document.getElementsByClassName("becomeDev").length;
+    devText = document.getElementById("dev");
+    checkSin = document.getElementsByClassName("becomeSin").length;
+    sinText = document.getElementById("sin");
     sangriaStatus = document.getElementById("sangriasTitle");
-    if (sangriasSaved.length <= 0) {
-        sangriaStatus.textContent = "SEM SANGRIAS"
-    }
-    else if (sangriasSaved.length == 1) {
-        sangriaStatus.textContent = `UMA SANGRIA ⤦`;
+    checkPix = document.getElementsByClassName("becomePix").length;
+    pixText = document.getElementById("pix");
+
+    checkDev <= 0 ? devText.textContent = "SEM DEVOLUÇÕES" : devText.textContent = `${checkDev} DEVOLUÇÕES: ${devSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`;
+    checkDev == 1 ? devText.textContent = `UMA DEVOLUÇÃO ⤦` : null
+
+    checkSin <= 0 ? sinText.textContent = "SEM SINAIS" : sinText.textContent = `${checkSin} SINAIS: ${sinSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`;
+    checkSin == 1 ? sinText.textContent = `UM SINAL ⤦` : null;
+
+    if (checkPix <= 0) {
+        document.getElementById("pixHub").classList.add("hidden");
+        document.getElementById("pixValues").parentElement.classList.add("hidden");
     } else {
-        sangriaStatus.textContent = `${sangriasSaved.length} SANGRIAS: ${sanSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} `;
+        document.getElementById("pixHub").classList.remove("hidden");
+        document.getElementById("pixValues").parentElement.classList.remove("hidden");
+        pixText.textContent = `${checkPix} PIX CELULAR: ${pixSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
+    }
+    checkPix == 1 ? pixText.textContent = "UM PIX CELULAR ⤦" : null;
+
+    if (checkDev == 0 && checkSin == 0) {
+        devText.textContent = "SEM DEVOLUÇÕES / SINAIS"
+        document.getElementById("sinValues").parentElement.classList.add("hidden");
+        document.getElementById("sinHub").classList.add("hidden");
+    } else {
+        document.getElementById("sinHub").classList.remove("hidden");
+        document.getElementById("sinValues").parentElement.classList.remove("hidden");
     };
 
-    document.getElementById("showSum").textContent = "TOTAL:" + sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-    document.getElementById("subtotal").textContent = "SubTotal:" + subSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+
+    sangriasSaved.length <= 0 ? sangriaStatus.textContent = "SEM SANGRIAS" : sangriaStatus.textContent = `${sangriasSaved.length} SANGRIAS: ${sanSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} `;
+    sangriasSaved.length == 1 ? sangriaStatus.textContent = "UMA SANGRIA ⤦" : null;
+
+    document.getElementById("showSum").textContent = "TOTAL: " + sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    document.getElementById("subtotal").textContent = "SOMA DAS VIAS: " + subSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
     document.getElementById("cash").textContent = "DINHEIRO: " + cashSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-    document.getElementById("etcTitle").textContent = etcCount + " CARTÕES - PIX"
+    document.getElementById("etcTitle").textContent = etcCount + " VIAS"
     document.querySelectorAll(".etc").forEach((input) => {
         if (input.value < 1 && !input.id) {
             control++
@@ -268,19 +283,17 @@ function updateInput() {
 function putItOnDevolucoes() {
     activeEl = document.activeElement;
     activeElBackup = activeEl.value;
+
+    activeEl.classList.remove("becomeSin");
+    activeEl.classList.remove("becomePix");
+
     setTimeout(function () {
         activeEl.value = activeElBackup;
     });//The input becomes empty if Shif + Tab. This function prevents it
 
-    if (activeEl.classList.contains("becomeDev")) {
-        activeEl.classList.remove("becomeDev");
-        formSum()
-        return;
-    };//remove if alrealdy has
 
     if (activeEl.tagName === "INPUT" && activeEl.value != "" && !activeEl.id) {
-        activeEl.classList.remove("becomeSin");
-        activeEl.classList.add("becomeDev");
+        activeEl.classList.toggle("becomeDev");
     };
     formSum();
 };
@@ -288,23 +301,36 @@ function putItOnDevolucoes() {
 function putItOnSinais() {
     activeEl = document.activeElement;
     activeElBackup = activeEl.value;
+
+    activeEl.classList.remove("becomeDev");
+    activeEl.classList.remove("becomePix");
+
     setTimeout(function () {
         activeEl.value = activeElBackup;
     });//The input becomes empty if Shif + Tab. This function prevents it
 
-    if (activeEl.classList.contains("becomeSin")) {
-        activeEl.classList.remove("becomeSin");
-        formSum()
-        return;
-    };//remove if alrealdy has
+    if (activeEl.tagName === "INPUT" && activeEl.value != "" && !activeEl.id) {
+        activeEl.classList.toggle("becomeSin");
+    };
+    formSum();
+};
+
+function putItOnPix() {
+    activeEl = document.activeElement;
+    activeElBackup = activeEl.value;
+
+    activeEl.classList.remove("becomeDev");
+    activeEl.classList.remove("becomeSin");
+
+    setTimeout(function () {
+        activeEl.value = activeElBackup;
+    });//The input becomes empty if Shif + Tab. This function prevents it
 
     if (activeEl.tagName === "INPUT" && activeEl.value != "" && !activeEl.id) {
-        activeEl.classList.remove("becomeDev");
-        activeEl.classList.add("becomeSin");
-        document.getElementById("sin").textContent = "SINAIS";
-    };
-    formSum()
-};
+        activeEl.classList.toggle("becomePix");
+    }
+    formSum();
+}
 
 function jumpToNext() {
     let nextEl = document.querySelectorAll("input");
@@ -358,7 +384,8 @@ function findAndClear() {
     for (let i = 0; i < sinaisValues.length; i++) {
         const sendToSin = document.createElement("input");
         sendToSin.value = sinaisValues[i].value;
-        sendToSin.style = "text-align: center;width: 55px;font-size: small;margin: 1px;font-family: Arial, Helvetica, sans-serif;";
+        sendToSin.classList.add("tempInput");
+        sendToSin.value.length >= 8 ? sendToSin.style.width = `${sendToSin.value.length}ch` : null;
 
         document.getElementById("sinValues").appendChild(sendToSin);
         setTimeout(function () {
@@ -371,13 +398,28 @@ function findAndClear() {
     for (let i = 0; i < devValues.length; i++) {
         const sendToDev = document.createElement("input");
         sendToDev.value = devValues[i].value;
-        sendToDev.style = "text-align: center;width: 55px;font-size: small;margin: 1px;font-family: Arial, Helvetica, sans-serif;";
+        sendToDev.classList.add("tempInput");
+        sendToDev.value.length >= 8 ? sendToDev.style.width = `${sendToDev.value.length}ch` : null;
 
         document.getElementById("devValues").appendChild(sendToDev);
         setTimeout(function () {
             sendToDev.remove();
         }, 1000);
     };
+
+    let pixValues = document.getElementsByClassName("becomePix");
+
+    for (let i = 0; i < pixValues.length; i++) {
+        const sendToPix = document.createElement("input");
+        sendToPix.value = pixValues[i].value;
+        sendToPix.classList.add("tempInput");
+        sendToPix.value.length >= 8 ? sendToPix.style.width = `${sendToPix.value.length}ch` : null;
+
+        document.getElementById("pixValues").appendChild(sendToPix);
+        setTimeout(function () {
+            sendToPix.remove();
+        })
+    }
 
     //setTimeout volta a pág para o estado anterior
 };
@@ -503,10 +545,15 @@ document.addEventListener("keydown", (function (event) {
             if (simpleLock) return;
             putItOnDevolucoes()
             break;
+        case "KeyP":
+            if (simpleLock) return;
+            putItOnPix();
+            break;
         case "F2":
             bodyTable.classList.add("hidden");
             sangriaElement.classList.toggle("hidden");
-            !sangriaElement.classList.contains("hidden") ? sangriaInput.focus() : location.reload()
+            !sangriaElement.classList.contains("hidden") ? sangriaInput.focus() : location.reload();
+            registerHub.classList.add("hidden");
             break;
         case "F9":
             if (simpleLock === false) {
@@ -812,6 +859,11 @@ document.getElementById("dTouch").addEventListener("touchstart", () => {
 document.getElementById("sTouch").addEventListener("touchstart", () => {
     if (simpleLock) return;
     putItOnSinais();
+}, { passive: true });
+
+document.getElementById("pTouch").addEventListener("touchstart", () => {
+    if (simpleLock) return;
+    putItOnPix();
 }, { passive: true });
 
 function setHol() {

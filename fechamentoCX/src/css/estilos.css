@@ -43,6 +43,10 @@ input.becomeSin {
     background-color: #ffcb00;
 }
 
+input.becomePix {
+    background-color: #37b4aa;
+}
+
 li {
     list-style: none;
     margin-bottom: 3px;
@@ -55,7 +59,7 @@ li {
     margin: 1px;
     font-family: Arial, Helvetica, sans-serif;
     min-width: 55px;
-    max-width: 90%;
+    max-width: 95%;
 }
 
 #etcValues {
@@ -144,6 +148,7 @@ input {
     .howTo,
     .becomeSin,
     .becomeDev,
+    .becomePix,
     #loginHub,
     #registerHub,
     #sangria,
@@ -176,6 +181,7 @@ input {
     #obsTable section {
         display: none;
     }
+
     #toolsH2 {
         display: none;
     }
@@ -221,6 +227,7 @@ input {
     #etcTitle,
     #dev,
     #sin,
+    #pix,
     #sangriasTitle {
         border: none;
     }
@@ -229,7 +236,8 @@ input {
         display: contents;
     }
 
-    #fontLabel, #qrLabel {
+    #fontLabel,
+    #qrLabel {
         display: none;
     }
 }
@@ -293,6 +301,7 @@ h4 {
     width: max-content;
     border-radius: 3px;
     padding: 3px;
+    margin-top: 8px;
 }
 
 #sangriaEdit {
@@ -417,6 +426,7 @@ input[type=number]::-webkit-outer-spin-button {
 #etcTitle,
 #dev,
 #sin,
+#pix,
 #sangriasTitle {
     word-wrap: break-word;
 }
@@ -482,4 +492,15 @@ input[type=number]::-webkit-outer-spin-button {
 
 #etiquetar input {
     font-size: large;
+}
+
+.tempInput {
+    text-align: center;
+    width: 55px;
+    font-size: small;
+    margin: 1px;
+    font-family: Arial, Helvetica, sans-serif;
+    border: 1px solid;
+    border-radius: 3px;
+    max-width: 95%;
 }
