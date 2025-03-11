@@ -12,7 +12,8 @@
 
 <body>
     <div id="loginHub" class="">
-        <h4 id="infosTitle">Login</Login></h4>
+        <h4 id="infosTitle">Login</Login>
+        </h4>
         <input id="loginValue" type="number" placeholder="&lt....&gt" onchange="showUserInfos()"
             style="text-align: center; font-size: large;">
     </div>
@@ -38,17 +39,22 @@
     </div>
 
     <div class="hidden" id="sangria">
-        <b style="font-size: x-large;">NOVA SANGRIA</b>
+        <b style="font-size: x-large;">SANGRIA</b>
         <br>
         <input style="font-size: large; margin-top: 20px;" type="number" min="300" id="sangriaInput"
-            onchange="defSangria()" placeholder="valor > ENTER">
-        <br>
+            onchange="defSangria()" placeholder="VALOR > ENTER">
 
         <ul id="sangriaEdit">
-            <h4>REALIZADAS</h4>
+            <h4>EM DINHEIRO</h4>
+        </ul>
+        <ul id="sangriaVias">
+            <h4>SANGRIAS DE VIAS</h4>
         </ul>
         <br>
-        <span style="font-size: x-small;">▪ 69 altera o caixa</span>
+        <button onclick="defCashier()" id="cxName">▪ Alterar Caixa</button>
+        <br>
+        <br>
+        <span>▪ 0 faz sangria de vias</span>
     </div>
 
     <div id="sangriaTable" class="hidden">
@@ -68,6 +74,8 @@
             <br>&nbsp;&nbsp; </br>
         </div>
     </div>
+
+    <div id="sangriaViasTable"></div>
 
     <div id="obsTable" class="hidden">
         <section id="backSec" class="hidden" style="background-color: #16161D"><button id="back" onclick="sClass()"
@@ -179,36 +187,43 @@
         </tr>
 
         <tr>
-            <td class="sTD">AVULSO
-                <span class="arrow">
-                    <input min="-1" onchange="formSum()" id="stuffs" type="number" class="etc">
-                </span>
-
-            </td>
-        </tr>
-
-        <tr>
-            <td class="sTD">5$
-                <span class="arrow">
-                    <input min="-1" onchange="formSum()" id="stuffs5" type="number" class="etc">
-                </span>
-
-            </td>
-        </tr>
-
-        <tr>
-            <td class="sTD">10$ | 20$
-                <span class="arrow">
-                    <input min="-1" onchange="formSum()" id="stuffs10_20" type="number" class="etc">
-                </span>
-            </td>
-        </tr>
-
-        <tr>
-            <td class="sTD" style="border: none;">50$ | 100$ | 200$
+            <td class="sTD">50$ | 100$ | 200$
                 <span class="arrow">
                     <input min="-1" onchange="formSum()" id="stuffs50_100_200" type="number" class="etc">
                 </span>
+            </td>
+        </tr>
+        <tr>
+            <td class="sTD">20$
+                <span class="arrow">
+                    <input min="-1" onchange="formSum()" id="stuffs20" type="number" class="etc">
+                </span>
+            </td>
+        </tr>
+        <tr>
+            <td class="sTD">10$
+                <span class="arrow">
+                    <input min="-1" onchange="formSum()" id="stuffs10" type="number" class="etc">
+                </span>
+
+            </td>
+        </tr>
+
+        <tr>
+            <td class="sTD" style="border: none;">AVULSO
+                <span class="arrow">
+                    <input min="-1" onchange="formSum()" id="stuffs" type="number" class="etc">
+                </span>
+            </td>
+        </tr>
+
+        <tr>
+            <th id="sangriasTitle">SEM SANGRIAS</th>
+        </tr>
+
+        <tr>
+            <td>
+                <ul id="sangriasUL"></ul>
             </td>
         </tr>
 
@@ -239,19 +254,16 @@
 
         <tr id="pixHub" class="hidden">
             <th id="pix">PIX CELULAR</th>
-            <tr>
-                <td id="pixValues"></td>
-            </tr>
+        <tr>
+            <td id="pixValues"></td>
+        </tr>
         </tr>
 
+        <tr id="errorHub" class="hidden">
+            <th id="error">ERROS</th>
         <tr>
-            <th id="sangriasTitle">SEM SANGRIAS</th>
+            <td id="errorValues"></td>
         </tr>
-
-        <tr>
-            <td>
-                <ul id="sangriasUL"></ul>
-            </td>
         </tr>
 
         <tr style="border-bottom: 0.5px solid;">
@@ -273,11 +285,11 @@
         <br><br>
         <li><strong>Enter</strong> ou <strong>Tab</strong> avança</li>
         <li><strong>Shift</strong> com <strong>Tab</strong> volta</li>
-        <li> <strong onclick="sMobileEvents(event)" style="cursor: pointer;">F2</strong> sangria</li>
+        <li> <strong onclick="sMobileEvents(event)" style="cursor: pointer;">F2</strong> sangrias</li>
         <li> <strong onclick="sMobileEvents(event)" style="cursor: pointer;">F4</strong> imprimi</li>
-        <li><strong onclick="sMobileEvents(event)" style="cursor: pointer;">F8</strong> limpa a seção</strong>
+        <li><strong onclick="sMobileEvents(event)" style="cursor: pointer;">F8</strong> limpa a seção e envia</strong>
         <li> <strong onclick="sMobileEvents(event)" style="cursor: pointer;">F9</strong> editar/ criar login</li>
-        <li><strong>T</strong> volta para AVULSO</strong>
+        <li><strong>T</strong> volta para o TOPO</strong>
         <li><strong>L</strong> próximo livre</strong>
         <li id="dTouch" style="border: 1px solid; border-color: black; background-color: #00c756 ;border-radius: 3px;">
             <strong>D</strong> adiciona/ remove DEVOLUÇÃO
@@ -288,12 +300,15 @@
         <li id="pTouch" style="border: 1px solid; border-color: black; background-color: #37b4aa;border-radius: 3px;">
             <strong>P</strong> adiciona/ remove ❖ PIX CELULAR
         </li>
+        <li id="eTouch" style="border: 1px solid; border-color: black; background-color: #d80013;border-radius: 3px;">
+            <strong>E</strong> adiciona/ remove ERRO
+        </li>
         <!-- <li id="oTouch" style="border: 1px solid; border-color: black; background-color: #3498db ;border-radius: 3px;"><strong>O</strong> adiciona/ remove OBSERVAÇÃO</li>-->
         <li>Está preso? <strong>F5</strong> </li>
         <li style="cursor: pointer;" onclick="tools()"><b>Shift</b> com <b>F1</b> outras ferramentas</li>
-        <div style="font-size: small;">
-            <ul>
-                <h3 style="text-align: center;">Configuração da impresora</h3>
+        <div id="tutoDiv">
+            <ul style="padding: 0;">
+                <h3 style=" text-align: center;">Configuração da impresora</h3>
                 <li>Impressora: <b>Epson TM-T20X Series</b></li>
                 <li>Tamanho Papel: <b>Postcard 100x148mm</b></li>
                 <li>Margens: <b>Nenhum</b></span></li>

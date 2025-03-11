@@ -6,7 +6,7 @@ let cashSum = 0;
 let devSum = 0;
 let sinSum = 0;
 let activeEl = document.activeElement;
-let login;
+let login = "SEM LOGIN";
 let saveName;
 let saveLogin;
 let create;
@@ -26,10 +26,12 @@ let folks = [
 let sangriasSaved = [
     //{ sangriaValue: "R$ 500,00'", sangriaTime: "07/02/2025 | 23:01:22" }
 ];
+
+let sViasSaved = [];
 let day;
 let optName = document.getElementById("toolsH2");
 
-const avulso = document.getElementById("stuffs");
+const topo = document.getElementById("stuffs50_100_200");
 const signature = document.getElementById("signature");
 const bodyTable = document.getElementById("bodyTable");
 const sangriaElement = document.getElementById("sangria");
@@ -61,6 +63,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     document.getElementById("date").textContent = `${new Date().toLocaleDateString()}`;
     document.getElementById("cx").textContent = `[${cashier}]`;
+    document.getElementById("cxName").textContent = `ALTERAR CAIXA [${cashier}]`
 });
 
 /*const folks = [
@@ -164,6 +167,7 @@ function formSum() {
     devSum = 0;
     sinSum = 0;
     pixSum = 0;
+    errSum = 0;
     sanSum = 0;
     etcCount = 0;
 
@@ -191,8 +195,9 @@ function formSum() {
             sinSum += iValue;
         } else if (input.classList.contains("etc") && input.classList.contains("becomePix")) {
             pixSum += iValue;
-        }
-        else if (input.classList.contains("etc")) {
+        } else if (input.classList.contains("etc") && input.classList.contains("becomeError")) {
+            errSum += iValue;
+        } else {
             etcCount++
             subSum += iValue;
         };
@@ -205,6 +210,7 @@ function formSum() {
         });
         sum += sanSum;
     };
+    cashSum += sanSum
 
     updateInput();
 };
@@ -227,6 +233,11 @@ function updateInput() {
         input.value === "" ? input.classList.remove("becomePix") : null;
     });
 
+    findEmpty = document.querySelectorAll(".becomeError");
+    findEmpty.forEach((input) => {
+        input.value === "" ? input.classList.remove("becomeError") : null;
+    });
+
     checkDev = document.getElementsByClassName("becomeDev").length;
     devText = document.getElementById("dev");
     checkSin = document.getElementsByClassName("becomeSin").length;
@@ -234,6 +245,8 @@ function updateInput() {
     sangriaStatus = document.getElementById("sangriasTitle");
     checkPix = document.getElementsByClassName("becomePix").length;
     pixText = document.getElementById("pix");
+    checkError = document.getElementsByClassName("becomeError").length;
+    errorText = document.getElementById("error");
 
     checkDev <= 0 ? devText.textContent = "SEM DEVOLUÇÕES" : devText.textContent = `${checkDev} DEVOLUÇÕES: ${devSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`;
     checkDev == 1 ? devText.textContent = `UMA DEVOLUÇÃO ⤦` : null
@@ -251,6 +264,17 @@ function updateInput() {
     }
     checkPix == 1 ? pixText.textContent = "UM PIX CELULAR ⤦" : null;
 
+    if (checkError <= 0) {
+        document.getElementById("errorHub").classList.add("hidden");
+        document.getElementById("errorValues").parentElement.classList.add("hidden");
+    } else {
+        document.getElementById("errorHub").classList.remove("hidden");
+        document.getElementById("errorValues").parentElement.classList.remove("hidden");
+        errorText.textContent = `${checkError} ERROS: ${errSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
+    }
+
+    checkError == 1 ? errorText.textContent = "UM ERRO ⤦" : null;
+
     if (checkDev == 0 && checkSin == 0) {
         devText.textContent = "SEM DEVOLUÇÕES / SINAIS"
         document.getElementById("sinValues").parentElement.classList.add("hidden");
@@ -260,17 +284,16 @@ function updateInput() {
         document.getElementById("sinValues").parentElement.classList.remove("hidden");
     };
 
-
     sangriasSaved.length <= 0 ? sangriaStatus.textContent = "SEM SANGRIAS" : sangriaStatus.textContent = `${sangriasSaved.length} SANGRIAS: ${sanSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} `;
     sangriasSaved.length == 1 ? sangriaStatus.textContent = "UMA SANGRIA ⤦" : null;
 
     document.getElementById("showSum").textContent = "TOTAL: " + sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-    document.getElementById("subtotal").textContent = "SOMA DAS VIAS: " + subSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-    document.getElementById("cash").textContent = "DINHEIRO: " + cashSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    document.getElementById("subtotal").textContent = "SOMA: " + subSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    document.getElementById("cash").textContent = "TOTAL EM DINHEIRO: " + cashSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
     document.getElementById("etcTitle").textContent = etcCount + " VIAS"
     document.querySelectorAll(".etc").forEach((input) => {
         if (input.value < 1 && !input.id) {
-            control++
+            control++;
         };
     });
 
@@ -286,6 +309,7 @@ function putItOnDevolucoes() {
 
     activeEl.classList.remove("becomeSin");
     activeEl.classList.remove("becomePix");
+    activeEl.classList.remove("becomeError")
 
     setTimeout(function () {
         activeEl.value = activeElBackup;
@@ -304,6 +328,7 @@ function putItOnSinais() {
 
     activeEl.classList.remove("becomeDev");
     activeEl.classList.remove("becomePix");
+    activeEl.classList.remove("becomeError")
 
     setTimeout(function () {
         activeEl.value = activeElBackup;
@@ -321,6 +346,7 @@ function putItOnPix() {
 
     activeEl.classList.remove("becomeDev");
     activeEl.classList.remove("becomeSin");
+    activeEl.classList.remove("becomeError")
 
     setTimeout(function () {
         activeEl.value = activeElBackup;
@@ -332,6 +358,24 @@ function putItOnPix() {
     formSum();
 }
 
+function putItOnError() {
+    activeEl = document.activeElement;
+    activeElBackup = activeEl.value;
+
+    activeEl.classList.remove("becomeDev");
+    activeEl.classList.remove("becomeSin");
+    activeEl.classList.remove("becomePix");
+
+    setTimeout(function () {
+        activeEl.value = activeElBackup;
+    });//The input becomes empty if Shif + Tab. This function prevents it
+
+    if (activeEl.tagName === "INPUT" && activeEl.value != "" && !activeEl.id) {
+        activeEl.classList.toggle("becomeError");
+    }
+    formSum();
+};
+
 function jumpToNext() {
     let nextEl = document.querySelectorAll("input");
     let index = Array.prototype.indexOf.call(nextEl, document.activeElement);
@@ -339,7 +383,7 @@ function jumpToNext() {
     try {
         nextEl[index + 1].focus()
     } catch (error) {
-        avulso.focus()
+        topo.focus()
     };
 };
 /*
@@ -421,6 +465,20 @@ function findAndClear() {
         })
     }
 
+    let errorValues = document.getElementsByClassName("becomeError");
+
+    for (let i = 0; i < errorValues.length; i++) {
+        const sendToError = document.createElement("input");
+        sendToError.value = errorValues[i].value;
+        sendToError.classList.add("tempInput");
+        sendToError.value.length >= 8 ? sendToError.style.width = `${sendToError.value.length}ch` : null;
+
+        document.getElementById("errorValues").appendChild(sendToError);
+        setTimeout(function () {
+            sendToError.remove();
+        })
+    }
+
     //setTimeout volta a pág para o estado anterior
 };
 
@@ -447,9 +505,6 @@ document.addEventListener("keydown", (function (event) {
     };
 
     switch (event.code) {
-        case "KeyE":
-            !simpleLock ? event.preventDefault() : null;
-            break;
         case "F4":
             try {
                 formSum();
@@ -471,8 +526,8 @@ document.addEventListener("keydown", (function (event) {
             }, 300);
             break;
         case "F8":
-            if (window.confirm("APAGAR todos os valores da seção ?")) {
-                clearAll();
+            if (window.confirm("APAGAR todos os valores da seção? (vai gerar um arquivo com os valores declarados)")) {
+                processJson();
                 /*
                 document.getElementById("loginHub").classList.add("lastChange");
                 document.getElementById("loginValue").classList.add("hidden");
@@ -492,7 +547,7 @@ document.addEventListener("keydown", (function (event) {
             break;
         case "KeyT":
             if (simpleLock) return;
-            avulso.focus();
+            topo.focus();
             break;
         case "KeyL":
             if (simpleLock) return;
@@ -537,17 +592,22 @@ document.addEventListener("keydown", (function (event) {
         event.shiftKey ? putItOnDevolucoes() : jumpToNext();
         break;
     */
-        case "KeyS":
-            if (simpleLock) return;
-            putItOnSinais()
-            break;
         case "KeyD":
             if (simpleLock) return;
-            putItOnDevolucoes()
+            putItOnDevolucoes();
+            break;
+        case "KeyS":
+            if (simpleLock) return;
+            putItOnSinais();
             break;
         case "KeyP":
             if (simpleLock) return;
             putItOnPix();
+            break;
+        case "KeyE":
+            if (simpleLock) return;
+            event.preventDefault();
+            putItOnError();
             break;
         case "F2":
             bodyTable.classList.add("hidden");
@@ -594,7 +654,6 @@ function saveState() {
     inputs.forEach((input, index) => {
         localStorage.setItem(`input${index} `, input.value);
         localStorage.setItem(`class${index} `, input.classList.toString());
-
     });
     notEmp > 40 ? localStorage.setItem("allInputs", notEmp) : localStorage.removeItem("allInputs");
     //localStorage.setItem("time", `${ new Date().toLocaleDateString() } - ${ new Date().toLocaleTimeString() } `);
@@ -616,7 +675,6 @@ function loadState() {
 
         sangriasSaved.forEach(function (createSangriasLi, index) {
             li = document.createElement("li");
-
 
             li.textContent = `${createSangriasLi.sangriaValue}$`
 
@@ -691,6 +749,49 @@ function loadState() {
 
     document.getElementById("cxNumber").textContent = `[${cashier}]`;
 
+    if (localStorage.getItem("sViasSaved")) {
+        sViasSaved = JSON.parse(localStorage.getItem("sViasSaved"));
+
+        sViasSaved.map(obj => {
+            const div = document.createElement("div");
+            div.classList.add("sVias");
+            const button = document.createElement("button");
+            button.innerHTML = "🖨️";
+
+            button.addEventListener("click", function () {
+                let div = document.createElement("div");
+                let divInfos = document.createElement("div");
+
+                divInfos.innerHTML = `<h3> REIMPRESSÃO DE SANGRIA - VIAS</h3> ${nameText.textContent} <br> ${loginText.textContent} [${cashier}] <br><br> ${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()} <br><br>`;
+                div.appendChild(divInfos)
+
+                div.appendChild(this.parentElement)
+                document.getElementById("sangriaViasTable").appendChild(div);
+
+                this.remove();
+                window.print();
+                location.reload();
+            })
+
+            button.classList.add("botao");
+            div.appendChild(button)
+            Object.entries(obj).forEach(([key, values]) => {
+                const nSangria = document.createElement("div");
+                key == "sVdevolucoes" ? nSangria.innerHTML = "DEVOLUÇÕES <br>" : nSangria.innerHTML = `${key.toUpperCase().slice(2)} <br>`;
+                values.forEach(val => {
+                    const span = document.createElement("span");
+                    span.textContent = val;
+                    nSangria.appendChild(span);
+                });
+                div.appendChild(nSangria);
+
+                values.length < 1 ? nSangria.remove() : null;
+            });
+            document.getElementById("sangriaVias").appendChild(div);
+
+        });
+    }
+
     formSum();
     goToFreeInput();
 };
@@ -713,30 +814,117 @@ simpleCheck = () => {
 
 defSangria = () => {
     sangria = parseFloat(sangriaInput.value);
-    if (sangria == 69) {
-        cashier = prompt("Este PC é o Caixa");
-        localStorage.setItem("cashier", cashier);
-        setTimeout(function () {
+    if (isNaN(sangria) || sangria < 0) {
+        return;
+    } else if (sangria == 0 && window.confirm("Sangria de VIAS?")) {
+        //console.log(document.querySelectorAll(".etc").length)
+        sangriaVias();
+        return;
+    }
+    
+    if (sangria == 0) {
+        location.reload()
+    } else {
+        try {
+            document.getElementById("sangriaTable").classList.toggle("hidden");
+            sangriaInput.classList.toggle("hidden");
+            document.getElementById("sangria").classList.add("hidden");
+            document.getElementById("sumSangria").textContent = "SANGRIA: " + sangria.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+            document.getElementById("timeSangria").textContent = `${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()} `
+            sangriaMade = { sangriaValue: sangria, sangriaTime: new Date().toLocaleTimeString() }
+            sangriasSaved.push(sangriaMade);
+            localStorage.setItem("sangriasSaved", JSON.stringify(sangriasSaved))
+            window.print();
             location.reload();
-        }, 1000);
-    };
-    if (sangria < 300) {
-        if (!window.confirm("Mínimo 300$, continuar?")) {
-            sangriaInput.focus();
-            return;
-        }
-    };
-    document.getElementById("sangriaTable").classList.toggle("hidden");
-    sangriaInput.classList.toggle("hidden");
-    document.getElementById("sangria").classList.add("hidden");
-    document.getElementById("sumSangria").textContent = "SANGRIA: " + sangria.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-    document.getElementById("timeSangria").textContent = `${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()} `
-    sangriaMade = { sangriaValue: sangria, sangriaTime: new Date().toLocaleTimeString() }
-    sangriasSaved.push(sangriaMade);
-    localStorage.setItem("sangriasSaved", JSON.stringify(sangriasSaved))
-    window.print();
-    location.reload();
+        } catch (err) {
+            alert("ERRO AO FAZER SANGRIA: " + err)
+            location.reload()
+        };
+    }
+
 };
+
+defCashier = () => {
+    cashier = prompt("Este PC é o Caixa");
+    cashier == null ? cashier = 69 : null;
+    localStorage.setItem("cashier", cashier);
+    setTimeout(function () {
+        location.reload();
+    }, 1000);
+}
+
+function sangriaVias() {
+    let viaSum = 0;
+
+    let sVnormais = []
+    let sVdevolucoes = []
+    let sVsinais = []
+    let svErros = []
+    let sVpix = []
+
+    try {
+        document.querySelectorAll(".sTD").forEach((hid) => {
+            hid.remove()
+        });
+
+        findAndClear();
+        document.getElementById("sangriasTitle").classList.add("hidden");;
+        document.getElementById("sangriasUL").parentElement.classList.add("hidden");
+        document.getElementById("subtotal").classList.add("hidden")
+        document.getElementById("cash").textContent = "SANGRIA DE NOTINHAS"
+        document.getElementById("time").textContent = `${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()} `;
+        signature.classList.remove("hidden");
+        bodyTable.classList.remove("hidden");
+
+        document.querySelectorAll(".etc").forEach((input) => {
+            if (input.value.trim() === "") {
+                return;
+            };
+
+            const iValue = parseFloat(input.value)
+
+            if (isNaN(iValue) || iValue <= 0 || iValue.id) {
+                input.value = "";
+                return;
+            };
+
+            viaSum += iValue;
+
+            if (input.classList.contains("becomeDev")) {
+                sVdevolucoes.push(iValue)
+            } else if (input.classList.contains("becomeSin")) {
+                sVsinais.push(iValue)
+            } else if (input.classList.contains("becomePix")) {
+                sVpix.push(iValue)
+            } else if (input.classList.contains("becomeError")) {
+                svErros.push(iValue)
+            } else {
+                sVnormais.push(iValue)
+            }
+        });
+
+        sViasSaved.push({ sVnormais, sVdevolucoes, sVsinais, sVpix, svErros })
+        //localStorage.setItem("sangriasSaved", JSON.stringify(sangriasSaved))
+        localStorage.setItem("sViasSaved", JSON.stringify(sViasSaved))
+
+        document.getElementById("showSum").textContent = "TOTAL: " + viaSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    } catch (err) {
+        alert("Ocorreu um erro ao fazer a sangria das vias > " + err);
+        location.reload();
+    } finally {
+        window.print();;
+    };
+
+    document.querySelectorAll(".etc").forEach((input) => {
+        if (!input.id) {
+            input.value = "";
+        };
+        input.classList.remove("hidden");
+    });
+    saveState();
+    location.reload()
+}
+//clearAll()
 
 changeFontSize = () => {
     font = document.getElementById("fontSizeVar").value;
@@ -866,6 +1054,11 @@ document.getElementById("pTouch").addEventListener("touchstart", () => {
     putItOnPix();
 }, { passive: true });
 
+document.getElementById("eTouch").addEventListener("touchstart", () => {
+    if (simpleLock) return;
+    putItOnError();
+}, { passive: true });
+
 function setHol() {
     document.getElementById("hiddenHol").classList.remove("hidden");
     document.getElementById("holName").textContent = holidays[day].holName;
@@ -892,7 +1085,78 @@ function labelProduct() {
 
     document.getElementById("etiNameValue").value = "";
     document.getElementById("etiPriceValue").value = "";
+    document.getElementById("etiNameValue").focus();
 };
+
+function processJson() {
+    let data = document.querySelectorAll('.etc');
+    let dataJson = [];
+
+    let inputsNormais = [];
+    let inputsDevolucoes = [];
+    let inputsSinais = [];
+    let inputsPix = [];
+    let inputsErros = [];
+
+
+    data.forEach((input) => {
+        if (!input.value == "" && !input.id) {
+            if (input.classList.contains("becomeDev")) {
+                inputsDevolucoes.push(input.value);
+            } else if (input.classList.contains("becomeSin")) {
+                inputsSinais.push(input.value);
+            } else if (input.classList.contains("becomePix")) {
+                inputsPix.push(input.value);
+            } else if (input.classList.contains("becomeError")) {
+                inputsErros.push(input.value);
+            } else {
+                inputsNormais.push(input.value);
+            }
+        }
+    });
+    dataJson.push({ data: new Date().toLocaleDateString() });
+    dataJson.push(loginFind);
+    dataJson.push({ caixa: cashier });
+
+    dataJson.push({ notas_50_100_200: document.getElementById("stuffs50_100_200").value });
+    dataJson.push({ notas20: document.getElementById("stuffs20").value });
+    dataJson.push({ notas10: document.getElementById("stuffs10").value });
+    dataJson.push({ avulso: document.getElementById("stuffs").value });
+
+    dataJson.push({ viasNormais: inputsNormais });
+    dataJson.push({ devolucoes: inputsDevolucoes });
+    dataJson.push({ sinais: inputsSinais });
+    dataJson.push({ pixCel: inputsPix });
+    dataJson.push({ erros: inputsErros });
+
+    dataJson.push({ sangrias: sangriasSaved });
+    dataJson.push({ sangriasCartoes: sViasSaved });
+
+
+    saveJson = JSON.stringify(dataJson, null, 2);
+    fileName = `FECHAMENTO_${login}_${nameText.textContent}_${date.textContent}`;
+
+    try {
+        exportJson(saveJson, fileName);
+    } catch (err) {
+        alert("ERRO AO EXPORTAR> " + err);
+        location.reload();
+    } finally {
+        setTimeout(function () {
+            clearAll();
+        }, 900)
+    }
+
+};
+
+function exportJson(items, jsonName) {
+    const blob = new Blob([items], { type: "application/json" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = jsonName;
+    link.click();
+};
+
 /*
 var i;
 for (i = 0; i < localStorage.length; i++) {
