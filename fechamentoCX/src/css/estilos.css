@@ -9,7 +9,7 @@ body {
 }
 
 strong {
-    font-size: x-large;
+    font-size: large;
 }
 
 table {
@@ -100,16 +100,15 @@ input {
     top: 0;
     border-radius: 3px;
     box-shadow: 1px 1px 6px 1px;
-    padding: 0.6%;
-    font-size: large;
+    font-size: medium;
     z-index: 1;
 }
 
 .howTo li {
-    border: 1px solid;
-    border-radius: 3px;
-    margin-bottom: 6px;
+    border-bottom: 1px solid;
     padding: 3px;
+    display: flex;
+    align-items: center;
 }
 
 #devolucoes,
@@ -192,6 +191,10 @@ input {
     }
 
     #toolsH2 {
+        display: none;
+    }
+
+    #filters {
         display: none;
     }
 
@@ -570,17 +573,12 @@ input[type=number]::-webkit-outer-spin-button {
 
 #tutoDiv {
     font-size: small;
-    border: 1px solid;
     text-align: left;
     width: max-content;
     border-radius: 3px;
     transform: translateX(-50%);
     left: 50%;
     position: relative;
-}
-
-#tutoDiv li {
-    border: none;
 }
 
 #sangriaViasTable {
@@ -594,4 +592,29 @@ input[type=number]::-webkit-outer-spin-button {
     margin: 0;
     box-shadow: none;
     border-bottom: 1px dashed;
+}
+
+#filters {
+    width: max-content;
+    position: fixed;
+    left: 72mm;
+    top: 20%;
+    font-size: large;
+    z-index: 6;
+    background-color: #F8F8FF;
+}
+
+#filters li {
+    margin-top: 5px;
+    width: max-content;
+    display: flex;
+    align-items: center;
+}
+
+.keyIcons {
+    width: 60px;
+}
+
+.keyIconsSmall {
+    width: 45px;
 }

@@ -109,7 +109,9 @@ function showUserInfos() {
     if (loginFind) {
         nameText.textContent = loginFind.uName;
         document.getElementById("loginHub").classList.add("hidden");
+        document.getElementById("tutoDiv").classList.add("hidden");
         bodyTable.classList.remove("hidden");
+        document.getElementById("filters").classList.remove("hidden");
         loginText.textContent = `<${login}> `;
         goToFreeInput();
         localStorage.setItem("LastLoginCode", login);
@@ -118,6 +120,7 @@ function showUserInfos() {
         document.getElementById("oper").textContent = uName.textContent;
     } else {
         document.getElementById("loginHub").classList.add("hidden");
+        document.getElementById("tutoDiv").classList.add("hidden");
         registerHub.classList.remove("hidden");
         registerStatus.textContent = `Login '${login}' não encontrado`
         createEditFolk();
@@ -386,14 +389,14 @@ function jumpToNext() {
         topo.focus()
     };
 };
-/*
+
 function jumpBack() {
     let nextEl = document.querySelectorAll("input");
     let index = Array.prototype.indexOf.call(nextEl, document.activeElement);
     nextEl[index - 1].focus()
     index == 10 ? goToFreeInput() : null;
 };
-*/
+
 
 function goToFreeInput() {
     findEmpty = document.querySelectorAll(".etc");
@@ -495,11 +498,11 @@ function clearAll() {
 };
 
 document.addEventListener("keydown", (function (event) {
-    if (event.shiftKey && event.code === "F1") {
-        simpleLock = true;
-        tools();
-    };
-
+    /* if (event.shiftKey && event.code === "F1") {
+         simpleLock = true;
+         tools();
+     };
+ */
     if (event.key === "Enter" && simpleLock == false) {
         jumpToNext();
     };
@@ -611,6 +614,7 @@ document.addEventListener("keydown", (function (event) {
             break;
         case "F2":
             bodyTable.classList.add("hidden");
+            document.getElementById("filters").classList.add("hidden");
             sangriaElement.classList.toggle("hidden");
             !sangriaElement.classList.contains("hidden") ? sangriaInput.focus() : location.reload();
             registerHub.classList.add("hidden");
@@ -619,6 +623,7 @@ document.addEventListener("keydown", (function (event) {
             if (simpleLock === false) {
                 registerHub.classList.toggle("hidden");
                 bodyTable.classList.toggle("hidden");
+                document.getElementById("filters").classList.toggle("hidden");
             } else {
                 registerHub.classList.toggle("hidden");
                 registerHub.classList.contains("hidden") ? location.reload() : null
@@ -629,12 +634,22 @@ document.addEventListener("keydown", (function (event) {
             registerStatus.textContent == `editando '${login}'` ? create_uName.focus() : null;
             registerStatus.textContent == `editando '${login}'` ? document.getElementById("registerTitle").textContent = "Edição" : null;
             break;
+        case "F10":
+            event.preventDefault();
+            simpleLock = true;
+            tools();
+            break;
+        case "KeyV":
+            if (simpleLock) return;
+            jumpBack();
+            break;
     };
 }));
 
 tools = () => {
     if (document.getElementById("obsTable").classList.contains("hidden")) {
         bodyTable.classList.add("hidden");
+        document.getElementById("filters").classList.add("hidden");
         document.getElementById("obsTable").classList.remove("hidden");
         simpleLock = true;
     }
@@ -821,7 +836,7 @@ defSangria = () => {
         sangriaVias();
         return;
     }
-    
+
     if (sangria == 0) {
         location.reload()
     } else {
@@ -1031,7 +1046,7 @@ function GerarCódigoDeBarras(elementoInput) {
 }//https://www.mundojs.com.br/2018/01/16/crie-codigo-de-barras-em-javascript-com-jsbarcode/
 
 function sMobileEvents(event) {
-    let simulatedKey = event.target.textContent;
+    let simulatedKey = event.target.alt;
     const sendKey = new KeyboardEvent('keydown', {
         code: simulatedKey,
         bubbles: true,

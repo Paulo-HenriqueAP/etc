@@ -48,13 +48,10 @@
             <h4>EM DINHEIRO</h4>
         </ul>
         <ul id="sangriaVias">
-            <h4>SANGRIAS DE VIAS</h4>
+            <h4>SANGRIAS DE VIAS <br><br>DIGITE<br> <img class="keyIconsSmall" src="src/icons/keys/0_Key_Light.png" alt="0"></h4>
         </ul>
         <br>
-        <button onclick="defCashier()" id="cxName">▪ Alterar Caixa</button>
-        <br>
-        <br>
-        <span>▪ 0 faz sangria de vias</span>
+        <button onclick="defCashier()" id="cxName">Alterar Caixa</button>
     </div>
 
     <div id="sangriaTable" class="hidden">
@@ -173,7 +170,7 @@
         <tr>
             <th>
                 <span id="date"
-                    style="font-size: larger; font-weight: normal; text-decoration: underline; text-underline-offset: 2px;"></span>
+                    style="font-size: medium; font-weight: normal; text-decoration: underline; text-underline-offset: 2px;"></span>
                 <br>
                 <span id="uName"></span>
                 <br>
@@ -181,6 +178,14 @@
                 <b id="cx" style="font-size: large;"></b>
             </th>
         </tr>
+
+        <tr id="pixHub" class="hidden">
+            <th id="pix">PIX CELULAR</th>
+        <tr>
+            <td id="pixValues"></td>
+        </tr>
+        </tr>
+
 
         <tr>
             <th id="cash">DINHEIRO</th>
@@ -252,13 +257,6 @@
         </tr>
         </tr>
 
-        <tr id="pixHub" class="hidden">
-            <th id="pix">PIX CELULAR</th>
-        <tr>
-            <td id="pixValues"></td>
-        </tr>
-        </tr>
-
         <tr id="errorHub" class="hidden">
             <th id="error">ERROS</th>
         <tr>
@@ -280,32 +278,37 @@
         <td style="border-bottom: 0.5px solid;"></td>
     </table>
 
-    <div class="howTo">
-        <span style="font-size: x-large;">Como usar</span>
-        <br><br>
-        <li><strong>Enter</strong> ou <strong>Tab</strong> avança</li>
-        <li><strong>Shift</strong> com <strong>Tab</strong> volta</li>
-        <li> <strong onclick="sMobileEvents(event)" style="cursor: pointer;">F2</strong> sangrias</li>
-        <li> <strong onclick="sMobileEvents(event)" style="cursor: pointer;">F4</strong> imprimi</li>
-        <li><strong onclick="sMobileEvents(event)" style="cursor: pointer;">F8</strong> limpa a seção e envia</strong>
-        <li> <strong onclick="sMobileEvents(event)" style="cursor: pointer;">F9</strong> editar/ criar login</li>
-        <li><strong>T</strong> volta para o TOPO</strong>
-        <li><strong>L</strong> próximo livre</strong>
+    <div id="filters" class="hidden">
+        <h4>adicione/ remova</h4>
         <li id="dTouch" style="border: 1px solid; border-color: black; background-color: #00c756 ;border-radius: 3px;">
-            <strong>D</strong> adiciona/ remove DEVOLUÇÃO
+            <img src="src/icons/keys/D_Key_Light.png" alt="D" class="keyIconsSmall"> <b>DEVOLUÇÃO&nbsp;&nbsp;&nbsp;&nbsp;</b>
         </li>
         <li id="sTouch" style="border: 1px solid; border-color: black; background-color: #ffcb00;border-radius: 3px;">
-            <strong>S</strong> adiciona/ remove SINAL
+            <img src="src/icons/keys/S_Key_Light.png" alt="S" class="keyIconsSmall"> <b>SINAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
         </li>
         <li id="pTouch" style="border: 1px solid; border-color: black; background-color: #37b4aa;border-radius: 3px;">
-            <strong>P</strong> adiciona/ remove ❖ PIX CELULAR
+           <img src="src/icons/keys/P_Key_Light.png" alt="P" class="keyIconsSmall"> <b>PIX CELULAR&nbsp;&nbsp;</b>
         </li>
         <li id="eTouch" style="border: 1px solid; border-color: black; background-color: #d80013;border-radius: 3px;">
-            <strong>E</strong> adiciona/ remove ERRO
+            <img src="src/icons/keys/E_Key_Light.png" alt="E" class="keyIconsSmall"> <b>ERRO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
         </li>
-        <!-- <li id="oTouch" style="border: 1px solid; border-color: black; background-color: #3498db ;border-radius: 3px;"><strong>O</strong> adiciona/ remove OBSERVAÇÃO</li>-->
-        <li>Está preso? <strong>F5</strong> </li>
-        <li style="cursor: pointer;" onclick="tools()"><b>Shift</b> com <b>F1</b> outras ferramentas</li>
+    </div>
+
+    <div class="howTo">
+        <!-- <span style="font-size: x-large;">Como usar</span> <br><br>-->
+        <li><img src="src/icons/keys/Enter_Key_Light.png" alt="ENTER" class="keyIcons"> <strong>avança</strong> </li>
+        <li><img src="src/icons/keys/V_Key_Light.png" alt="V" class="keyIcons"> <strong>volta</strong></li>
+        <li> <img src="src/icons/keys/F2_Key_Light.png" onclick="sMobileEvents(event)" style="cursor: pointer;" alt="F2" class="keyIcons"> <strong>sangria</strong></li>
+        <li> <img src="src/icons/keys/F4_Key_Light.png" onclick="sMobileEvents(event)" style="cursor: pointer;" alt="F4" class="keyIcons"> <strong>imprimi</strong></li>
+        <li><img src="src/icons/keys/F8_Key_Light.png" onclick="sMobileEvents(event)" style="cursor: pointer;" alt="F8" class="keyIcons"> <strong>finaliza seção</strong></strong>
+        <li> <img src="src/icons/keys/F9_Key_Light.png" onclick="sMobileEvents(event)" style="cursor: pointer;" alt="F9" class="keyIcons"> <strong>editar seu nome</strong></li>
+        <li style="cursor: pointer;" onclick="tools()"><img src="src/icons/keys/10_Key_Light.png" alt="F10" class="keyIcons"> <strong>ferramentas</strong></li>
+        <li><img src="src/icons/keys/T_Key_Light.png" alt="T" class="keyIcons" class="keyIcons"> <strong>volta ao TOPO</strong></li>
+        <li><img src="src/icons/keys/L_Key_Light.png" alt="L" class="keyIcons" class="keyIcons"> <strong> primeiro livre</strong></li>
+
+            <!-- <li id="oTouch" style="border: 1px solid; border-color: black; background-color: #3498db ;border-radius: 3px;"><strong>O</strong> adiciona/ remove OBSERVAÇÃO</li>-->
+        <li><img src="src/icons/keys/F11_Key_Light.png" alt="F11" class="keyIconsSmall"> + <img src="src/icons/keys/F5_Key_Light.png" alt="F5" class="keyIconsSmall"> <strong>destrava</strong></li>
+       
         <div id="tutoDiv">
             <ul style="padding: 0;">
                 <h3 style=" text-align: center;">Configuração da impresora</h3>
