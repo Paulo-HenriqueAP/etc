@@ -6,7 +6,7 @@ let cashSum = 0;
 let devSum = 0;
 let sinSum = 0;
 let activeEl = document.activeElement;
-let login = "SEM LOGIN";
+let login ="";
 let saveName;
 let saveLogin;
 let create;
@@ -26,6 +26,7 @@ let folks = [
 let sangriasSaved = [
     //{ sangriaValue: "R$ 500,00'", sangriaTime: "07/02/2025 | 23:01:22" }
 ];
+let dateNow;
 
 let sViasSaved = [];
 let day;
@@ -100,6 +101,8 @@ function createInputs() {
 };
 
 function showUserInfos() {
+    dateNow = new Date().toLocaleDateString();
+    localStorage.setItem("abriuFechamento", dateNow)
     login = document.getElementById("loginValue").value;
     login === "06052002" ? localStorage.clear() : null;
     if (folks && folks.length > 0) {
@@ -292,7 +295,7 @@ function updateInput() {
 
     document.getElementById("showSum").textContent = "TOTAL: " + sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
     document.getElementById("subtotal").textContent = "SOMA: " + subSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-    document.getElementById("cash").textContent = "TOTAL EM DINHEIRO: " + cashSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    document.getElementById("cash").textContent = "NO DINHEIRO: " + cashSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
     document.getElementById("etcTitle").textContent = etcCount + " VIAS"
     document.querySelectorAll(".etc").forEach((input) => {
         if (input.value < 1 && !input.id) {
@@ -529,7 +532,7 @@ document.addEventListener("keydown", (function (event) {
             }, 300);
             break;
         case "F8":
-            if (window.confirm("APAGAR todos os valores da seção? (vai gerar um arquivo com os valores declarados)")) {
+            if (window.confirm("APAGAR todos os valores da seção?")) {
                 processJson();
                 /*
                 document.getElementById("loginHub").classList.add("lastChange");
@@ -777,7 +780,7 @@ function loadState() {
                 let div = document.createElement("div");
                 let divInfos = document.createElement("div");
 
-                divInfos.innerHTML = `<h3> REIMPRESSÃO DE SANGRIA - VIAS</h3> ${nameText.textContent} <br> ${loginText.textContent} [${cashier}] <br><br> ${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()} <br><br>`;
+                divInfos.innerHTML = `<h3>REIMPRESSÃO DE SANGRIA - VIAS</h3> <b> ${nameText.textContent} <br> ${loginText.textContent} [${cashier}] <br><br> ${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()} <br><br></b>`;
                 div.appendChild(divInfos)
 
                 div.appendChild(this.parentElement)
@@ -828,12 +831,21 @@ simpleCheck = () => {
 };
 
 defSangria = () => {
+    check = 0;
+    document.querySelectorAll(".etc").forEach((input) => {
+        if (input.value >= 1 && !input.id) {
+            check++
+        };
+    })
+    console.log(check)
+
     sangria = parseFloat(sangriaInput.value);
     if (isNaN(sangria) || sangria < 0) {
         return;
     } else if (sangria == 0 && window.confirm("Sangria de VIAS?")) {
-        //console.log(document.querySelectorAll(".etc").length)
-        sangriaVias();
+        check >= 1 ? sangriaVias() : alert("NÃO TEM VIAS, ADICIONE PARA REALIZAR");
+        location.reload();
+        //sangriaVias();
         return;
     }
 
@@ -861,11 +873,16 @@ defSangria = () => {
 
 defCashier = () => {
     cashier = prompt("Este PC é o Caixa");
-    cashier == null ? cashier = 69 : null;
-    localStorage.setItem("cashier", cashier);
-    setTimeout(function () {
-        location.reload();
-    }, 1000);
+    console.log(cashier)
+    if (cashier == null || isNaN(cashier) || cashier.trim() =="") {
+        alert("Ocorreu um erro :<")
+        location.reload()
+    } else {
+        localStorage.setItem("cashier", cashier);
+        setTimeout(function () {
+            location.reload();
+        }, 1000);
+    }
 }
 
 function sangriaVias() {
@@ -1149,8 +1166,8 @@ function processJson() {
 
 
     saveJson = JSON.stringify(dataJson, null, 2);
-    fileName = `FECHAMENTO_${login}_${nameText.textContent}_${date.textContent}`;
-
+    fileName = `${nameText.textContent} ${login}-${localStorage.getItem("abriuFechamento")}`;
+    console.log(dateNow)
     try {
         exportJson(saveJson, fileName);
     } catch (err) {

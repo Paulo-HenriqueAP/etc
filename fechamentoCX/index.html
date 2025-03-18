@@ -41,6 +41,8 @@
     <div class="hidden" id="sangria">
         <b style="font-size: x-large;">SANGRIA</b>
         <br>
+        <span style="font-size: X-small;">NAVEGUE COM TAB</span>
+        <br>
         <input style="font-size: large; margin-top: 20px;" type="number" min="300" id="sangriaInput"
             onchange="defSangria()" placeholder="VALOR > ENTER">
 
@@ -78,7 +80,9 @@
         <section id="backSec" class="hidden" style="background-color: #16161D"><button id="back" onclick="sClass()"
                 style="color: white;">⤺ voltar</button></section>
 
-        <h2 id="toolsH2">Texto ⤵</h2>
+        <h2 id="toolsH2">
+            <span style="font-size: X-small;">NAVEGUE COM TAB</span><br>
+            Texto ⤵</h2>
 
         <div contenteditable style="overflow:hidden;" id="obsText" oninput="qrCodeSet()"></div>
 
@@ -239,7 +243,7 @@
         <tr>
             <td>
                 <ul id="etcValues"></ul>
-                <h3 class="hidden" id="subtotal" style="max-width: 71mm;  word-wrap: break-word; ">SubTOTAL:</h3>
+                <h3 class="hidden" id="subtotal" style="max-width: 71mm;  word-wrap: break-word; ">Soma:</h3>
             </td>
         </tr>
 
