@@ -201,8 +201,6 @@ function formSum() {
             sinSum += iValue;
         } else if (input.classList.contains("etc") && input.classList.contains("becomePix")) {
             pixSum += iValue;
-        } else if (input.classList.contains("etc") && input.classList.contains("becomeError")) {
-            errSum += iValue;
         } else {
             etcCount++
             subSum += iValue;
@@ -238,12 +236,12 @@ function updateInput() {
     findEmpty.forEach((input) => {
         input.value === "" ? input.classList.remove("becomePix") : null;
     });
-
+/*
     findEmpty = document.querySelectorAll(".becomeError");
     findEmpty.forEach((input) => {
         input.value === "" ? input.classList.remove("becomeError") : null;
     });
-
+*/
     checkDev = document.getElementsByClassName("becomeDev").length;
     devText = document.getElementById("dev");
     checkSin = document.getElementsByClassName("becomeSin").length;
@@ -251,8 +249,8 @@ function updateInput() {
     sangriaStatus = document.getElementById("sangriasTitle");
     checkPix = document.getElementsByClassName("becomePix").length;
     pixText = document.getElementById("pix");
-    checkError = document.getElementsByClassName("becomeError").length;
-    errorText = document.getElementById("error");
+    //checkError = document.getElementsByClassName("becomeError").length;
+    //errorText = document.getElementById("error");
 
     checkDev <= 0 ? devText.textContent = "SEM DEVOLUÇÕES" : devText.textContent = `${checkDev} DEVOLUÇÕES: ${devSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`;
     checkDev == 1 ? devText.textContent = `UMA DEVOLUÇÃO ⤦` : null
@@ -269,7 +267,7 @@ function updateInput() {
         pixText.textContent = `${checkPix} PIX CELULAR: ${pixSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
     }
     checkPix == 1 ? pixText.textContent = "UM PIX CELULAR ⤦" : null;
-
+/*
     if (checkError <= 0) {
         document.getElementById("errorHub").classList.add("hidden");
         document.getElementById("errorValues").parentElement.classList.add("hidden");
@@ -280,7 +278,7 @@ function updateInput() {
     }
 
     checkError == 1 ? errorText.textContent = "UM ERRO ⤦" : null;
-
+*/
     if (checkDev == 0 && checkSin == 0) {
         devText.textContent = "SEM DEVOLUÇÕES / SINAIS"
         document.getElementById("sinValues").parentElement.classList.add("hidden");
@@ -315,7 +313,7 @@ function putItOnDevolucoes() {
 
     activeEl.classList.remove("becomeSin");
     activeEl.classList.remove("becomePix");
-    activeEl.classList.remove("becomeError")
+    //activeEl.classList.remove("becomeError")
 
     setTimeout(function () {
         activeEl.value = activeElBackup;
@@ -334,7 +332,7 @@ function putItOnSinais() {
 
     activeEl.classList.remove("becomeDev");
     activeEl.classList.remove("becomePix");
-    activeEl.classList.remove("becomeError")
+    //activeEl.classList.remove("becomeError")
 
     setTimeout(function () {
         activeEl.value = activeElBackup;
@@ -352,7 +350,7 @@ function putItOnPix() {
 
     activeEl.classList.remove("becomeDev");
     activeEl.classList.remove("becomeSin");
-    activeEl.classList.remove("becomeError")
+    //activeEl.classList.remove("becomeError")
 
     setTimeout(function () {
         activeEl.value = activeElBackup;
@@ -363,7 +361,7 @@ function putItOnPix() {
     }
     formSum();
 }
-
+/*
 function putItOnError() {
     activeEl = document.activeElement;
     activeElBackup = activeEl.value;
@@ -381,7 +379,7 @@ function putItOnError() {
     }
     formSum();
 };
-
+*/
 function jumpToNext() {
     let nextEl = document.querySelectorAll("input");
     let index = Array.prototype.indexOf.call(nextEl, document.activeElement);
@@ -470,7 +468,7 @@ function findAndClear() {
             sendToPix.remove();
         })
     }
-
+/*
     let errorValues = document.getElementsByClassName("becomeError");
 
     for (let i = 0; i < errorValues.length; i++) {
@@ -484,7 +482,7 @@ function findAndClear() {
             sendToError.remove();
         })
     }
-
+*/
     //setTimeout volta a pág para o estado anterior
 };
 
@@ -613,7 +611,7 @@ document.addEventListener("keydown", (function (event) {
         case "KeyE":
             if (simpleLock) return;
             event.preventDefault();
-            putItOnError();
+            //putItOnError();
             break;
         case "F2":
             bodyTable.classList.add("hidden");
@@ -928,8 +926,6 @@ function sangriaVias() {
                 sVsinais.push(iValue)
             } else if (input.classList.contains("becomePix")) {
                 sVpix.push(iValue)
-            } else if (input.classList.contains("becomeError")) {
-                svErros.push(iValue)
             } else {
                 sVnormais.push(iValue)
             }
@@ -1086,11 +1082,11 @@ document.getElementById("pTouch").addEventListener("touchstart", () => {
     putItOnPix();
 }, { passive: true });
 
-document.getElementById("eTouch").addEventListener("touchstart", () => {
+/*document.getElementById("eTouch").addEventListener("touchstart", () => {
     if (simpleLock) return;
     putItOnError();
 }, { passive: true });
-
+*/
 function setHol() {
     document.getElementById("hiddenHol").classList.remove("hidden");
     document.getElementById("holName").textContent = holidays[day].holName;
@@ -1128,7 +1124,7 @@ function processJson() {
     let inputsDevolucoes = [];
     let inputsSinais = [];
     let inputsPix = [];
-    let inputsErros = [];
+    //let inputsErros = [];
 
 
     data.forEach((input) => {
@@ -1139,9 +1135,7 @@ function processJson() {
                 inputsSinais.push(input.value);
             } else if (input.classList.contains("becomePix")) {
                 inputsPix.push(input.value);
-            } else if (input.classList.contains("becomeError")) {
-                inputsErros.push(input.value);
-            } else {
+            }  else {
                 inputsNormais.push(input.value);
             }
         }
@@ -1159,7 +1153,7 @@ function processJson() {
     dataJson.push({ devolucoes: inputsDevolucoes });
     dataJson.push({ sinais: inputsSinais });
     dataJson.push({ pixCel: inputsPix });
-    dataJson.push({ erros: inputsErros });
+    //dataJson.push({ erros: inputsErros });
 
     dataJson.push({ sangrias: sangriasSaved });
     dataJson.push({ sangriasCartoes: sViasSaved });
