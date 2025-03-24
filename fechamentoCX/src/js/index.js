@@ -6,7 +6,7 @@ let cashSum = 0;
 let devSum = 0;
 let sinSum = 0;
 let activeEl = document.activeElement;
-let login ="";
+let login = "";
 let saveName;
 let saveLogin;
 let create;
@@ -236,12 +236,12 @@ function updateInput() {
     findEmpty.forEach((input) => {
         input.value === "" ? input.classList.remove("becomePix") : null;
     });
-/*
-    findEmpty = document.querySelectorAll(".becomeError");
-    findEmpty.forEach((input) => {
-        input.value === "" ? input.classList.remove("becomeError") : null;
-    });
-*/
+    /*
+        findEmpty = document.querySelectorAll(".becomeError");
+        findEmpty.forEach((input) => {
+            input.value === "" ? input.classList.remove("becomeError") : null;
+        });
+    */
     checkDev = document.getElementsByClassName("becomeDev").length;
     devText = document.getElementById("dev");
     checkSin = document.getElementsByClassName("becomeSin").length;
@@ -267,18 +267,18 @@ function updateInput() {
         pixText.textContent = `${checkPix} PIX CELULAR: ${pixSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
     }
     checkPix == 1 ? pixText.textContent = "UM PIX CELULAR ⤦" : null;
-/*
-    if (checkError <= 0) {
-        document.getElementById("errorHub").classList.add("hidden");
-        document.getElementById("errorValues").parentElement.classList.add("hidden");
-    } else {
-        document.getElementById("errorHub").classList.remove("hidden");
-        document.getElementById("errorValues").parentElement.classList.remove("hidden");
-        errorText.textContent = `${checkError} ERROS: ${errSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
-    }
-
-    checkError == 1 ? errorText.textContent = "UM ERRO ⤦" : null;
-*/
+    /*
+        if (checkError <= 0) {
+            document.getElementById("errorHub").classList.add("hidden");
+            document.getElementById("errorValues").parentElement.classList.add("hidden");
+        } else {
+            document.getElementById("errorHub").classList.remove("hidden");
+            document.getElementById("errorValues").parentElement.classList.remove("hidden");
+            errorText.textContent = `${checkError} ERROS: ${errSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
+        }
+    
+        checkError == 1 ? errorText.textContent = "UM ERRO ⤦" : null;
+    */
     if (checkDev == 0 && checkSin == 0) {
         devText.textContent = "SEM DEVOLUÇÕES / SINAIS"
         document.getElementById("sinValues").parentElement.classList.add("hidden");
@@ -294,7 +294,7 @@ function updateInput() {
     document.getElementById("showSum").textContent = "TOTAL: " + sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
     document.getElementById("subtotal").textContent = "SOMA: " + subSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
     document.getElementById("cash").textContent = "NO DINHEIRO: " + cashSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-    document.getElementById("etcTitle").textContent = etcCount + " VIAS"
+    document.getElementById("etcTitle").textContent = etcCount + " NOTINHAS"
     document.querySelectorAll(".etc").forEach((input) => {
         if (input.value < 1 && !input.id) {
             control++;
@@ -468,21 +468,21 @@ function findAndClear() {
             sendToPix.remove();
         })
     }
-/*
-    let errorValues = document.getElementsByClassName("becomeError");
-
-    for (let i = 0; i < errorValues.length; i++) {
-        const sendToError = document.createElement("input");
-        sendToError.value = errorValues[i].value;
-        sendToError.classList.add("tempInput");
-        sendToError.value.length >= 8 ? sendToError.style.width = `${sendToError.value.length}ch` : null;
-
-        document.getElementById("errorValues").appendChild(sendToError);
-        setTimeout(function () {
-            sendToError.remove();
-        })
-    }
-*/
+    /*
+        let errorValues = document.getElementsByClassName("becomeError");
+    
+        for (let i = 0; i < errorValues.length; i++) {
+            const sendToError = document.createElement("input");
+            sendToError.value = errorValues[i].value;
+            sendToError.classList.add("tempInput");
+            sendToError.value.length >= 8 ? sendToError.style.width = `${sendToError.value.length}ch` : null;
+    
+            document.getElementById("errorValues").appendChild(sendToError);
+            setTimeout(function () {
+                sendToError.remove();
+            })
+        }
+    */
     //setTimeout volta a pág para o estado anterior
 };
 
@@ -705,7 +705,7 @@ function loadState() {
 
 
             removeSangriaButton.addEventListener("focus", function () {
-                document.getElementById(this.id).parentNode.style = "background-color: #d80000; color:white; border:3px solid black;";
+                document.getElementById(this.id).parentNode.style = "background-color: #d80000; color:white; border:2px solid black;";
             })
 
             removeSangriaButton.addEventListener("focusout", function () {
@@ -769,31 +769,33 @@ function loadState() {
         sViasSaved = JSON.parse(localStorage.getItem("sViasSaved"));
 
         sViasSaved.map(obj => {
-            const div = document.createElement("div");
+            const div = document.createElement("button");
             div.classList.add("sVias");
-            const button = document.createElement("button");
-            button.innerHTML = "🖨️";
-
-            button.addEventListener("click", function () {
+            div.setAttribute("tabindex", "0")
+             div.title = "TECLE ENTER PARA REIMPRIMIR"
+            //const button = document.createElement("button");
+            //button.innerHTML = "🖨️";
+            div.addEventListener("click", function () {
                 let div = document.createElement("div");
                 let divInfos = document.createElement("div");
 
-                divInfos.innerHTML = `<h3>REIMPRESSÃO DE SANGRIA - VIAS</h3> <b> ${nameText.textContent} <br> ${loginText.textContent} [${cashier}] <br><br> ${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()} <br><br></b>`;
+                divInfos.innerHTML = `<h3>SANGRIA DE NOTINHAS<br> ${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()} </h3> <b> ${nameText.textContent} <br> ${loginText.textContent} [${cashier}]</b><br>------------------------------`;
                 div.appendChild(divInfos)
 
-                div.appendChild(this.parentElement)
+                //div.appendChild(this.parentElement)
+                div.appendChild(this)
                 document.getElementById("sangriaViasTable").appendChild(div);
-
-                this.remove();
+                //this.remove();
                 window.print();
                 location.reload();
             })
 
-            button.classList.add("botao");
-            div.appendChild(button)
+            //button.classList.add("botao");
+            //div.appendChild(button)
             Object.entries(obj).forEach(([key, values]) => {
                 const nSangria = document.createElement("div");
-                key == "sVdevolucoes" ? nSangria.innerHTML = "DEVOLUÇÕES <br>" : nSangria.innerHTML = `${key.toUpperCase().slice(2)} <br>`;
+                key == "sVdevolucoes" ? nSangria.innerHTML = "<br>DEVOLUÇÕES <br><br>" : nSangria.innerHTML = `<br>${key.toUpperCase().slice(2)} <br><br>`;
+                key == "sVnotinhas"? nSangria.style = "border:none":null
                 values.forEach(val => {
                     const span = document.createElement("span");
                     span.textContent = val;
@@ -835,13 +837,13 @@ defSangria = () => {
             check++
         };
     })
-    console.log(check)
+    //console.log(check)
 
     sangria = parseFloat(sangriaInput.value);
     if (isNaN(sangria) || sangria < 0) {
         return;
-    } else if (sangria == 0 && window.confirm("Sangria de VIAS?")) {
-        check >= 1 ? sangriaVias() : alert("NÃO TEM VIAS, ADICIONE PARA REALIZAR");
+    } else if (sangria == 0 && window.confirm("Registrar sangria de NOTINHAS?")) {
+        check >= 1 ? sangriaVias() : alert("NÃO TEM NOTINHAS, ADICIONE PARA REALIZAR");
         location.reload();
         //sangriaVias();
         return;
@@ -871,8 +873,8 @@ defSangria = () => {
 
 defCashier = () => {
     cashier = prompt("Este PC é o Caixa");
-    console.log(cashier)
-    if (cashier == null || isNaN(cashier) || cashier.trim() =="") {
+    //console.log(cashier)
+    if (cashier == null || isNaN(cashier) || cashier.trim() == "") {
         alert("Ocorreu um erro :<")
         location.reload()
     } else {
@@ -886,7 +888,7 @@ defCashier = () => {
 function sangriaVias() {
     let viaSum = 0;
 
-    let sVnormais = []
+    let sVnotinhas = []
     let sVdevolucoes = []
     let sVsinais = []
     let svErros = []
@@ -927,11 +929,11 @@ function sangriaVias() {
             } else if (input.classList.contains("becomePix")) {
                 sVpix.push(iValue)
             } else {
-                sVnormais.push(iValue)
+                sVnotinhas.push(iValue)
             }
         });
 
-        sViasSaved.push({ sVnormais, sVdevolucoes, sVsinais, sVpix, svErros })
+        sViasSaved.push({ sVnotinhas, sVdevolucoes, sVsinais, sVpix, svErros })
         //localStorage.setItem("sangriasSaved", JSON.stringify(sangriasSaved))
         localStorage.setItem("sViasSaved", JSON.stringify(sViasSaved))
 
@@ -1135,7 +1137,7 @@ function processJson() {
                 inputsSinais.push(input.value);
             } else if (input.classList.contains("becomePix")) {
                 inputsPix.push(input.value);
-            }  else {
+            } else {
                 inputsNormais.push(input.value);
             }
         }
@@ -1161,7 +1163,7 @@ function processJson() {
 
     saveJson = JSON.stringify(dataJson, null, 2);
     fileName = `${nameText.textContent} ${login}-${localStorage.getItem("abriuFechamento")}`;
-    console.log(dateNow)
+    //console.log(dateNow)
     try {
         exportJson(saveJson, fileName);
     } catch (err) {

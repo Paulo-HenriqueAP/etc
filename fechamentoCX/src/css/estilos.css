@@ -105,7 +105,7 @@ input {
 }
 
 .howTo li {
-    border-bottom: 1px solid;
+    border-top: 1px solid;
     padding: 3px;
     display: flex;
     align-items: center;
@@ -253,6 +253,14 @@ input {
     #qrLabel {
         display: none;
     }
+    .sVias {
+        box-shadow: none !important;
+        margin: 0 !important;
+    }
+    .sVias div {
+        border-bottom: 1px dashed !important;
+        border-top: none !important;
+    }
 }
 
 h4 {
@@ -293,6 +301,7 @@ h4 {
 }
 
 #sangria {
+    top: 1%;
     text-align: center;
     font-size: larger;
     position: absolute;
@@ -304,7 +313,7 @@ h4 {
     background-color: #F8F8FF;
     z-index: 4;
     box-shadow: 2px 2px 3px 1px #16161D;
-    max-width: 50%;
+    width: 71mm;
     word-wrap: break-word;
     justify-content: center;
 }
@@ -338,8 +347,6 @@ h4 {
 #sangriaEdit,
 #sangriaVias {
     padding: 0;
-    border: 1px solid black;
-    border-radius: 3px;
 }
 
 #sangriaEdit {
@@ -356,9 +363,9 @@ h4 {
 }
 
 #sangriaEdit li {
-    border: 1px solid;
+    box-shadow: 1px 1px 2px 1px #16161D;
     margin: 6px;
-    padding: 3px;
+    padding: 6px;
     border-radius: 3px;
     width: max-content;
     transform: translateX(-50%);
@@ -545,16 +552,18 @@ input[type=number]::-webkit-outer-spin-button {
 
 .sVias {
     border: 1px solid;
-    margin: 10px;
-    border-radius: 3px;
+    margin-bottom: 15px;
     border: none;
-    width: 71mm;
+    max-width: 71mm;
     box-shadow: 1px 1px 2px 1px #16161D;
+    width: 71mm;
+    border-radius: 1px;
+    background-color: #F8F8FF;
 }
 
 .sVias span {
     display: inline-block;
-    padding: 3px;
+    padding: 6px;
     border: 1px solid;
     border-radius: 3px;
     margin: 3px;
@@ -563,12 +572,8 @@ input[type=number]::-webkit-outer-spin-button {
 }
 
 .sVias div {
-    border-bottom: 1px solid;
+    border-top: 1px solid;
     padding-bottom: 6px;
-}
-
-.sVias button {
-    display: flex;
 }
 
 #tutoDiv {
@@ -591,7 +596,6 @@ input[type=number]::-webkit-outer-spin-button {
     padding: 0;
     margin: 0;
     box-shadow: none;
-    border-bottom: 1px dashed;
 }
 
 #filters {
