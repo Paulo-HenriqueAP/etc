@@ -12,10 +12,11 @@
 
 <body>
     <div id="loginHub" class="">
-        <h4 id="infosTitle">Login</Login>
-        </h4>
-        <input id="loginValue" type="number" placeholder="&lt....&gt" onchange="showUserInfos()"
-            style="text-align: center; font-size: large;">
+        <section>
+            <h4 id="infosTitle">Login</h4>
+            <!--placeholder="&lt....&gt"-->
+            <input id="loginValue" type="number" placeholder="...." onchange="showUserInfos()">
+        </section>
     </div>
 
     <div id="registerHub" class="hidden">
@@ -52,7 +53,8 @@
             <h4>EM DINHEIRO</h4>
         </ul>
         <ul id="sangriaVias">
-            <h4>DE NOTINHAS | <span >DIGITE</span><img style="vertical-align: middle;" class="keyIconsSmall" src="src/icons/keys/0_Key_Light.png" alt="0"></h4>
+            <h4>DE NOTINHAS | <span>DIGITE</span><img style="vertical-align: middle;" class="keyIconsSmall"
+                    src="src/icons/keys/0_Key_Light.png" alt="0"></h4>
         </ul>
     </div>
 
@@ -61,16 +63,13 @@
             <span id="oper"></span>
             <br>
             <b id="operCod" style="font-size: large;"></b>
-            <b id="cxNumber" style="font-size: large;"></b>
+            <span id="cxNumber" style="font-size: large;"></span>
             <br>------------------------------------</br>
             <h2 id="sumSangria" style="max-width: 71mm; word-wrap: break-word;"></h2>
             <br>
             <span>______________________________</span>
             <br>
-            <span style="font-weight: bold;"> Autorização </span></span>
-            <br>
             <span id="timeSangria"></span>
-            <br>&nbsp;&nbsp; </br>
         </div>
     </div>
 
@@ -180,7 +179,7 @@
                 <span id="uName"></span>
                 <br>
                 <span id="uLogin" style="font-weight: bolder; font-size: large;"></span>
-                <b id="cx" style="font-size: large;"></b>
+                <span id="cx" style="font-size: large;"></span>
             </th>
         </tr>
 
@@ -191,27 +190,20 @@
         </tr>
         </tr>
 
-
         <tr>
             <th id="cash">DINHEIRO</th>
         </tr>
 
-        <tr>
-            <td class="sTD">50$ | 100$ | 200$
+        <tr id="trC0">
+            <td class="sTD" id="td0">AVULSO
                 <span class="arrow">
-                    <input min="-1" onchange="formSum()" id="stuffs50_100_200" type="number" class="etc">
+                    <input min="-1" onchange="formSum()" id="stuffs" type="number" class="etc">
                 </span>
             </td>
         </tr>
-        <tr>
-            <td class="sTD">20$
-                <span class="arrow">
-                    <input min="-1" onchange="formSum()" id="stuffs20" type="number" class="etc">
-                </span>
-            </td>
-        </tr>
-        <tr>
-            <td class="sTD">10$
+
+        <tr id="trC1">
+            <td class="sTD" id="td1">10
                 <span class="arrow">
                     <input min="-1" onchange="formSum()" id="stuffs10" type="number" class="etc">
                 </span>
@@ -219,16 +211,24 @@
             </td>
         </tr>
 
-        <tr>
-            <td class="sTD" style="border: none;">AVULSO
+        <tr id="trC2">
+            <td class="sTD" id="td2">20
                 <span class="arrow">
-                    <input min="-1" onchange="formSum()" id="stuffs" type="number" class="etc">
+                    <input min="-1" onchange="formSum()" id="stuffs20" type="number" class="etc">
+                </span>
+            </td>
+        </tr>
+
+        <tr id="trC3">
+            <td class="sTD" id="td3">50 | 100 | 200
+                <span class="arrow">
+                    <input min="-1" onchange="formSum()" id="stuffs50_100_200" type="number" class="etc">
                 </span>
             </td>
         </tr>
 
         <tr>
-            <th id="sangriasTitle">SEM SANGRIAS</th>
+            <th id="sangriasTitle" style="border: none;">SEM SANGRIAS</th>
         </tr>
 
         <tr>
@@ -244,24 +244,23 @@
         <tr>
             <td>
                 <ul id="etcValues"></ul>
-                <h3 class="hidden" id="subtotal" style="max-width: 71mm;  word-wrap: break-word; ">Soma:</h3>
             </td>
         </tr>
 
-        <tr>
-            <th id="dev">SEM DEVOLUÇÕES ou SINAIS</th>
+        <tr id="devHub" class="hidden">
+            <th id="dev">SEM DEVOLUÇÕES</th>
         <tr>
             <td id="devValues"></td>
         </tr>
         </tr>
-
+  <!--
         <tr id="sinHub" class="hidden">
             <th id="sin">SEM SINAIS</th>
         <tr>
             <td id="sinValues"></td>
         </tr>
         </tr>
-        <!--
+      
         <tr id="errorHub" class="hidden">
             <th id="error">ERROS</th>
         <tr>
@@ -285,14 +284,14 @@
 
     <div id="filters" class="hidden">
         <h4>adicione/ remova</h4>
-        <li id="dTouch" style="border: 1px solid; border-color: black; background-color: #00c756 ;border-radius: 3px;">
+        <li id="dTouch" style="border: 1px solid; border-color: black; background-color: crimson ;border-radius: 3px;">
             <img src="src/icons/keys/D_Key_Light.png" alt="D" class="keyIconsSmall">
             <b>DEVOLUÇÃO&nbsp;&nbsp;&nbsp;&nbsp;</b>
         </li>
-        <li id="sTouch" style="border: 1px solid; border-color: black; background-color: #ffcb00;border-radius: 3px;">
+       <!--<li id="sTouch" style="border: 1px solid; border-color: black; background-color: #ffcb00;border-radius: 3px;">
             <img src="src/icons/keys/S_Key_Light.png" alt="S" class="keyIconsSmall">
             <b>SINAL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b>
-        </li>
+        </li>--> 
         <li id="pTouch" style="border: 1px solid; border-color: black; background-color: #37b4aa;border-radius: 3px;">
             <img src="src/icons/keys/P_Key_Light.png" alt="P" class="keyIconsSmall"> <b>PIX CELULAR&nbsp;&nbsp;</b>
         </li>
@@ -301,38 +300,36 @@
         </li>-->
     </div>
 
-    <div class="howTo">
+    <div class="howTo hidden" id="tutoDiv">
         <!-- <span style="font-size: x-large;">Como usar</span> <br><br>-->
-        <li style="border-top: none;"><img src="src/icons/keys/Enter_Key_Light.png" alt="ENTER" class="keyIcons"> <strong>avança</strong> </li>
+        <li style="border-top: none;"><img src="src/icons/keys/Enter_Key_Light.png" alt="ENTER" class="keyIcons"><strong>avança</strong> </li>
+
         <li><img src="src/icons/keys/V_Key_Light.png" alt="V" class="keyIcons"> <strong>volta</strong></li>
-        <li> <img src="src/icons/keys/F2_Key_Light.png" onclick="sMobileEvents(event)" style="cursor: pointer;" alt="F2"
-                class="keyIcons"> <strong>sangrias</strong></li>
-        <li> <img src="src/icons/keys/F4_Key_Light.png" onclick="sMobileEvents(event)" style="cursor: pointer;" alt="F4"
-                class="keyIcons"> <strong>imprimir fechamento</strong></li>
-        <li><img src="src/icons/keys/F8_Key_Light.png" onclick="sMobileEvents(event)" style="cursor: pointer;" alt="F8"
-                class="keyIcons"> <strong>finaliza seção</strong></strong>
-        <li> <img src="src/icons/keys/F9_Key_Light.png" onclick="sMobileEvents(event)" style="cursor: pointer;" alt="F9"
-                class="keyIcons"> <strong>editar seu nome</strong></li>
-        <li style="cursor: pointer;" onclick="tools()"><img src="src/icons/keys/10_Key_Light.png" alt="F10"
-                class="keyIcons"> <strong>ferramentas</strong></li>
-        <li><img src="src/icons/keys/T_Key_Light.png" alt="T" class="keyIcons" class="keyIcons"> <strong>volta ao
-                TOPO</strong></li>
-        <li><img src="src/icons/keys/L_Key_Light.png" alt="L" class="keyIcons" class="keyIcons"> <strong> primeiro
-                livre</strong></li>
+
+        <li><img src="src/icons/keys/A_Key_Light.png" alt="A" class="keyIcons" class="keyIcons"> <strong>volta para AVULSO</strong></li>
+
+        <li><img src="src/icons/keys/L_Key_Light.png" alt="L" class="keyIcons" class="keyIcons"> <strong> primeiro livre</strong></li>
+
+        <li> <img src="src/icons/keys/F2_Key_Light.png" onclick="sMobileEvents(event)" style="cursor: pointer;" alt="F2" class="keyIcons"> <strong>sangrias</strong></li>
+
+        <li> <img src="src/icons/keys/F4_Key_Light.png" onclick="sMobileEvents(event)" style="cursor: pointer;" alt="F4" class="keyIcons"> <strong>imprimir fechamento</strong></li>
+
+        <li><img src="src/icons/keys/F8_Key_Light.png" onclick="sMobileEvents(event)" style="cursor: pointer;" alt="F8" class="keyIcons"> <strong>finalizar seção</strong></strong></li>
+
+        <li> <img src="src/icons/keys/F9_Key_Light.png" onclick="sMobileEvents(event)" style="cursor: pointer;" alt="F9" class="keyIcons"> <strong>editar seu nome</strong></li>
+
+        <li style="cursor: pointer;" onclick="tools()"><img src="src/icons/keys/10_Key_Light.png" alt="F10" class="keyIcons"> <strong>ferramentas</strong></li>
 
         <!-- <li id="oTouch" style="border: 1px solid; border-color: black; background-color: #3498db ;border-radius: 3px;"><strong>O</strong> adiciona/ remove OBSERVAÇÃO</li>-->
-        <li><img src="src/icons/keys/F11_Key_Light.png" alt="F11" class="keyIconsSmall"> + <img
-                src="src/icons/keys/F5_Key_Light.png" alt="F5" class="keyIconsSmall"> <strong>destrava</strong></li>
-
-        <div id="tutoDiv">
-            <ul style="padding: 0;">
-                <h3 style=" text-align: center;">Configuração da impresora</h3>
-                <li>Impressora: <b>Epson TM-T20X Series</b></li>
-                <li>Tamanho Papel: <b>Postcard 100x148mm</b></li>
-                <li>Margens: <b>Nenhum</b></span></li>
-            </ul>
-            <!--<br><li>Seção anterior: <span id="lastTime" style="font-weight: bolder;"></span> </li>-->
-        </div>
+        <li><img src="src/icons/keys/F11_Key_Light.png" alt="F11" class="keyIconsSmall"> + <img src="src/icons/keys/F5_Key_Light.png" alt="F5" class="keyIconsSmall"> <strong>destrava</strong></li>
+    </div>
+    <div id="printerSettings">
+        <ul style="padding: 0;">
+            <li>Impressora: <b>Epson TM-T20X Series</b></li>
+            <li>Tamanho Papel: <b>Postcard 100x148mm</b></li>
+            <li>Margens: <b>Nenhum</b></span></li>
+        </ul>
+        <!--<br><li>Seção anterior: <span id="lastTime" style="font-weight: bolder;"></span> </li>-->
     </div>
 </body>
 <script src="src/js/index.js"></script>

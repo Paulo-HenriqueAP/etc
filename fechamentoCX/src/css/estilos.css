@@ -36,7 +36,8 @@ td {
 
 input.becomeDev {
     /*background-color: #009440;*/
-    background-color: #00c756;
+    /*background-color: #00c756;*/
+    background-color: crimson;
 }
 
 input.becomeSin {
@@ -77,15 +78,28 @@ li {
 
 #loginHub {
     position: absolute;
+    text-align: center;
+    height: 100%;
+    width: 100%;
+}
+
+#loginHub section {
+    font-size: xx-large;
+    position: absolute;
     transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
-    font-size: xx-large;
-    text-align: center;
-    width: 90%;
+}
+
+#loginValue {
     background-color: #F8F8FF;
-    z-index: 2;
-    width: max-content;
+    color: black;
+    text-align: center;
+    font-size: large;
+    height: 25px;
+    border: none;
+    box-shadow: 2.5px 2.5px 1px 1px #009440;
+    border-radius: 3px;
 }
 
 input {
@@ -141,10 +155,6 @@ input {
     border: 1px solid;
     border-radius: 3px;
     padding: 5px;
-}
-
-.forcar {
-    background-color: #009440;
 }
 
 @media print {
@@ -253,10 +263,12 @@ input {
     #qrLabel {
         display: none;
     }
+
     .sVias {
         box-shadow: none !important;
         margin: 0 !important;
     }
+
     .sVias div {
         border-bottom: 1px dashed !important;
         border-top: none !important;
@@ -420,12 +432,6 @@ h4 {
     word-wrap: break-word;
 }
 
-/*#operCod {
-    font-weight: bold;
-    text-decoration: underline;
-    text-underline-offset: 10px;
-}*/
-
 input[type=number]::-webkit-inner-spin-button,
 input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
@@ -446,10 +452,12 @@ input[type=number]::-webkit-outer-spin-button {
     border-radius: 3px;
 }
 
+/*
 .arrow::before {
     content: "⥊";
     margin-left: 3px;
 }
+    */
 
 .arrow {
     width: max-content;
@@ -476,7 +484,7 @@ input[type=number]::-webkit-outer-spin-button {
     word-wrap: break-word;
 }
 
-/*.lastChange {
+.lastChange {
     display: flex;
     background-color: #d80000 !important;
     z-index: 8 !important;
@@ -484,7 +492,7 @@ input[type=number]::-webkit-outer-spin-button {
     border: 1px solid black;
     border-radius: 3px;
 }
-    */
+
 
 #obsTable {
     border: 1px solid;
@@ -497,7 +505,7 @@ input[type=number]::-webkit-outer-spin-button {
     border-radius: 3px;
     background-color: #F8F8FF;
     z-index: 5;
-    box-shadow: 1px 1px 2px 1px #16161D;
+    box-shadow: 1px 1px 2px 1px #009440;
     text-align: center;
 }
 
@@ -576,14 +584,16 @@ input[type=number]::-webkit-outer-spin-button {
     padding-bottom: 6px;
 }
 
-#tutoDiv {
-    font-size: small;
-    text-align: left;
-    width: max-content;
+#printerSettings {
+    position: absolute;
     border-radius: 3px;
-    transform: translateX(-50%);
-    left: 50%;
-    position: relative;
+    right: 0%;
+    bottom: 0;
+    border-radius: 3px;
+    font-size: x-small;
+    z-index: 3;
+    background-color: #F8F8FF;
+    padding: 6px;
 }
 
 #sangriaViasTable {
@@ -602,10 +612,11 @@ input[type=number]::-webkit-outer-spin-button {
     width: max-content;
     position: fixed;
     left: 72mm;
-    top: 25%;
     font-size: large;
     z-index: 6;
     background-color: #F8F8FF;
+    transform: translateY(-50%);
+    top: 35%;
 }
 
 #filters li {

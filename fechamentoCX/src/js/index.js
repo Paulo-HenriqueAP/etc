@@ -4,7 +4,6 @@ let sum = 0;
 let subSum = 0;
 let cashSum = 0;
 let devSum = 0;
-let sinSum = 0;
 let activeEl = document.activeElement;
 let login = "";
 let saveName;
@@ -32,7 +31,7 @@ let sViasSaved = [];
 let day;
 let optName = document.getElementById("toolsH2");
 
-const topo = document.getElementById("stuffs50_100_200");
+const topo = document.getElementById("stuffs");
 const signature = document.getElementById("signature");
 const bodyTable = document.getElementById("bodyTable");
 const sangriaElement = document.getElementById("sangria");
@@ -102,7 +101,7 @@ function createInputs() {
 
 function showUserInfos() {
     dateNow = new Date().toLocaleDateString();
-    localStorage.setItem("abriuFechamento", dateNow)
+    !localStorage.getItem("abriuFechamento") ? localStorage.setItem("abriuFechamento", dateNow) : null;
     login = document.getElementById("loginValue").value;
     login === "06052002" ? localStorage.clear() : null;
     if (folks && folks.length > 0) {
@@ -111,8 +110,6 @@ function showUserInfos() {
 
     if (loginFind) {
         nameText.textContent = loginFind.uName;
-        document.getElementById("loginHub").classList.add("hidden");
-        document.getElementById("tutoDiv").classList.add("hidden");
         bodyTable.classList.remove("hidden");
         document.getElementById("filters").classList.remove("hidden");
         loginText.textContent = `<${login}> `;
@@ -122,13 +119,14 @@ function showUserInfos() {
         document.getElementById("operCod").textContent = `<${login}> `;
         document.getElementById("oper").textContent = uName.textContent;
     } else {
-        document.getElementById("loginHub").classList.add("hidden");
-        document.getElementById("tutoDiv").classList.add("hidden");
         registerHub.classList.remove("hidden");
         registerStatus.textContent = `Login '${login}' não encontrado`
         createEditFolk();
         simpleCheck();
     };
+    document.getElementById("printerSettings").remove();
+    document.getElementById("loginHub").remove()
+    document.getElementById("tutoDiv").classList.remove("hidden");
 };
 
 function createEditFolk() {
@@ -171,7 +169,6 @@ function formSum() {
     subSum = 0;
     cashSum = 0;
     devSum = 0;
-    sinSum = 0;
     pixSum = 0;
     errSum = 0;
     sanSum = 0;
@@ -196,9 +193,6 @@ function formSum() {
             cashSum += iValue;
         } else if (input.classList.contains("etc") && input.classList.contains("becomeDev")) {
             devSum += iValue;
-
-        } else if (input.classList.contains("etc") && input.classList.contains("becomeSin")) {
-            sinSum += iValue;
         } else if (input.classList.contains("etc") && input.classList.contains("becomePix")) {
             pixSum += iValue;
         } else {
@@ -227,36 +221,26 @@ function updateInput() {
         input.value === "" ? input.classList.remove("becomeDev") : null;
     });
 
-    findEmpty = document.querySelectorAll(".becomeSin");
-    findEmpty.forEach((input) => {
-        input.value === "" ? input.classList.remove("becomeSin") : null;
-    });
-
     findEmpty = document.querySelectorAll(".becomePix");
     findEmpty.forEach((input) => {
         input.value === "" ? input.classList.remove("becomePix") : null;
     });
-    /*
-        findEmpty = document.querySelectorAll(".becomeError");
-        findEmpty.forEach((input) => {
-            input.value === "" ? input.classList.remove("becomeError") : null;
-        });
-    */
+
     checkDev = document.getElementsByClassName("becomeDev").length;
     devText = document.getElementById("dev");
-    checkSin = document.getElementsByClassName("becomeSin").length;
-    sinText = document.getElementById("sin");
     sangriaStatus = document.getElementById("sangriasTitle");
     checkPix = document.getElementsByClassName("becomePix").length;
     pixText = document.getElementById("pix");
-    //checkError = document.getElementsByClassName("becomeError").length;
-    //errorText = document.getElementById("error");
 
-    checkDev <= 0 ? devText.textContent = "SEM DEVOLUÇÕES" : devText.textContent = `${checkDev} DEVOLUÇÕES: ${devSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`;
-    checkDev == 1 ? devText.textContent = `UMA DEVOLUÇÃO ⤦` : null
-
-    checkSin <= 0 ? sinText.textContent = "SEM SINAIS" : sinText.textContent = `${checkSin} SINAIS: ${sinSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`;
-    checkSin == 1 ? sinText.textContent = `UM SINAL ⤦` : null;
+    if (checkDev <= 0) {
+        document.getElementById("devHub").classList.add("hidden");
+        document.getElementById("devValues").parentElement.classList.add("hidden");
+    } else {
+        document.getElementById("devHub").classList.remove("hidden");
+        document.getElementById("devValues").parentElement.classList.remove("hidden");
+        devText.textContent = `${checkDev} DEVOLUÇÕES: ${devSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
+    }
+    checkDev == 1 ? devText.textContent = "UMA DEVOLUÇÃO" : null;
 
     if (checkPix <= 0) {
         document.getElementById("pixHub").classList.add("hidden");
@@ -266,7 +250,8 @@ function updateInput() {
         document.getElementById("pixValues").parentElement.classList.remove("hidden");
         pixText.textContent = `${checkPix} PIX CELULAR: ${pixSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`
     }
-    checkPix == 1 ? pixText.textContent = "UM PIX CELULAR ⤦" : null;
+    checkPix == 1 ? pixText.textContent = "UM PIX CELULAR" : null;
+    //⤦
     /*
         if (checkError <= 0) {
             document.getElementById("errorHub").classList.add("hidden");
@@ -279,22 +264,13 @@ function updateInput() {
     
         checkError == 1 ? errorText.textContent = "UM ERRO ⤦" : null;
     */
-    if (checkDev == 0 && checkSin == 0) {
-        devText.textContent = "SEM DEVOLUÇÕES / SINAIS"
-        document.getElementById("sinValues").parentElement.classList.add("hidden");
-        document.getElementById("sinHub").classList.add("hidden");
-    } else {
-        document.getElementById("sinHub").classList.remove("hidden");
-        document.getElementById("sinValues").parentElement.classList.remove("hidden");
-    };
 
-    sangriasSaved.length <= 0 ? sangriaStatus.textContent = "SEM SANGRIAS" : sangriaStatus.textContent = `${sangriasSaved.length} SANGRIAS: ${sanSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })} `;
-    sangriasSaved.length == 1 ? sangriaStatus.textContent = "UMA SANGRIA ⤦" : null;
+    sangriasSaved.length <= 0 ? sangriaStatus.textContent = "SEM SANGRIAS" : sangriaStatus.textContent = `${sangriasSaved.length} SANGRIAS`;
+    sangriasSaved.length == 1 ? sangriaStatus.textContent = "UMA SANGRIA" : null;
 
     document.getElementById("showSum").textContent = "TOTAL: " + sum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-    document.getElementById("subtotal").textContent = "SOMA: " + subSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-    document.getElementById("cash").textContent = "NO DINHEIRO: " + cashSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-    document.getElementById("etcTitle").textContent = etcCount + " NOTINHAS"
+    document.getElementById("cash").textContent = "DINHEIRO: " + cashSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
+    document.getElementById("etcTitle").textContent = `${etcCount} NOTINHAS: ${subSum.toLocaleString("pt-BR", { style: "currency", currency: "BRL" })}`;
     document.querySelectorAll(".etc").forEach((input) => {
         if (input.value < 1 && !input.id) {
             control++;
@@ -307,79 +283,24 @@ function updateInput() {
     saveState();
 };
 
-function putItOnDevolucoes() {
-    activeEl = document.activeElement;
-    activeElBackup = activeEl.value;
+function applyFilter(filterClass) {
+    const activeEl = document.activeElement;
 
-    activeEl.classList.remove("becomeSin");
-    activeEl.classList.remove("becomePix");
-    //activeEl.classList.remove("becomeError")
+    let fNames = ["becomePix", "becomeDev"];
 
-    setTimeout(function () {
-        activeEl.value = activeElBackup;
-    });//The input becomes empty if Shif + Tab. This function prevents it
+    fNames = fNames.filter(function (removeClass) {
+        return removeClass != filterClass;
+    });
 
+    activeEl.classList.remove(...fNames)
 
     if (activeEl.tagName === "INPUT" && activeEl.value != "" && !activeEl.id) {
-        activeEl.classList.toggle("becomeDev");
+        activeEl.classList.toggle(filterClass);
     };
-    formSum();
-};
 
-function putItOnSinais() {
-    activeEl = document.activeElement;
-    activeElBackup = activeEl.value;
-
-    activeEl.classList.remove("becomeDev");
-    activeEl.classList.remove("becomePix");
-    //activeEl.classList.remove("becomeError")
-
-    setTimeout(function () {
-        activeEl.value = activeElBackup;
-    });//The input becomes empty if Shif + Tab. This function prevents it
-
-    if (activeEl.tagName === "INPUT" && activeEl.value != "" && !activeEl.id) {
-        activeEl.classList.toggle("becomeSin");
-    };
-    formSum();
-};
-
-function putItOnPix() {
-    activeEl = document.activeElement;
-    activeElBackup = activeEl.value;
-
-    activeEl.classList.remove("becomeDev");
-    activeEl.classList.remove("becomeSin");
-    //activeEl.classList.remove("becomeError")
-
-    setTimeout(function () {
-        activeEl.value = activeElBackup;
-    });//The input becomes empty if Shif + Tab. This function prevents it
-
-    if (activeEl.tagName === "INPUT" && activeEl.value != "" && !activeEl.id) {
-        activeEl.classList.toggle("becomePix");
-    }
     formSum();
 }
-/*
-function putItOnError() {
-    activeEl = document.activeElement;
-    activeElBackup = activeEl.value;
 
-    activeEl.classList.remove("becomeDev");
-    activeEl.classList.remove("becomeSin");
-    activeEl.classList.remove("becomePix");
-
-    setTimeout(function () {
-        activeEl.value = activeElBackup;
-    });//The input becomes empty if Shif + Tab. This function prevents it
-
-    if (activeEl.tagName === "INPUT" && activeEl.value != "" && !activeEl.id) {
-        activeEl.classList.toggle("becomeError");
-    }
-    formSum();
-};
-*/
 function jumpToNext() {
     let nextEl = document.querySelectorAll("input");
     let index = Array.prototype.indexOf.call(nextEl, document.activeElement);
@@ -394,10 +315,13 @@ function jumpToNext() {
 function jumpBack() {
     let nextEl = document.querySelectorAll("input");
     let index = Array.prototype.indexOf.call(nextEl, document.activeElement);
-    nextEl[index - 1].focus()
-    index == 10 ? goToFreeInput() : null;
-};
 
+    try {
+        index == 10 ? goToFreeInput() : nextEl[index - 1].focus();
+    } catch (error) {
+        goToFreeInput();
+    };
+};
 
 function goToFreeInput() {
     findEmpty = document.querySelectorAll(".etc");
@@ -427,19 +351,6 @@ function findAndClear() {
         };
     });
 
-    let sinaisValues = document.getElementsByClassName("becomeSin");
-
-    for (let i = 0; i < sinaisValues.length; i++) {
-        const sendToSin = document.createElement("input");
-        sendToSin.value = sinaisValues[i].value;
-        sendToSin.classList.add("tempInput");
-        sendToSin.value.length >= 8 ? sendToSin.style.width = `${sendToSin.value.length}ch` : null;
-
-        document.getElementById("sinValues").appendChild(sendToSin);
-        setTimeout(function () {
-            sendToSin.remove();
-        }, 1000);
-    };
 
     let devValues = document.getElementsByClassName("becomeDev");
 
@@ -499,114 +410,95 @@ function clearAll() {
 };
 
 document.addEventListener("keydown", (function (event) {
-    /* if (event.shiftKey && event.code === "F1") {
-         simpleLock = true;
-         tools();
-     };
- */
     if (event.key === "Enter" && simpleLock == false) {
         jumpToNext();
     };
 
     switch (event.code) {
         case "F4":
+            event.preventDefault();
             try {
                 formSum();
                 document.getElementById("time").textContent = `${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()} `;
                 findAndClear();
                 signature.classList.remove("hidden");
-                document.getElementById("subtotal").classList.remove("hidden");
+                changePosition();
             } catch (err) {
                 alert("Ocorreu um erro ao imprimir > " + err);
                 location.reload()
-
             } finally {
                 window.print();
             }
             setTimeout(function () {
                 signature.classList.add("hidden");
-                document.getElementById("subtotal").classList.add("hidden");
                 goToFreeInput();
             }, 300);
             break;
         case "F8":
+            event.preventDefault();
             if (window.confirm("APAGAR todos os valores da seção?")) {
                 processJson();
                 /*
                 document.getElementById("loginHub").classList.add("lastChange");
                 document.getElementById("loginValue").classList.add("hidden");
-                document.getElementById("infosTitle").innerHTML = `'F5' < br > <strong style="color: #16161D;">abortar (3)</strong>`
+                document.getElementById("infosTitle").innerHTML = `'F5' <br> <strong style="color: #16161D;">abortar (3)</strong>`
                 let i = 3;
                 setInterval(function () {
                     i--
-                    document.getElementById("infosTitle").innerHTML = `'F5' < br > <strong style="color: #16161D;">abortar (${i})</strong>`
+                    document.getElementById("infosTitle").innerHTML = `'F5' <br> <strong style="color: #16161D;">abortar (${i})</strong>`
                 }, 1000)
                 setTimeout(function () {
-                    clearAll();
+                     processJson();
                 }, 3000)
                 */
             } else {
                 goToFreeInput();
             }
             break;
-        case "KeyT":
-            if (simpleLock) return;
-            topo.focus();
-            break;
         case "KeyL":
             if (simpleLock) return;
+            event.preventDefault();
             goToFreeInput();
             break;
-        /*
-    case "KeyW":
-        if (simpleLock) return;
-        if (event.ctrlKey) return;
-        seek = document.querySelectorAll(".etc");
-        activeEl = Array.from(seek).indexOf(document.activeElement)
-        try {
-            activeEl <= 7 ? seek[activeEl -= 1].focus() : seek[activeEl -= 4].focus();
-        } catch (error) {
-            seek[seek.length - 1].focus();
-        }
-        break;
-    case "KeyA":
-        if (simpleLock) return;
-        if (event.ctrlKey) return;
-        jumpBack();
-        break;
-    case "KeyS":
-        if (simpleLock) return;
-        if (event.ctrlKey) return;
-        if (event.shiftKey) {
-            putItOnSinais()
-        } else {
+        case "KeyW":
+            if (simpleLock) return;
+            event.preventDefault();
             seek = document.querySelectorAll(".etc");
             activeEl = Array.from(seek).indexOf(document.activeElement)
-
             try {
-                activeEl <= 3 ? seek[activeEl += 1].focus() : seek[activeEl += 4].focus();
+                activeEl <= 7 ? seek[activeEl -= 1].focus() : seek[activeEl -= 4].focus();
             } catch (error) {
-                jumpToNext();
+                seek[seek.length - 1].focus();
             }
-        }
-        break;
-    case "KeyD":
-        if (simpleLock) return;
-        if (event.ctrlKey) return;
-        event.shiftKey ? putItOnDevolucoes() : jumpToNext();
-        break;
-    */
-        case "KeyD":
+            break;
+        case "KeyA":
             if (simpleLock) return;
-            putItOnDevolucoes();
+            event.preventDefault();
+            event.shiftKey ? jumpBack() : topo.focus();
             break;
         case "KeyS":
             if (simpleLock) return;
-            putItOnSinais();
+            event.preventDefault();
+            if (event.shiftKey) {
+                seek = document.querySelectorAll(".etc");
+                activeEl = Array.from(seek).indexOf(document.activeElement)
+
+                try {
+                    activeEl <= 3 ? seek[activeEl += 1].focus() : seek[activeEl += 4].focus();
+                } catch (error) {
+                    jumpToNext();
+                }
+            } //else {applyFilter("becomeSin")}
+            break;
+        case "KeyD":
+            if (simpleLock) return;
+            event.preventDefault();
+            event.shiftKey ? jumpToNext() : applyFilter("becomeDev");
             break;
         case "KeyP":
             if (simpleLock) return;
-            putItOnPix();
+            event.preventDefault();
+            applyFilter("becomePix")
             break;
         case "KeyE":
             if (simpleLock) return;
@@ -614,6 +506,7 @@ document.addEventListener("keydown", (function (event) {
             //putItOnError();
             break;
         case "F2":
+            event.preventDefault();
             bodyTable.classList.add("hidden");
             document.getElementById("filters").classList.add("hidden");
             sangriaElement.classList.toggle("hidden");
@@ -621,6 +514,7 @@ document.addEventListener("keydown", (function (event) {
             registerHub.classList.add("hidden");
             break;
         case "F9":
+            event.preventDefault();
             if (simpleLock === false) {
                 registerHub.classList.toggle("hidden");
                 bodyTable.classList.toggle("hidden");
@@ -642,10 +536,32 @@ document.addEventListener("keydown", (function (event) {
             break;
         case "KeyV":
             if (simpleLock) return;
+            event.preventDefault();
             jumpBack();
             break;
     };
 }));
+
+function changePosition() {
+    let moveTo = 4;
+    let element = "";
+
+    for (let i = 0; i < 4; i++) {
+        element = "td" + i;
+        moveTo--;
+        document.getElementById("trC" + moveTo).appendChild(document.getElementById(element));
+    };
+
+    setTimeout(function () {
+        moveTo = 4
+        for (let i = 3; i > -1; i--) {
+            element = "td" + i
+            moveTo--
+            document.getElementById("trC" + moveTo).appendChild(document.getElementById(element));
+        }
+    }, 1000)
+
+};
 
 tools = () => {
     if (document.getElementById("obsTable").classList.contains("hidden")) {
@@ -772,7 +688,7 @@ function loadState() {
             const div = document.createElement("button");
             div.classList.add("sVias");
             div.setAttribute("tabindex", "0")
-             div.title = "TECLE ENTER PARA REIMPRIMIR"
+            div.title = "TECLE ENTER PARA REIMPRIMIR"
             //const button = document.createElement("button");
             //button.innerHTML = "🖨️";
             div.addEventListener("click", function () {
@@ -795,7 +711,7 @@ function loadState() {
             Object.entries(obj).forEach(([key, values]) => {
                 const nSangria = document.createElement("div");
                 key == "sVdevolucoes" ? nSangria.innerHTML = "<br>DEVOLUÇÕES <br><br>" : nSangria.innerHTML = `<br>${key.toUpperCase().slice(2)} <br><br>`;
-                key == "sVnotinhas"? nSangria.style = "border:none":null
+                key == "sVnotinhas" ? nSangria.style = "border:none" : null
                 values.forEach(val => {
                     const span = document.createElement("span");
                     span.textContent = val;
@@ -890,7 +806,6 @@ function sangriaVias() {
 
     let sVnotinhas = []
     let sVdevolucoes = []
-    let sVsinais = []
     let svErros = []
     let sVpix = []
 
@@ -902,7 +817,6 @@ function sangriaVias() {
         findAndClear();
         document.getElementById("sangriasTitle").classList.add("hidden");;
         document.getElementById("sangriasUL").parentElement.classList.add("hidden");
-        document.getElementById("subtotal").classList.add("hidden")
         document.getElementById("cash").textContent = "SANGRIA DE NOTINHAS"
         document.getElementById("time").textContent = `${new Date().toLocaleDateString()} | ${new Date().toLocaleTimeString()} `;
         signature.classList.remove("hidden");
@@ -924,16 +838,14 @@ function sangriaVias() {
 
             if (input.classList.contains("becomeDev")) {
                 sVdevolucoes.push(iValue)
-            } else if (input.classList.contains("becomeSin")) {
-                sVsinais.push(iValue)
-            } else if (input.classList.contains("becomePix")) {
+            }else if (input.classList.contains("becomePix")) {
                 sVpix.push(iValue)
             } else {
                 sVnotinhas.push(iValue)
             }
         });
 
-        sViasSaved.push({ sVnotinhas, sVdevolucoes, sVsinais, sVpix, svErros })
+        sViasSaved.push({ sVnotinhas, sVdevolucoes, sVpix, svErros })
         //localStorage.setItem("sangriasSaved", JSON.stringify(sangriasSaved))
         localStorage.setItem("sViasSaved", JSON.stringify(sViasSaved))
 
@@ -1071,17 +983,12 @@ function sMobileEvents(event) {
 
 document.getElementById("dTouch").addEventListener("touchstart", () => {
     if (simpleLock) return;
-    putItOnDevolucoes();
-}, { passive: true });
-
-document.getElementById("sTouch").addEventListener("touchstart", () => {
-    if (simpleLock) return;
-    putItOnSinais();
+    applyFilter("becomeDev")
 }, { passive: true });
 
 document.getElementById("pTouch").addEventListener("touchstart", () => {
     if (simpleLock) return;
-    putItOnPix();
+    applyFilter("becomePix")
 }, { passive: true });
 
 /*document.getElementById("eTouch").addEventListener("touchstart", () => {
@@ -1124,7 +1031,6 @@ function processJson() {
 
     let inputsNormais = [];
     let inputsDevolucoes = [];
-    let inputsSinais = [];
     let inputsPix = [];
     //let inputsErros = [];
 
@@ -1133,8 +1039,6 @@ function processJson() {
         if (!input.value == "" && !input.id) {
             if (input.classList.contains("becomeDev")) {
                 inputsDevolucoes.push(input.value);
-            } else if (input.classList.contains("becomeSin")) {
-                inputsSinais.push(input.value);
             } else if (input.classList.contains("becomePix")) {
                 inputsPix.push(input.value);
             } else {
@@ -1142,7 +1046,7 @@ function processJson() {
             }
         }
     });
-    dataJson.push({ data: new Date().toLocaleDateString() });
+    dataJson.push({ dia: localStorage.getItem("abriuFechamento") });
     dataJson.push(loginFind);
     dataJson.push({ caixa: cashier });
 
@@ -1153,7 +1057,6 @@ function processJson() {
 
     dataJson.push({ viasNormais: inputsNormais });
     dataJson.push({ devolucoes: inputsDevolucoes });
-    dataJson.push({ sinais: inputsSinais });
     dataJson.push({ pixCel: inputsPix });
     //dataJson.push({ erros: inputsErros });
 
