@@ -1,8 +1,5 @@
-# Fechamento de caixa
+# TRANSFERIDO PARA OUTRO REPOSITÓRIO
 
-Este projeto foi desenvolvido para automatizar o processo de fechamento de caixa, no qual são anotadas compras feitas fora do sistema. Anteriormente, o fechamento era realizado manualmente, utilizando papel e caneta. Com a implementação deste sistema, o processo foi otimizado, permitindo que os valores sejam somados automaticamente e impressos diretamente na impressora térmica, a mesma utilizada para a impressão de notas fiscais. Se tiver mais alguém além de mim utilizando isso, sinta se livre para baixar, modificar etc..
+[fechamentoCX](https://paulo-henriqueap.github.io/FechamentoCX/)
 
-This project was developed to automate the cash register closing process, in which purchases made outside the system are recorded. Previously, the closing was done manually, using paper and pen. With the implementation of this system, the process was optimized, allowing values to be summed automatically and printed directly on the thermal printer, the same one used for printing receipts. If there's is someone besides me using this, fell free to use, download and stuff.
-
-
-works better on Chromium
+(https://paulo-henriqueap.github.io/FechamentoCX/)
